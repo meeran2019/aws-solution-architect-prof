@@ -2,3 +2,17 @@
 INTRODUCTION: 
 ---------------------------------------------------------------------------------------------------------
 
+NOTE: From Nov 2022, exam pattern is changing for Solution Architect - Professional.
+
+
+---------------------------------------------------------------------------------------------------------
+AWS ACCOUNTS: 
+---------------------------------------------------------------------------------------------------------
+
+    AWS Account is container for identity (users) and resources. 
+
+    Account Root user - Create account with unique email address and using credeit card. It has full access control to aws resources. 
+
+    By default all access to aws account & resources are DENIED except for Account root user. 
+
+    
