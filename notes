@@ -64,10 +64,17 @@ Creating production account:
 
 Adding an IAM Admin: 
 
-    te    
+    IAM -> Users -> Attach permission directly.
+
+    IAM -> Users -> Group -> In group, attach permission
+
+    https://meeran-general.signin.aws.amazon.com/console
+    https://meeran-production.signin.aws.amazon.com/console
 
 
+IAM Access Keys:     
 
+    
 
 
 
