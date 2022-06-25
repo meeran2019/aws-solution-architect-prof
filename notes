@@ -74,6 +74,42 @@ Adding an IAM Admin:
 
 IAM Access Keys:     
 
+    username and password is single attached to user. 
+
+    access key can be multiple and can be enable, disable and delete. 
+
+    aws configure --profile profile-name 
+
+
+---------------------------------------------------------------------------------------------------------
+FUNDAMENTALS REFRESHER: 
+---------------------------------------------------------------------------------------------------------
+
+YAML 101: 
+
+    It is human readable data serialization language based on key: value pair.
+    Based on intendation.
+
+
+JSON 101: 
+
+    Java Script Object Notation.
+    It is light weight interchange format. 
+    It is easy for humans and machine to read and parse. 
+
+    { "key1": "value1", "key2": value2 }
+
+    ["value1", "value2", "value3"]
+
+    { "key1": ["value1", "value2", "value3"]}
+
+    {               -   top level objects
+
+    }
+
+
+NETWORKING: 
+
     
 
 
