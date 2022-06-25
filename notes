@@ -4,15 +4,70 @@ INTRODUCTION:
 
 NOTE: From Nov 2022, exam pattern is changing for Solution Architect - Professional.
 
-
 ---------------------------------------------------------------------------------------------------------
 AWS ACCOUNTS: 
 ---------------------------------------------------------------------------------------------------------
 
+Introduction: 
+
     AWS Account is container for identity (users) and resources. 
 
-    Account Root user - Create account with unique email address and using credeit card. It has full access control to aws resources. 
+    Account Root user - Create account with unique email address and using credit card. It has full access control to aws resources. 
 
-    By default all access to aws account & resources are DENIED except for Account root user. 
+    By default all access to aws account & resources are DENIED except for Account root user. It requires to explicit ALLOW to access resources. 
+
+
+Multi Factor Authentication: 
+
+    Factors - It is different pieces of evidences which prove identity.
+    
+    Multi Factors - Multiple factors to prove idendity. 
+    
+    Types of factors: 
+        Knowledge   -   username & password 
+        Possession  -   card # , MFA device. 
+        Inherent    -   fingerprint, iris 
+        Location    -   location of user. 
+
+    More factors means more security. 
+
+    In AWS, based on username and password generates the KEY + other information in QR format which can be scanned to generate the verification code. 
+
+
+Securing an AWS Account: 
+
+    Using MFA: 
+
+        Select root account -> Security Credentials. 
+
+
+Creating budget: 
+
+    Cost explorer provides reporting, analytics and visualization capabilities that can use to track and manage awws costs. 
+
+            root account -> Billing dashboard -> cost management -> cost explorer 
+
+    AWS budget is used to set custom budget to alert when threshold is reached. It requires cosr explorer to be enabled to work. 
+
+            root account -> Billing dashboard -> cost management -> budget 
+
+            Create Budget: 
+                    1. Select budget limit, budget name 
+                    2. Select email recepients. 
+                    3. Can select SNS target. 
+
+
+Creating production account: 
+
+    Create a brand new account as production with MFA feature and enable the budget alert. 
+
+
+Adding an IAM Admin: 
 
     
+
+
+
+
+
+
