@@ -1,0 +1,216 @@
+---------------------------------------------------------------------------------------------------------
+FUNDAMENTALS REFRESHER: 
+---------------------------------------------------------------------------------------------------------
+
+YAML 101: 
+
+    It is human readable data serialization language based on key: value pair.
+    Based on intendation.
+
+
+JSON 101: 
+
+    Java Script Object Notation.
+    It is light weight interchange format. 
+    It is easy for humans and machine to read and parse. 
+
+    values can be another object, string or list. 
+
+    { "key1": "value1", "key2": value2 }
+
+    ["value1", "value2", "value3"]
+
+    { "key1": ["value1", "value2", "value3"]}
+
+    {               -   top level objects
+
+    }
+
+
+NETWORKING: 
+
+    Local Networking - Ethernet -   data moves between devices.
+    Routing -   how data moves in internet. 
+    Segmenting, Ports & Sessions
+    Application Layer 
+
+OSI 7 LAYER MODEL: 
+
+    It is conceptual and called networking stack. 
+
+    Host Layers:
+        Layer 7     Application     
+        Layer 6     Presentation    
+        Layer 5     Session         
+        Layer 4     Transport       
+
+    Media Layers: 
+        Layer 3     Network         
+        Layer 2     Data link       
+        Layer 1     Physical        
+
+LAYER1 - PHYSICAL: 
+
+    Layer1 device understand Layer1 device. Layer3 device understand Layer1,2. 
+
+    It is point to point communication between 2 network interface devices or just do broadcast if using hub. 
+
+    HUB - If requires more than 2 devices, it connects through hub. 
+
+    It is like broadcasting and send to all ports and all devices. 
+
+    If multiple devices transmit then collision occurs. 
+
+    
+LAYER2 - DATA LINK: 
+
+    It provides device to device communication. 
+
+    MAC - Media Access Control 
+
+    MAC - Unique Hardware Address with hexadecimal value and unique for device.
+
+    Collision is reduced by using carrier signal. 
+
+    Hub is Layer1. Switch is Layer2. Switch understand Layer2 and send directly to dedicated destination.
+
+    same network only can be connected. For example, ethernet network connection between themselves or wifi connection themselves. 
+
+DECIMAL TO BINARY CONVERSION: 
+
+    in IP address 10.12.14.15 -> binary format. 
+
+    Ranges from 0-255.0-255.0-255.0-255
+
+    https://www.rapidtables.com/convert/number/decimal-to-binary.html
+
+
+LAYER3 - NETWORK: 
+
+    Layer2 doesnot support multiple network connection. It has source and destination address. 
+
+    Internet Protocol is layer3 protocol which adds IP address and routing to move data between networks.
+
+    It contains packets of data.
+
+    It contains V4 & v6 IP protocal.
+
+    IP V4 ADDRESS: 
+
+        10.12.13.14         -   dotted decimal notation
+
+        It consists of Network part and Host part. Network part which network it belongs and Host part tells which host machine. 
+
+        10      -   first octet 
+        12      -   second octet 
+
+        each with 8 bits and total 32 bits. 
+
+        10.12.13.14/16      -   16 represent the network part. 
+
+    SUBNET MASKS: 
+
+        It represent which part of IP address is Network part. 
+        10.12.13.14/16      -   it means first and second octet are host part. 
+
+        It helps to determine whether to communicate local or remote. 
+
+        00000000    -   0
+        11111111    -   255 
+
+    ROUTER: 
+
+        Packets move from source to destination in multiple hops. 
+        Router/route table used to check the destination and next hob/target is selected.
+
+        0.0.0.0/24      -   it represents all destination packets. 
+
+        Destination     Next Hob/Target 
+        10.12.13.1/24   10.12.13.5
+
+    ADDRESS RESOLUTION PROTOCOL: 
+
+        It gives the MAC address for the given IP address. 
+        In layer2, ARP used to get the MAC address for the IP address. 
+
+    LIMIATATION: 
+        No method for channel of communication like mobile, web etc.
+        packets can send in any order.
+        packets can miss
+
+LAYER4 - TRANSPORT: 
+
+    TCP     -   slow and reliable, connection oriented protocal.
+    UDP     -   fast and less reliable. 
+
+    It consists of segments which placed inside packets.
+    It introduces port.
+    sequence numbers used to ensure correct order nbrs for packets.
+
+    TCP: (Transmission Control Protocal)
+
+        It is connection based protocal.
+        A connection is established between two devices using random port on client and known port on server. 
+        Once connection is established, it is bidirectional. 
+
+        3 way handshake : 
+            SYN
+            SYN-ACK
+            ACK 
+
+        Ephermal Port: Dynamic in nature 
+        Well known port: 443, 80 
+
+    SESSION STATE: 
+
+        Stateless Firewall: 
+            It requires outbund and inbound rule. 
+            NACL is stateless.
+            It is bidirectional and send request and receive response separately. 
+
+        Stateful Firewall: 
+            It sees both request and response as single thing. 
+            If inbound is allowed default allows outbound. 
+
+        
+    NAT (Network Address Translation): 
+
+        NAT is designed to overcome public IPv4 shortages and allows private device to connect to internet. 
+
+        10.0.0.0    -   This is private IP range and cant be use in internet.
+
+        Static NAT  -   1 private IP address to 1 static public IP address (internet gateway)
+        Dynamic NAT -   1 private IP address to multiple pool of public IP address.
+
+        Port Address Translation - Many Private to 1 public  (Nat gateway). It uses port to differentiate.
+
+        NAT is used to transform/connect from private IP to public IP. It using NAT table which maps private IP and public IP.
+
+    IP ADDRESSING AND SUBNETTING: 
+
+        0.0.0.0 - 255.255.255.255 
+
+        Private address can be used/reused freely.
+
+        Class A -> 0.0.0.0 to 127.255.255.255 - Large business and regional regions - /16
+
+        Class B -> 128.0.0.0 - 191.255.255.255 - Large business and regional regions - /16
+
+        Class C -> 192.0.0.0 - 233.255.255.255 -  /24 - Smaller business.
+
+        Class D -> Multicast 
+        Class E -> Reserved.
+
+        Private Networks: 
+
+            10.0.0.0 to 10.255.255.255      -   class A. used in cloud networks etc.
+            172.16.0.0 to 172.31.255.255    -   class B
+            192.168.0.0 to 196.168.255.255  -   class C. Used in home generally.
+
+            
+
+
+
+
+
+
