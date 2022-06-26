@@ -207,7 +207,68 @@ LAYER4 - TRANSPORT:
             172.16.0.0 to 172.31.255.255    -   class B
             192.168.0.0 to 196.168.255.255  -   class C. Used in home generally.
 
-            
+    SUBNETTING: 
+
+        CIDR - Classless Inter Domain Routing.
+
+        10.0.0.0/16     -   /16 is prefix 
+        larget the prefix, smaller is network available.
+
+        https://www.subnet-calculator.com/subnet.php?net_class=A
+
+        0.0.0.0     -   It matches the entire internet, so it is default for internet.
+
+        /32         -   represent single IP address.
+
+        Subnetting is process of taking larger network and break down into smaller network. 
+        Larger the prefix, it is small in network.
+
+    
+    DDOS (Distributed Denial of Service): 
+mmm,,mn
+        Types: 
+            In Application layer - HTTP Get request.
+            In Transport Layer - SYN request.
+            In DNS Server - Multiple request sent to DNS server and redirects to our server.
+
+    SSL & TLS: 
+
+        Secure Sockets Layer 
+        Transport Layer Securityf
+
+         It provides privacy and data integrity between client and server.
+         Communications are encrypted.
+
+         It consists of symmetric and asymmetric.
+
+         Symmetric: based on key. Same key is used by both client and server.
+         Asymmetric: Based on public and private key.
+
+    VLANS , TRUNKS & QinQ: 
+
+    JUMBO FRAMES AND MTU: 
+
+        In ethernet standard frame, 1500 bytes. Bigger than this is jumbo frame.
+
+        Doesnot support jumbo frame:
+            Traffic outside of VPC 
+            Traffic over inter region VPC peering connection.
+            Traffic over VPN connection.
+            Traffic over internet gateway.
+
+        Support jumbo frame,
+            Same region VPC peering.
+            Direct Connect 
+            Transit gateway 
+
+    ENCRYPTION 101: 
+
+        Symmetric & Asymmetric 
+
+        Encryption at rest & encryption in transit 
+
+        
+
 
 
 
