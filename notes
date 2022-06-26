@@ -81,4 +81,89 @@ IAM Access Keys:
     aws configure --profile profile-name 
 
 
-   
+---------------------------------------------------------------------------------------------------------
+ADVANCED PERMISSIONS AND ACCOUNTS: 
+---------------------------------------------------------------------------------------------------------
+
+AWS ORGANIZATIONS: 
+
+    Each organization requires multiple accounts and managing separately is tedious if account increases.
+    
+    With AWS Organization, accounts are managed.
+
+    Management account is from which account organization is created. 
+
+    Master or Management or payer account. Using management account, can invite other accounts to join. Once joined, standard account become memeber account of organization.
+
+    Using AWS organization, can create new account directly or invite existing account. 
+
+    Consolidated billing features. 
+
+    Service Control Policy 
+
+    General practice is to create separate accounts for payments (management), user account (integraet with federation iddendity). From user account, do switch role to assume the role in other accounts. 
+
+
+    CONSOLE: 
+
+        Create Organization: 
+
+            account -> organization -> create organization -> Automatically added as management account. 
+
+        Invite the account: 
+
+            account -> organization -> Add an AWS account -> Send Invite to existing account. 
+
+        Accept the invitation: 
+
+            account -> organization -> Invitations -> Accept Invitations 
+
+        Create Account: 
+
+            account -> organization -> create account -> unique email + name + rolename 
+
+        Create Organization Unit (OU): 
+
+            account -> organization -> Root -> Create organization 
+
+
+    ROLE SWITCH: 
+
+        For account created using organization, ROLE (OrganizationAccountAccessRole) is created automatically and can be use switch role.
+
+        For invited account, requires to create the role. 
+
+        CREATE ROLE IN INVITED ACCOUNT FOR MANAGEMENT ACCOUNT TO USE FOR ROLE SWITCH: 
+
+            IAM -> Role -> AWS Account -> Management account nbr -> Attach policy 
+
+        TO SWITCH ROLE: 
+            In AWS Organization, it helps administrator to easily manage accounts. 
+
+            From management account -> account -> Switch Role -> 
+    
+    
+    SERVICE CONTROL POLICY: 
+
+        It is a JSON policy and can be attached at Root level, OU level or account level. 
+
+        If attached at root level, then affect all OU and accounts. If at OU level, affect the accounts under the OU.
+
+        NOTE: Management account cannot be affect by this SCP at any level. 
+
+        SCP doesnot grant any permission but it is account level permission boundaries. 
+
+        Account root user has full access in account but indirectly can be restricted by using SCP.
+
+        Access can be provided by 2 ways, 
+            1. Explicit allow all (default policy) and explicit deny few services.
+            2. Delete default and Explicit allow few services only. (more secure)
+
+            Implicit Deny -> Explicit Allow -> Explicit Deny 
+
+        CONSOLE: 
+            1. First to enable the SCP: 
+                    Organization -> Policy -> SCP -> ENABLE (Default create with FullAWSAccess policy) and attach to ROOT by default.
+
+---------------------------------------------------------------------------------------------------------
+
