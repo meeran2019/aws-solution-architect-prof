@@ -167,3 +167,36 @@ AWS ORGANIZATIONS:
 
 ---------------------------------------------------------------------------------------------------------
 
+SECURITY TOKEN SERVICE (STS):
+
+    Whenever role is assumed, it pass to STS:AssumeRole*.
+
+    User -> Assume a Role -> STS -> Check Identity maintained in Trust policy   -> If allowed, then get the permission -> Return access key, secret id, session token & expiration date. 
+    
+    STS does 2 things, 
+            1. Check trust policy is maintained. 
+            2. If maintained, get the permission policy and return the access details.
+
+    Idendity can be switch role, cross account role and other AWS resources. 
+
+
+REVOKING IAM ROLE TEMPORARY SECURITY CREDENTIALS: 
+    
+    Temporary credentials cannot be manually cancelled or invalidated and it is valid till expiry time.
+
+    Incase if temporary credentials are compromised, "Revoke session" is used to add a conditional deny policy which DENY any session assumed < NOW. So legitimate users can assume the role again but illegitimate users cant assume again.
+
+    During Revoke session, it will add "AWSRevokeOlderSessions" inline policy to role. 
+
+    CONSOLE: 
+
+        IAM -> Role -> View Role -> Revoke Sessions -> Revoke active sessions. 
+
+                    "Condition": {
+                        "DateLessThan": {
+                            "aws:TokenIssueTime": "[policy creation time]"
+                        }
+                    }
+
+
+
