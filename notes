@@ -306,7 +306,7 @@ AWS RESOURCE ACCESS MANAGER (RAM):
 
     Owner Account:  Owns the resource and create a share. 
                     Owner retains full permissionship.
-                    Defines the principal (org,ou,acc) to who, to share.
+                    Defines the principal (org,ou,acc) to whom to share.
                     If participant inside an ORG, acceptance happen automatically. Any non ORG account, based on invite to accept. 
     
     USE CASE: 
@@ -318,20 +318,42 @@ AWS RESOURCE ACCESS MANAGER (RAM):
 
     CONSOLE: 
 
-        RAM -> Create resource share -> 
+        RAM -> Settings -> Enable Sharing within organization.
 
+        RAM -> Create resource share -> Name, Resources, Organizations -> Create 
 
+        Resources -> Shared by Me , Resources -> Shared with Me
 
+        NOTE: Name is not tagged in shared resource and participant account can update name. One participant account created resource cannot seen by other participant accounts. 
 
+---------------------------------------------------------------------------------------------------------
 
+SERVICE QUOTAS: 
 
+    Quota is limit on the AWS resources.
 
+    Service normally have per region quota.
 
+    Global services have account level quota.
 
+    Most service quotas can be increased.
 
+    Hard limit cannot be changes: 
+        IAM user of 5000 per account.
 
+    https://docs.aws.amazon.com/general/latest/gr/aws-service-information.html
 
+    AWS -> Service Quotas -> AWS Resources.
+        Quota Name, Applied Quota value, Aws default quota value, Adjustable
+        View quota -> Request Quota Increase 
 
+        View quota -> Monitoring. 
+            If threshold is reached, then alarm the quota limit.
 
+    Organization -> Quota Request Template.
 
+    Support -> Ticket to increase quota limit.
 
+---------------------------------------------------------------------------------------------------------
+ADVANCED IDENTITIES AND FEDERATION: 
+---------------------------------------------------------------------------------------------------------
