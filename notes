@@ -198,5 +198,140 @@ REVOKING IAM ROLE TEMPORARY SECURITY CREDENTIALS:
                         }
                     }
 
+---------------------------------------------------------------------------------------------------------
+
+POLICY INTERPRETATION: 
+
+    Implicit Deny -> Explicit Allow -> Explicit Deny 
+
+    {
+        Version: "2012-"
+        Statement: [{
+            Sid: "statement id 1"
+            Effect: "allow" or "deny"
+            Action: ["s3*", "ec2*"]  or NotAction: []
+            Resource: "s3*"
+            Condition: {}
+        }, {}, {}]
+    }
+
+    NOTE: If single statement with DENY effect. It is no useful because by default implicit DENY. So single statement with DENY is used in conjugation with other ALLOW policy.
+
+    Concentrate on NotAction , StringNotEquals conditions.
+
+
+PERMISSION BOUNDARIES: 
+
+    This is at identity level. It doesnot grant any access. It limit the permission of the identity permission.
+
+    It helps for delegation access. 
+
+    For example: 
+        Bob (admin) believes tom and want to give full iam:* access.
+        This cause probelms, 
+            Tom can change his own IAM permission.
+            Create another user with administrator access.
+
+    To solve this problem,
+        1. Bob create a user boundary and allow only that user level access ${aws:user}
+        2. Create user Tom and assign a permission boundary + policy not to change his identity + cant edit permission boundary. 
+
+
+PERMISSIONS EVALUATION LOGIC: 
+
+    For same account: 
+
+        Explicit Deny -> SCP -> Resource Policy(Allowed then stops)  -> Permission Boundary -> Session Policy (Assume a Role) -> Identity policy 
+
+    For cross account: 
+
+        Account A (Identity policy) -> Account B (Resource policy)
+
+        Account A to allow access to Account B <> Account B to allow access from Account A 
+
+        Allow <> Allow  then Allow 
+        Deny <> Allow   then Deny 
+        Deny <> Allow   then Deny 
+
+---------------------------------------------------------------------------------------------------------
+
+CROSS ACCOUNT ACCESS TO S3: 
+
+    ACL: 
+
+        It is legacy method of giving permission and AWS no longer recommend this. 
+        Account canonical user id 
+        Whoever uploaded (owner) only have permission even bucket owner is different.
+
+        1. Create the bucket in Account B. 
+            a. Create the ACL access to allow from A. Use Account A Canonical name.
+        2. From Account A, Switch Role to Account B.
+        3. Upload the objects in Account B.
+        4. Only Account A have access (owner) not Account B (Bucket owner).
+
+        NOTE: "Object ownership" - helps to override this behaviour and allows bucket owner to own the object by default. 
+
+        Objects owned by uploader. 
+
+    Bucket Policy: 
+
+        1. Create a bucket policy.  
+                principal = Account A 
+        2. Attach the policy to Account B
+        3. From Account A, able to access Account B. 
+
+        Objects owned by uploader. 
+
+    Cross Account Role: 
+
+        Objects owned by bucket owner. 
+
+        1. Create a role with trust policy of cross account and s3 bucket permission.
+        2. From Account A, switch role to s3 role.
+
+---------------------------------------------------------------------------------------------------------
+
+AWS RESOURCE ACCESS MANAGER (RAM): 
+
+    Within organization, it helps to share resources at organization, OU and Account level.
+
+    Only RAM supported products can be shared.
+
+    No cost for RAM but cost for underlying resources used.
+
+    It influences changes in traditional architecture.
+
+    NOTE:   Availability zone in 1 account (us-east-1) is not same for another account (us-east-1)
+            Availability zone ID (use1-az1) is consistent or same accross the accounts. 
+
+    Owner Account:  Owns the resource and create a share. 
+                    Owner retains full permissionship.
+                    Defines the principal (org,ou,acc) to who, to share.
+                    If participant inside an ORG, acceptance happen automatically. Any non ORG account, based on invite to accept. 
+    
+    USE CASE: 
+
+        In organization, owner account create a VPC, Subnet & security group and shared with participant accounts.
+        Participant accounts can only have Read access to utilize and cannot be modified.
+        Only owner account can modify, delete resources.
+        If participant account create ec2 instance under shared subnets, ec2 is owned by only participant account not owner account. 
+
+    CONSOLE: 
+
+        RAM -> Create resource share -> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
