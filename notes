@@ -43,11 +43,11 @@ Securing an AWS Account:
 
 Creating budget: 
 
-    Cost explorer provides reporting, analytics and visualization capabilities that can use to track and manage awws costs. 
+    Cost explorer provides reporting, analytics and visualization capabilities that can use to track and manage aws costs. 
 
             root account -> Billing dashboard -> cost management -> cost explorer 
 
-    AWS budget is used to set custom budget to alert when threshold is reached. It requires cosr explorer to be enabled to work. 
+    AWS budget is used to set custom budget to alert when threshold is reached. It requires cost explorer to be enabled to work. 
 
             root account -> Billing dashboard -> cost management -> budget 
 
@@ -106,7 +106,7 @@ AWS ORGANIZATIONS:
 
     CONSOLE: 
 
-        Create Organization: 
+        Create Organization:  
 
             account -> organization -> create organization -> Automatically added as management account. 
 
@@ -177,7 +177,7 @@ SECURITY TOKEN SERVICE (STS):
             1. Check trust policy is maintained. 
             2. If maintained, get the permission policy and return the access details.
 
-    Idendity can be switch role, cross account role and other AWS resources. 
+    Identity can be switch role, cross account role and other AWS resources. 
 
 
 REVOKING IAM ROLE TEMPORARY SECURITY CREDENTIALS: 
@@ -354,6 +354,127 @@ SERVICE QUOTAS:
 
     Support -> Ticket to increase quota limit.
 
+
 ---------------------------------------------------------------------------------------------------------
 ADVANCED IDENTITIES AND FEDERATION: 
 ---------------------------------------------------------------------------------------------------------
+
+SAML2.0 IDENTITY FEDERATION: 
+
+    NOTE: AWS Only understand the AWS credentials to allow access to resources.
+
+    Here using another identity provider to get identity to access AWS resources.
+
+    SAML2: 
+        Security Assertion Markup language
+        Many onpremise identity provider uses SAML2 
+
+    use case: 
+        If no of user > 5000
+        Enterprise identity provider + SAML2 compatible
+        If requires existing IAM team to manage with single source of identity truth.
+
+    It uses IAM roles and Temporary security credential valid for 12 hours. 
+
+    ARCHITECTURE for Application: 
+
+        1. Trust relationship establish between Idp and IAM.
+        2. Application call Idp which authenticated and return SAML assertion.
+        3. Application call STS to get temporary credential.
+        4. Application call AWS resources to access.
+
+    ARCHITECTURE for USER LOGIN: 
+
+        1. Trust relationship establish between Idp and SAML/SSO endpoint.
+        2. Application call Idp which authenticated and return SAML assertion.
+        3. CLient send the SAML assertion to SSO endpoint. 
+        4. From SSO, call STS assume role.
+        5. SAML Endpoint generate the URL and Client uses to access AWS console.
+
+---------------------------------------------------------------------------------------------------------
+
+AWS SINGLE SIGN ON (SSO): 
+
+    It helps to centrally manage sso access and user permission for accounts in organization.
+
+    Requirement is valid AWS organization is created.
+
+    It is extension of AWS organization.
+
+    AWS SSO supports multiple identity source, 
+        built in identity stores.
+        AWS Managed microsoft AD 
+        On premise microsoft AD 
+        External SAML2 identity
+
+    AWS SSO is recommended. 
+
+    https://jumpcloud.com/blog/aws-iam-vs-aws-sso
+
+
+    CONSOLE: 
+
+        AWS SSO -> Enable 
+
+        https://d-9067b1117b.awsapps.com/start  - can customize the URL.
+
+        Identity source -> AWS SSO, Active Directory, External Identity Provider.
+
+        Permission sets -> Predefined or custom permission sets. Session duration can select.
+
+        Users & Groups can be created.
+
+
+        User portal URL: https://d-9067b1117b.awsapps.com/start, Username: sally, One-time password: 
+
+        1. Create a user, group and permission sets.
+        2. From aws account, assign user/group to account.
+        3. Assign a permission (Permission Set Name is displayed).
+
+        AWS SSO -> Applications -> Can integrate 3rd party applications.
+
+    To enable MFA: 
+
+        SSO -> Settings -> Network & Security -> MFA 
+
+---------------------------------------------------------------------------------------------------------
+
+AMAZON COGNITO - USER AND IDENTITY POOLS: 
+
+    It provides authentication, authorization and user management for web/mobile applications.
+
+    It consists of user pools and identity pools
+        User Pools -    Signin and provide JWT (Json web token) and few AWS services accepts JWT like API gateway. 
+                        It supports SAML2 , Facebook, login, Identity federation.
+                        Used for signup and signin.
+
+        identity pools -    It provides AWS credentials by exchange JWT.
+                            Even user pool , google, saml2 identity used for exchange.
+                            Swapping authenticated or unauthenticated identity for credentials.
+                            Assume the role on behalf of identity.
+                            It can deal both authenticated or unauthenticated identity.
+
+    1. User is authenticated with external identity like google, facebook etc.
+    2. User pools returns the JWT to web/mobile application.
+    3. Web/mobile application send JWT to Identity Pool.
+    4. Identity Pool assume the role and generate the temporary credentials.
+    5. Identit pool return the temporary credentials to web/mobile application.
+
+    CONSOLE: 
+
+        Cognito -> Create a user pool 
+        Cognito -> Identity pool or Federated identities.
+
+---------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+    
+
