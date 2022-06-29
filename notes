@@ -365,6 +365,8 @@ SAML2.0 IDENTITY FEDERATION:
 
     Here using another identity provider to get identity to access AWS resources.
 
+    SAML2 is used in enterprise identity federation.
+
     SAML2: 
         Security Assertion Markup language
         Many onpremise identity provider uses SAML2 
@@ -386,7 +388,7 @@ SAML2.0 IDENTITY FEDERATION:
     ARCHITECTURE for USER LOGIN: 
 
         1. Trust relationship establish between Idp and SAML/SSO endpoint.
-        2. Application call Idp which authenticated and return SAML assertion.
+        2. Client call Idp which authenticated and return SAML assertion.
         3. CLient send the SAML assertion to SSO endpoint. 
         4. From SSO, call STS assume role.
         5. SAML Endpoint generate the URL and Client uses to access AWS console.
@@ -467,14 +469,65 @@ AMAZON COGNITO - USER AND IDENTITY POOLS:
 
 ---------------------------------------------------------------------------------------------------------
 
+AMAZON WORKSPACE: 
+
+    It is AWS Desktop As A Service.
+
+    It uses directory services (simple AD or AD Connector) for user management and authentication.
+
+    NOTE: Only support AWS Directory services (Simple AD, Microsoft AD & AD Connector)
+
+    It consists of AWS Managed and Customer managed VPC.
+
+    All management related services (AD, Workspace, authentication gateway) in AWS managed VPC.
+
+    From AWS Managed VPC, these services interact with Customer managed VPC through ENI. From there it connect to VPN or Direct connect through Nat gateway and Internet gateway. 
+
+    To function workspace, it requires Directory services and VPC.
+    
+---------------------------------------------------------------------------------------------------------
+
+AWS MANAGED MICROSOFT AD: 
+
+    Standard    -   support 5000 users and 30000 objects.
+    Enterprise  -   Support upto 500,000 objects.
+
+    If require native microsoft authentication, then recommend this.
+
+    Can configure a trust relationship between AWS managed microsoft AD and On pprem microsoft AD, so users and groups access resources in either domain.
+
+    Capable of operating independetly if link broken between onprem and aws.
+
+    Can integrate with MFA (Radius based server).
+
+    Support microsoft schema extension.
+
+    Can establish two way trust between onprem and aws managed AD.
+
+---------------------------------------------------------------------------------------------------------
+
+AD CONNECTOR: 
+
+    It appears as native directory.
+    It send the request to onprem active directory and does not store any data.
+
+    Useful in proof of concept and no need to keep AD in AWS.
+
+    It consists of below based on compute power,
+        Small
+        Large
+
+    It placed in 2 subnets with in VPC and requires 1 or more AD .
+
+    It requires working network connectivity between AWS and On prem through Direct connect or VPN connection etc.
+
+    Select only when,
+    Proof of concept
+    Legal or compliance reason not in AWS 
 
 
-
-
-
-
-
-
+---------------------------------------------------------------------------------------------------------
+NETWORKING AND HYBRID: 
+---------------------------------------------------------------------------------------------------------
 
     
-
