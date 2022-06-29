@@ -530,4 +530,124 @@ AD CONNECTOR:
 NETWORKING AND HYBRID: 
 ---------------------------------------------------------------------------------------------------------
 
+PUBLIC AND PRIVATE AWS SERVICES: 
+
+    Public - Have public endpoint and accessed using internet.  
+    Private - Runs within VPC.
+
+    Public zone     -   act as interface between private and internet. From this zone, aws public service operates like s3 etc. 
+    Private Zone    -   VPC 
+
+    From private zone, resources like ec2 uses internet gateway to access internet.
+
+    Private to private connection happen using VPN or direect connect. 
+
+---------------------------------------------------------------------------------------------------------
+
+DHCP IN VPC: 
+
+    Dynamic Host Configuration Protocol - It helps automatic configuration of network resources. It is useful to assign dynamic IP to host.
+
+    It consists of Client and Server, based on Layer 2 has MAC address.
+
+    Inorder to work at Layer 3, minimum requires IP address, Subnet masks & Default gateway.
+
+    In VPC,
+        DNS Servers, NTP Server, Domain Name, NetBios 
+
+    NOTE: Once DHCP Option sets created, it cannot be modified and immutable.
+    
+    Option set can be associated with 1 or more vpc. Each VPC have 1 DHCP option set.
+
+    NOTE: Associate VPC with DHCP can happen immediately but to effect changes require "DHCP Renew"
+
+---------------------------------------------------------------------------------------------------------
+
+VPC ROUTER: 
+
+    It helps to route traffic, 
+
+        1. Between subnets.
+        2. From external network to VPC
+        3. From VPC to external network.
+    
+    It is highly available and across all AZ. 
+
+    Router is attached to subnet level.Each subnet is associated with route table. 
+
+    Subnet have interface with Router through ENI (Subnet ip address + 1)
+
+    Router is managed by using route table.
+
+    NOTE:   Subnets are associated with only one route table. Same route tables can be associated with many subnets. 
+
+    /32 is higher priority than /16, /8 or /0.
+
+    Route Table: 
+        Destination     Target 
+        10.0.0.0/16     local           (IP address is VPC CIDR range and mean local VPC)
+        0.0.0.0/0       igw             (It matches all IP address and generally use to connect to internet)
+
+    Packets contains source and destination IP address. Destination IP address is compared with destination prefix to route to the target.
+
+---------------------------------------------------------------------------------------------------------
+
+STATELESS VS STATEFUL FIREWALLS: 
+
+    In Layer 4, TCP, uses the ephermal port to initiate the request from client to server in well known port.
+
+    It is bidirectional and request/response process separately. 
+
+    Stateless which doesnot understand the state of connection whether request or response, so requires both inbound and outbound rule. Since client port is ephermal so outbound is allowed always.
+
+    security group is stateful because smart enough to get the response ip from the request details.
+
+
+    NACL: 
+
+        At subnet level.
+        stateless.
+        Since ephermal port require to allow all outbound port. 
+
+    NOTE:   Default NACL, allow both inbound and outbound. 
+            Custom NACL, denies both inbound and outbound.
+
+        Deny is feature in NACL which helps to block IP ranges.
+
+
+    SECURITY GROUP: 
+
+        At ec2 level.
+        Stateful.
+        No need to allow outbound port.
+
+        Major disadvantage is no explicit deny, so used in conjuction with NACL.
+
+        NOTE: Security groups are not attached to instances but attached to ENI (Elastic Network Interfaces).
+
+        It gives additional feature of logical reference of another security group. For example: In backend app-security-group, include the source as frontend-security-group.
+
+        Also can self reference security group: 
+                If self reference the security group and attach to multiple instances. It allow communication between them.
+
+---------------------------------------------------------------------------------------------------------
+
+BORDER GATEWAY PROTOCAL: 
+
+    AS - Autonomous System
+    ASN - Autonomous System Number
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
     
