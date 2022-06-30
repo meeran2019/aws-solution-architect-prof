@@ -268,6 +268,22 @@ mmm,,mn
         Encryption at rest & encryption in transit 
 
         
+DNS: 
+
+    Domain Name System
+
+    Generally use to convert domain name to IP address.
+
+    Client      -   Requires information for the domain. It is piece of software install on mobile, computer etc. 
+    Resolver    -   It helps to query the DNS server. It can be on same machine or in separate server.
+    Nameserver  -   where zone files are hosted.
+    Zone        -   amazon.com  is a zone which contains www=>ip-address
+    zonefile    -   physical database for zone.
+
+
+
+
+
 
 
 

@@ -695,6 +695,32 @@ SITE TO SITE VPN CONNECTION:
     NOTE: It can setup fastly in hours. 
 
 ---------------------------------------------------------------------------------------------------------
+
+AWS CLIENT VPN: 
+
+    It helps to connect AWS to Client.
+
+    Site to Site VPN connection which connects AWS to Non AWS like On-prem, another cloud.
+    Client VPN connects AWS with Client.
+
+    Client should be Open VPN supported.
+
+    NOTE: Without Split tunnel , connects to internet through client VPN.
+
+    XXXXXXXX - REQUIRE TO DEEP DIVE
+
+---------------------------------------------------------------------------------------------------------
+
+AWS DIRECT CONNECT: 
+
+    It is physical connection beween on-prem and AWS
+
+    XXXXXXXX - REQUIRE TO DEEP DIVE
+
+---------------------------------------------------------------------------------------------------------
+
+ROUTE 53 FUNDAMENTALS:
+
     
 
 
