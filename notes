@@ -661,6 +661,41 @@ AWS GLOBAL ACCELARATOR:
     
 ---------------------------------------------------------------------------------------------------------
 
+SITE TO SITE VPN CONNECTION:
+
+    It helps to connect from VPC to non AWS (onprem network/another cloud).
+
+    It consists of Virtual Private Gateway (VGW) on AWS side and Customer Gateway(CGW) on On-prem side. VPN connection between VGW and CGW.
+
+    Both CGW and VGW is on top of router.
+
+    Communication is encrypted in transit by using IPSec tunnel. It runs over the public internet except direct connect. 
+
+    VGW has 2 end points in different availability zone. 
+
+    On AWS Side, have 2 VPN connection to customer side for high availability. 
+
+    NOTE: Only AWS Side have high availability, to make it fully high available, requires 2 customer gateway in on-prem side.
+
+    Static VPN   -   Static networking configuration like IP address of CGW and VGW need to maintain on both side.
+    Dynamic VPN  -   If BGP (border gateway protocol) enabled, then only can use the dynamic IP. Route propagation on Route table helps to enable dynamic. 
+
+    STEPS: 
+        1. Collect the IP address of VPC and Router details in AWS and Onprem side.
+        2. Attach the VGW in public zone of AWS and CGW in Router of customer side.
+        3. In VGW, created with 2 endpoints in different AZ. This end point is used to connecto to CGW.
+        4. Create a static or dynamic VPN connection.
+        5. VPN connection is linked to VGW endpoints and this endpoint is connect to CGW.
+    
+    Limitation: 
+        1. To check speed limit of 1.25 gbps on both tunnel.
+        2. It transit through internet and latency can cause issue.
+        3. Hourly cost, data transfer cost.
+    
+    NOTE: It can setup fastly in hours. 
+
+---------------------------------------------------------------------------------------------------------
+    
 
 
 
