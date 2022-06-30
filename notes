@@ -656,7 +656,7 @@ AWS GLOBAL ACCELARATOR:
 
     It uses edge location (AWS Global Network)
 
-    CloudFront - Keep content close to customer. Works on content cache. It understand HTTP. 
+    CloudFront - Keep content close to customer. Works on content cache. It caches only HTTP/HTTPS product.
     Global Accelarator - Keep network close to customer. It is network product works on TCP/UDP. Doesnot cache anything. 
     
 ---------------------------------------------------------------------------------------------------------
