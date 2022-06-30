@@ -636,8 +636,36 @@ BORDER GATEWAY PROTOCAL:
 
     AS - Autonomous System
     ASN - Autonomous System Number
+    It helps to find the shortest route to reach the destination.
+    Each network has AS (Autonomous System) and ASN (Autonomous System Nbr).
 
+    Border Gateway Peering is done which used to broadcast nearest network to their connected Border Gateway.
+
+    ASPATH - Autonomous System Path - Contains the path details and from this chose the shortest path.
+
+---------------------------------------------------------------------------------------------------------
+
+AWS GLOBAL ACCELARATOR: 
+
+    It helps to select the nearest edge location (network). 
+
+    Lower number of hops , better the experience.
+
+    Unicast IP address - Normal IP address.
+    Anycast IP address - Multiple devices can use anycast IP address.
+
+    It uses edge location (AWS Global Network)
+
+    CloudFront - Keep content close to customer. Works on content cache. It understand HTTP. 
+    Global Accelarator - Keep network close to customer. It is network product works on TCP/UDP. Doesnot cache anything. 
     
+---------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 
 
 
