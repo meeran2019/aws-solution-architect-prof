@@ -945,6 +945,7 @@ EFS (ELASTIC FILE SYSTEM):
     Can use lifecycle policies to move data between different classes.
 
 ---------------------------------------------------------------------------------------------------------
+
 S3 OBJECT STORAGE VS EBS BLOCK VS EFS FILE STORAGE: 
 
     OBject storage think of any videos, pictures, etc.
@@ -1036,12 +1037,121 @@ S3 OBJECT STORAGE CLASS:
 
     S3 OBJECT ENCRYPTION: 
 
+        NOTE: Only objects can be encrypted but bucket itself cannot be encrypted. 
+
+        Server Side Encryption:
+            Plain text data is uploaded by user and then encrypted and store by s3. s3 handle the encryption.
+        
+            SSE-S3  -   AWS handles both keys and Encryption/Decryption process.
+            SSE-C   -   Customer is responsible for keys. Encryption/Decryption done by S3.
+            SSE-KMS -   Key is handled separately by KMS. Customer managed key is generated. Used that key for encryption/decryption. It gives role separation by restrict access to CMK and rotation control. 
+
+            AES256 algorithm used for encryprion.
+
+            In CLI or API, while upload objects require to specify Header x-amz-server-side-encryption, with AES256 for SSE-S3 , aws:kms for KMS.  Default is AES256. 
+
+        Client Side Encryption: 
+            Data is encrypted by user and then upload the encrypted data in s3. 
 
 
+    S3 PRESIGNED URL: 
+
+        It is giving access to another person/application to access to private s3 bucket.
+        If any unknown user wants to access temporarily to private s3 bucket.
+
+        Process: 
+            1. User/application send the "generate presigned url" request along with permission and expiry time to s3 bucket.
+            2. s3 bucket generate the presigned url and return to user/application.
+            3. From application, can return to user. 
+            4. NOTE: While generate url request, application/user connected role will be sent.
+
+        1. Can create presigned URL eventhough no access to object with expiry date.
+        2. When use the URL, permission is using the identity permission.
+        3. Dont generate presigned url with role because have temporary credential of short expiry.
 
 
+    S3 SELECT AND GLACIER SELECT: 
+
+        Both are used to retrieve parts of objects, pre filtered by s3.
+        It is SQL like statements.
+        It support CSV,JSON, Parquet, BZIP2 compression.
+        Since it is s3 feature, it reduce cost in data transfer and faster.
 
 
+    S3 ACCESS POINTS: 
 
+        It simplies managing access to s3 bucket/objects.
+        With bucket policy, it is more complex to manage multiple teams and hundres of objects.
+        Can create many access points with each have different policies with different network control(from vpc or internet).
+        Each access point has own endpoint address which can be used to access instead of common s3 endpoint.
+        aws s3control create-access-point 
+        By using policy, can restrict the access to specific object.
+
+        NOTE: In bucket policy can give high level permission and in Access Point to give more granular access. if bucket policy denied, it will stop there.
+
+        Can access from VPC using VPC endpoints and grant access using endpoint policy.
+
+    
+    S3 OBJECT LOCK: 
+
+        During bucket creation, can lock the object. 
+        To object lock for existing buckets, require to contact AWS support.
+        Versioning also enabled and also versions also locked.
+        Once created, cannot disable the object.
+        It support Write Once Read Many.
+
+        NOTE: Object lock settings can only be specified in CLI, API or SDK.
+
+        It support retention,
+
+            1. Retention Period -   User can specify retention period in days/years.
+
+                    Compliance Mode -   Till expiry, no user include account root user cant change anything including deletion, overwritten. Cant change retention period.
+
+                    Governance Mode -   Set of users can modify the object and settings can be adjusted. 
+                    s3:BypassGovernanceRetention is used or x-amz-bypass-governance-retention header.
+
+            2. Legal hold       -   Dont set retention period. Only on/off. No changes or delete until legal hold removed. Prevent accidental deletion.
+
+---------------------------------------------------------------------------------------------------------
+
+AMAZON MACIE: 
+
+    It is a data security and data privacy service.
+    Discover, monitor and protect data stored in s3 buckets.
+    Automated discovery of PII, PHI and financial data.
+    It is multi account based generally use in organization.
+
+    It consists of ,
+        Managed data identifiers    -   Uses AI/MI 
+        Custom data identifiers     -   Customer create using Regexp to match pattern in data.
+
+    Mazie -> Schedule job -> Findings -> Event bridge -> Security hub / Lambda.
+
+    There are 2 types of findings, 
+        Policy findings - It means encryption disabled, publicaccess disabled, ACL changes policy.
+        Sensitive data findings
+    
+---------------------------------------------------------------------------------------------------------
+
+EBS VOLUME TYPES:
+
+    GENERAL PURPOSE: 
+        It consists of GP2, GP3.
+
+        GP2: (default)
+            SSD based.
+            From 1 GB to 16 TB.
+            Get 3 IOPS per second per gb.
+            Can burst upto 3000 IOPS.
+            Great for boot volumes. 
+    
+        GP3:
+            SSD based.
+            3000 IOPS.
+            Cheaper than GP2.
+            Offers high throughput.
+
+    In gp2, dependsup on the size, iops and thorughput changes. As user dont have option to chose these. With GP3, removed this limitation and user can change iops/throughput. 
 
     
