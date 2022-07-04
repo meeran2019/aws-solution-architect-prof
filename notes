@@ -721,22 +721,140 @@ AWS DIRECT CONNECT:
 
 ROUTE 53 FUNDAMENTALS:
 
+    It is AWS managed DNS product.
+
+    It provides 2 main functions,
+        1. Register domain
+        2. Host zones (hosted zone) and managed nameserver.
+
+    It is global service and have single database.
+
+    It creates the zone file and nameserver and place the zone file in nameserver and place the nameserver details in high level domain like .org by adding name server record.
+
+    Inside hosted zone has recordset (records)
+
     
+REGISTERING A DOMAIN: 
+
+    It consists of domain name registration + name server details. Both are separate things, 
+        One can register a domain name in AWS or external and nameserver also can use external or AWS one.
+
+    In AWS, create with 4 nameservers in high availability zone.
 
 
+DNS RECORD TYPES:
+
+NS      -   NameServer      -   It Points to nameserver details. 
+A       -   IPV4 Address    -   It points WWW to IPV4 address.
+AAAA    -   IPV6 Address    -   It points WWW to IPV6 address. 
+CNAME   -   Canonical Name  -   It points to another domain. CNAME ftp CMAN www
+TTL     -   Time To Live    -   How much time to active in Resolver server. 
+MX      -   Main Server     -   It points to Mail Server.
+    MX 10 mail 
+    MX 20 mail.domain.org 
+
+    10, 20 is priority.
+
+TXT     -   Text Record     -   It uses to prove domain ownership.
 
 
+ROUTE 53 PUBLIC HOSTED ZONE:
+
+    It is zone file which is database of zone file. Hosted zone is located in public and access through internet.
+    In Route 53, have 4 public hosted zone.
+    It can be resolved through from public internet and VPC.
+    Route 53 resolver is VPC + 2 ip address.
 
 
+ROUTE 53 PRIVATE HOSTED ZONE: 
+
+    Hosted zone is placed within VPC and cannot be resolved from public internet.
+    Only with in VPC, can resolve the private hosted zone.
+
+    Split view is concept of using public and private hosted zone together. Private use for internal users and public for other users. 
+
+    In split view, few records can be public (www 12.12.13.14) and few records can be private (accouting 13.14.15.16)
+
+    It tagged to VPC. Multiple VPC can be tagged. Only can access from tagged VPC.
 
 
+CNAME VS ROUTE 53 ALIAS:    
+
+    CNAME doesnot support Naked/apex domain. (www.google.com <> google.com)
+    Naked domain is google.com
+    Normal domain is www.google.com
+
+    ALIAS is AWS supported record type which used to point naked domain.
+
+    Generally AWS resources like ELB points to DNS name.
+
+    A record Alias
+    CNAME record Alias.
 
 
+SIMPLE ROUTING:
+
+    It points WWW A record to IP address. 
+    
+    It doesnot have health check.
 
 
+HEALTH CHECK: 
+
+    It performs health check which separate from record set.
+
+    By default checks for every 30 sec.
+
+    It checks by establish TCP connection and respond through HTTP/HTTPS.
+
+    It checks connectivity + words (string match) available response content.
+
+    It is of 3 types,
+        end point   -   based on IP/domain. create internally in multiple regions.
+        calculated health check - use other health checks with AND/OR operation.
+        Use cloud watch alarm.
 
 
+MULTI VALUE ROUTING:
+
+    It is combination of simple routing and fail over routing.
+    It is single domain with multiple ip address.
+    When client calls, it returns 8 records (ip address) and client choose randomly.
+    When health check is failed, it will not return ip address to client.
 
 
+WEIGHTED ROUTING:
+
+    It is based on weightage.
+    Each record have associated health check. 
+    If health check is failed, then choose another record. 
+
+
+GEO PROXIMITY ROUTING:
+
+    It is based on the bias. If bias is larger, cover larger distance. If bias is small, cover smaller distance. 
+    It is based on the location of server.
+
+
+GEO LOCATION ROUTING:
+
+    It is based on record set is tagged to country or continent.
+    Useful for content delivering based on country.
+    IP address is used to take the country.
+
+
+FAILOVER ROUTING:
+
+    It is based on active passive type.
+    Primary is attached to health check. If primary failed, it route to secondary.
+
+
+LATENCY BASED ROUTING: 
+
+    It is based on the latency or quickest server to select for the record set. 
+    It consists of region tagged to server.
+
+
+ROUTE 53 INTEROPERABILITY: 
 
     
