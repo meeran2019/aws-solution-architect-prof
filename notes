@@ -857,4 +857,13 @@ LATENCY BASED ROUTING:
 
 ROUTE 53 INTEROPERABILITY: 
 
-    
+    It consists of 2 parts,
+        Domain registration -   Register the website in HLD using nameserver and domain name.
+        Domain hosting - Create the name server and this name server used to register. 
+
+    Both are separate process and can use AWS in either part.
+
+
+---------------------------------------------------------------------------------------------------------
+INTRODUCTION: 
+---------------------------------------------------------------------------------------------------------
