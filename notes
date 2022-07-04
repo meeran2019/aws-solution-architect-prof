@@ -865,5 +865,94 @@ ROUTE 53 INTEROPERABILITY:
 
 
 ---------------------------------------------------------------------------------------------------------
-INTRODUCTION: 
+STORAGE SERVICES: 
 ---------------------------------------------------------------------------------------------------------
+
+FSx FOR WINDOWS SERVER: 
+
+    This is like EFS but for windows server.It is Fully managed native windows file servers.
+    Designed for to integrate with file servers.
+    Can integrate with directory service or self managed AD.
+    Can deploy in single or multi AZ within VPC.
+    It support ondemand or scheduled backups.
+
+    Can be accessible using VPC, VPC peering, VPN connection, Direct connection.
+
+    It supports de-duplication, DFS(Distributed file system), KMS at rest and encryption in-transit.
+
+    Support file level versioning (volume shadow copies)
+
+    \\fs-xxxx.domain-name\file-name 
+
+    VSS - User driven restores 
+    Native file system accessible over SMB (Server Message Block). EFS uses NFS protocol. 
+    Uses windows permission model.
+    Support DFS (scale out file share structure)
+
+    AWS managed - No server admin.
+    Integrates with Directory Service or your own directory.
+
+---------------------------------------------------------------------------------------------------------
+
+FSX FOR LUSTRE:
+
+    Defined specifically high performance computing Linux clients (posix)
+
+    used for machine learning, bigdata, financial modelling.
+
+    100 gb/s throughput and sub millisecond latency.
+
+    Deployment types: 
+        Scratch: 
+            for short term. 
+        Persistent: 
+            for longer term , high availability, self healing.
+
+    can be accessible over vpn or direct connect.
+
+    At architecture level, it consists of:
+        Metadata Targets (MDT)
+        Object Storage Target (OST)
+
+    It uses ENI to connect to FSx for lustre.
+
+---------------------------------------------------------------------------------------------------------
+
+EFS (ELASTIC FILE SYSTEM): 
+
+    It is based on NFSv4 (Network file system) which can be mounted oon EC2.
+
+    It helps to store data outside of EC2 which doesnot lost.
+
+    Same EFS can be mounted on multiple EC2 instances.
+
+    EBS is block storage but EFS is file storage.
+
+    Can be accessed from onprem using VPN or direct connect, vpc peering.
+
+    It consists of,
+        General Purpose 
+        Max IO 
+
+    Throughput modes,
+        Bursting 
+        Provisioned 
+
+    Storage Classes, 
+        Standard 
+        Infrequent access
+
+    Can use lifecycle policies to move data between different classes.
+
+---------------------------------------------------------------------------------------------------------
+S3 OBJECT STORAGE VS EBS BLOCK VS EFS FILE STORAGE: 
+
+    OBject storage think of any videos, pictures, etc.
+    Block storage is attached to single instances.
+    File storage is attached to multiple instances.
+
+---------------------------------------------------------------------------------------------------------
+
+S3 OBJECT STORAGE CLASS: 
+
+    
