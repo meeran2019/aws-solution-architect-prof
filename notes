@@ -955,4 +955,93 @@ S3 OBJECT STORAGE VS EBS BLOCK VS EFS FILE STORAGE:
 
 S3 OBJECT STORAGE CLASS: 
 
+    S3 STANDARD: 
+        It is default storage class and object data is replicated across 3 AZ.
+        It provides 99.99999999999 (11 9s) durability.
+
+        data store is cost + out data transfer cost.
+        It should be used for frequently access data.
+
+    S3 STANDARD IA: 
+        It is same as standard.
+        It includes retrieval fee.
+        It has minimum duration charge of 30 days.
+    
+    S3 ONE ZONE IA: 
+        It stores the data in single AZ.
+        Use only for data can be regenerate or lose is fine.
+        It has minimum duration charge of 30 days like IA.
+    
+    S3 GLACIER INSTANT: 
+        Its like standard IA.
+        Minimum storage duration charge is 90 days.
+        More expense retrival costs.
+        Data can be accessed instantly and doesnot require any retrival process like standard s3 but higher cost.
+
+    S3 GLACIER FLEXIBLE RETRIVAL:
+        Cost is 1/6th of standard s3.
+        It requires retrival process to get the object.
+        Expedited - 1 to 5 mins
+        Standard - 3 - 5 hrs 
+        bulk - 5 to 12 hrs 
+        Cant make the object public and data not available immediately.
+        
+    S3 GLACIER DEEP ARCHIVE: 
+
+        180 minimum billable duration.
+        Jobs retrieved to standard IA and take much longer time to retrieve.
+
+    S3 INTELLIGENT TEARING: 
+
+        Object moved from one class to another depends upon duration of access.
+
+
+    S3 LIFE CYCLE CONFIGURATION: 
+
+        It provides different capabilities, 
+            move current version between storage class 
+            move non current version between storage class 
+            Expire current version of objects 
+            permanently delete non current version of objects 
+            delete expired object delete markers or incompatible multipart upload.
+
+        Can move from one storage class to another, 
+
+            Standard IA     -   mininum 30 days
+            Glacier Instant Retrieval - Minimum 30 days + standard ia retrival days. 
+            Glacier flexible retrieval - Minimum 90 days
+            Glacier deep archive - Minimum 180 days.
+
+
+    S3 REPLICATION:
+
+        It is used to store the data in another account or another region.
+        Versioning should be enabled on both source and destination.
+        Can select all objects or use prefix to limit or tags.
+
+        It consist of,
+            SRR - Same Region Application
+            CRR - Cross region Replication 
+
+        For cross account replication, requires bucket policy to trust the role from source.
+
+        NOTE: Default storage class is standard but can override to choose other class.
+
+        RTC (Replication Time Control) - have SLA of 15 mins.
+
+        NOTE: Can replicate encrypted objects using SSe-S3, KMS but cannot replicate objects which encrypted by using SSE-C 
+
+        Delete will not be replicated.
+
+
+    S3 OBJECT ENCRYPTION: 
+
+
+
+
+
+
+
+
+
     
