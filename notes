@@ -1397,6 +1397,29 @@ ELASTIC LOAD BALANCER:
         It may cause uneven load distribution to instances.
         If instance failure, load balancer doesnot send to failed instances.
 
+
+    CONNECTION DRAINING: 
+
+        Connection draining - Allow inflight request to complete and no new request are allowed.
+        It is supported only on CLB only and on load balencer level.
+
+        Deregistration delay - It is supported in ALB, NLB, GLB on target group level. Stop the load balancer to send the request to deregister target. Default is 300s upto 3600s.
+
+
+    X FORWARED FOR AND PROXY PROTOCOL:
+
+        When ELB is used, it send its own IP address instead of client IP address to servers.
+
+        x-forwarded-for:client 
+            This is http header. Header is added by proxies/LB.
+            This header will contains original client ip address and any other proxies.
+            Since layer 7 , only supported in ALB & CLB.
+            It support only HTTP/HTTPS.
+
+        proxy protocol:
+            It works on layer 4, TCP.
+            generally use with NLB.
+
 ---------------------------------------------------------------------------------------------------------
 
 ASG REFRESHER:
@@ -1412,7 +1435,27 @@ ASG REFRESHER:
         Dynamic Scaling: 
             Simple - based on metric like cpu.
             Stepped scaling - multiple step metrics value.
-            target tracking 
+            target tracking - maintain the target percentage of metric like cpu.
+
+    Cool down period - how long to wait before another scaling action to take place.
+
+    By default, uses ec2 status check. Self healing will replace failed instances automatically.
+
+    Can integrate with target group of ASG.
+
+    ASG can configure to use ELB health check instead of EC2 stautus check.
+
+    ASG defines when and where to launch instances, Launch configuration define what instances to define.
+
+
+    ASG LIFE CYCLE HOOKS:
+
+        It helps to setup custom actions on instances during ASG actions like instance startup or terminate.
+        Hook can integrate with SQS, SNS, Eventbridge.
+
+        Launch -> pending -> Pending wait (3600s default) -> Pending proceed -> Inservice (Continue using CompleteLifeCycleAction)
+
+        Terminate -> Terminate wait (3600s default) -> Terminate proceed -> Terminated
 
 
 
