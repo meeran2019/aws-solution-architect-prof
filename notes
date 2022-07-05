@@ -891,6 +891,7 @@ FSx FOR WINDOWS SERVER:
 
     AWS managed - No server admin.
     Integrates with Directory Service or your own directory.
+    NOTE: Simple AD is not supported.
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -899,6 +900,8 @@ FSX FOR LUSTRE:
     Defined specifically high performance computing Linux clients (posix)
 
     used for machine learning, bigdata, financial modelling.
+
+    Deploy in single AZ.
 
     100 gb/s throughput and sub millisecond latency.
 
@@ -919,6 +922,8 @@ FSX FOR LUSTRE:
 ---------------------------------------------------------------------------------------------------------
 
 EFS (ELASTIC FILE SYSTEM): 
+
+    Support POSIX.
 
     It is based on NFSv4 (Network file system) which can be mounted oon EC2.
 
@@ -956,6 +961,11 @@ S3 OBJECT STORAGE VS EBS BLOCK VS EFS FILE STORAGE:
 
 S3 OBJECT STORAGE CLASS: 
 
+    From s3 standard to s3 glacier , can move in 1 day.
+    In life cycle policy. move from IA to glacier only after 30 days.
+    For CRR, only support KMS & SSE-S3.
+    In CRR, objects not owned by source bucket are not replicated , replication is not retroactive or replication doesnot support SSE-C
+    
     S3 STANDARD: 
         It is default storage class and object data is replicated across 3 AZ.
         It provides 99.99999999999 (11 9s) durability.
@@ -1136,15 +1146,21 @@ AMAZON MACIE:
 
 EBS VOLUME TYPES:
 
-    GENERAL PURPOSE: 
+    Deploy in single AZ.
+    Support POSIX.
+
+    GENERAL PURPOSE SSD: 
         It consists of GP2, GP3.
+        IOPS is one chunk of 16kb in one second.
+        Baseline rate - 100 IO credits per second to fill credit.
+        Beyond 100 IO, 3 io rate per gb per second.
 
         GP2: (default)
             SSD based.
             From 1 GB to 16 TB.
             Get 3 IOPS per second per gb.
             Can burst upto 3000 IOPS.
-            Great for boot volumes. 
+            Great for boot volumes, data backups and database loading.
     
         GP3:
             SSD based.
@@ -1154,4 +1170,62 @@ EBS VOLUME TYPES:
 
     In gp2, dependsup on the size, iops and thorughput changes. As user dont have option to chose these. With GP3, removed this limitation and user can change iops/throughput. 
 
+
+    PROVISONED IOPS: 
+
+        It consists of IO1, IO2 & IO2 block express. 
+        Achieve a max of 64000 IOPS. upto 256000 for block express.
+        Used for low latency application, sub milli second latency requirement.
+
+    HDD (Hard Disk Drive) Based: 
+
+        st1:
+            Throughput optimized.
+            Read sequential data.
+            Max 500 IOPS.
+            Useful for bgigdata, data processing.
+
+        sc1:
+            Cold HDD.
+            For archival data.
+            Max 250 IOPS.
+            Useful for less frequently accessed data.
+
     
+    INSTANCE STORE VOLUMES: 
+
+        Support POSIX.
+        It provide block storage devices.
+        NOTE: Instance store volume can be attached only at launch. Unlike EBS, cannot attached after launch instances.
+        If instance moves from one host to another, data will be lost.
+
+        It is local on EC2 host.
+        Add only at Launch time.
+        If instance move, resize, hardware failure, data is lost.
+        It gives high performance.
+        Temporary data store.
+
+
+    INSTANCE STORE VS EBS VOLUMES:
+
+        EBS: 
+            Data is persistent.
+            Resilience
+            Have snapshot option.
+            Storage isolated from instance cycle.
+            
+        Instance Store:
+            Data is not persistent.
+            Not Resilient
+            best Cost 
+
+    Pure Cost efficacy - Cheap - st1 or sc1 
+    Throughput -    st1.
+    Boot - not hdd.
+    gp2/3 - upto 16,000 iops.
+    io1/2 - upto 64,000 iops.
+    io2 block express - 256,000 iops depends upon larger volume size.
+    RAID0 + EBS - 260,000 iops.
+    more than 260,000 iops - instance store volume.
+
+---------------------------------------------------------------------------------------------------------    
