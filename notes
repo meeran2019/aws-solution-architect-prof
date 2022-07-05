@@ -965,7 +965,7 @@ S3 OBJECT STORAGE CLASS:
     In life cycle policy. move from IA to glacier only after 30 days.
     For CRR, only support KMS & SSE-S3.
     In CRR, objects not owned by source bucket are not replicated , replication is not retroactive or replication doesnot support SSE-C
-    
+
     S3 STANDARD: 
         It is default storage class and object data is replicated across 3 AZ.
         It provides 99.99999999999 (11 9s) durability.
@@ -983,7 +983,7 @@ S3 OBJECT STORAGE CLASS:
         Use only for data can be regenerate or lose is fine.
         It has minimum duration charge of 30 days like IA.
     
-    S3 GLACIER INSTANT: 
+    S3 GLACIER INSTANT RETRIVAL: 
         Its like standard IA.
         Minimum storage duration charge is 90 days.
         More expense retrival costs.
@@ -1228,4 +1228,101 @@ EBS VOLUME TYPES:
     RAID0 + EBS - 260,000 iops.
     more than 260,000 iops - instance store volume.
 
----------------------------------------------------------------------------------------------------------    
+
+---------------------------------------------------------------------------------------------------------
+COMPUTE, SCALING & LOAD BALANCING: 
+---------------------------------------------------------------------------------------------------------
+
+REGIONAL & GLOBAL AWS ARCHITECTURE:
+
+    Global service location & discovery.
+    CDN and optimization.
+    Global health check and failover.
+
+    Global: 
+        Route 53 - DNS Server 
+        CDN - Content delivery caching which close to customer.
+    Regional: 
+        Most services are regional.
+
+        It consists of,
+            web tier -  
+            app tier -  ec2, lambda 
+            storage tier - ebs, efs
+            caching layer - DAX (dynamodb cache), elastic cache, redis, memcache
+            db tier - redshift, rds etc. 
+            app services - sqs, sns
+
+
+EC2 PURCHASE OPTIONS: 
+
+    On-demand: 
+        It is default and pay only for use.
+        per second billing only when instances is running.
+        It doesnot give any priority access when AWS failure.
+        It is suitable for short term workload.
+
+    Spot Pricing: 
+        It is cheapest.
+        Any ununsed compute is released to AWS.
+        AWS set the spot price and customers can quote the price. If customer price is less, then spot instances will be terminated.
+        Should not use for critical application which doesnot tolerate interruptions.
+    
+    Reserved Instances: 
+        Longterm usage 
+        Unused cannot be released.
+        Reservation for 1 year or 3 year
+        Payment options,
+            No upfront      -   less discount.
+            partial upfront -   medium discount.
+            Full upfront    -   high discount.
+        Schedule Reserved Instances: 
+            When require long time environment with specific timing.
+            min 1 year commitment.
+        Capacity Reservations:
+            It is useful when cant tolerate interruptions.
+            It consists of billing + capacity component.
+            It is of,
+                Regional reservation    -   region level across az.
+                Zonal reservation   -   at single az level.
+                Ondemand capacity reservation - still pay eventhough not use.
+        Savings Plan:
+            1 or 3 year commitment in hourly spend.
+            
+    Dedicated Host: 
+        Purchase the hosts and instances are hosted in hosts.
+        Pay for the hosts and not on instances.
+        Use for software license based on sockets or cores (physical machine).
+        Only your instances runs on hosts.
+        underlying host is customer managed.
+
+    Dedicated Instances:
+        Instances are placed in host. No other customer instances are placed under same hosts.
+        Pay for entire hosts + instances charge per hour.
+        Underlying host is aws managed. 
+
+---------------------------------------------------------------------------------------------------------
+
+EC2 NETWORKING:
+
+    When EC2 created, primary ENI is created automatically. Secondary ENI can be attached during instance creation or added later.
+    NOTE: ENI can be in different subnet but should be same AZ.
+    Security groups are associated with ENI not EC2.
+
+    ENI: 
+        primary private ip4 address.
+        1 or more secondary private ip address
+        secondary eni can be moved between instances.
+
+    Public IP address is assigned based on subnet settings.
+
+---------------------------------------------------------------------------------------------------------
+
+
+
+
+    
+
+
+
+
