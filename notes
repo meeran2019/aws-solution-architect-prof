@@ -1318,10 +1318,101 @@ EC2 NETWORKING:
 
 ---------------------------------------------------------------------------------------------------------
 
+BOOTSTRAPPING VS AMI BAKING:
 
+    Bootstrap is script placed in userdata. It is flexible but takes time.
 
+    AMI Baking is preconfigured with base os and application. It is used to deploy many instances. AMI to be created from instance. 
 
+    Best results can be achieved by combining both.
+
+---------------------------------------------------------------------------------------------------------
+
+ELASTIC LOAD BALANCER:
+
+    It accept the connection from customer and distribute connection to registered target compute.
+    User abstracted from infrastructure.
+    It support, 
+        IPV4 only
+        Dual Stack (Support both IPV4 & IPV6)
+
+    Types,
+        Internet facing     -   assign public and private ip address.
+        Internal            -   assign private ip address.
     
+    NOTE: Loadbalancers connect to both public and private EC2 instances irrepective of type chosen.
+
+    It require 8 or more free IP adddress , /28 or /27 subnet are used for load balancing.
+
+    Cross Zone Load Balancing: 
+        When traffic received by elb node, it transfer the traffic to target only within their AZ and cause uneven distribution of traffic.
+        With this cross zone, can send the traffic to target system in another AZ and useful for evenly distribution of traffic.
+
+
+    SESSION STATE: 
+
+        It is server side piece of information.
+        Persists while interact with application.
+        Session is created when interact with application and session state is stored.
+        Ex: Shopping cart added.
+        Session data can be stored internally in server or externally stateless server.
+
+        External server: 
+            keep separate server and instances uses this external server to get session data of the customer.
+            It helps when lloadbalancer choose different instances, it wont effect customer experiences.
+
+
+    APPLICATION VS NETWORK LOAD BALANCER:
+
+        ALB:
+            It is layer 7 which listens on HTTP/HTTPS.
+            IT doesnot support SSH, SMTP, gaming etc.
+            It has to listen using HTTP/HTTPS listener. No TCP/UDP listener.
+            Can understand layer 7 content like cookies, path, user location, custom header.
+            SSL connection is terminated in ALB and new connection established from ALB to application instances.
+            Must have SSL certificates installed on ALB if HTTPS used.
+            HTTPS slower compare to HTTP.
+
+            Rules are used to direct connections to target.
+            Rules processed in priority order.
+            Rule condition is host-header, http-header, http-request-method, path-pattern, query-string and source ip.
+
+            Actions can be forward, redirect, fixed-respone, authenticate-oidc, authenticate-cognito
+
+        NLB: 
+
+            It is based on layer 4 and understand TCP, TLS, UDP protocol.
+            No header, No session stickiness, no cookies understand.
+            It gives faster response.
+            It support SSH, gaming, SMTP
+            In health check, just check ICMP/TCP handshake 
+            Can have static IPs and use for whitelisting.
+            It support end to end encryption to instance through TLS.
+            Used with private link.
+
+    SESSION STICKINESS:
+
+        in ALB, stickiness enable at target group level.
+        ALB send the session details in cookies (AWSALB) to browser with expiry time. When next call, uses that cookies, reach to the specific instances.
+        It may cause uneven load distribution to instances.
+        If instance failure, load balancer doesnot send to failed instances.
+
+---------------------------------------------------------------------------------------------------------
+
+ASG REFRESHER:
+
+    Automatic scaling and self healing of ec2 instances.
+    Uses launch template or launch configuration.
+    Has minimum, desired, maximum value.
+    Keep running instances on desired. 
+    Scaling policies are used to automate based on metrics.
+    Manual scaling by adjust the desired capacity.
+    Scaling types are,
+        Scheduled scaling 
+        Dynamic Scaling: 
+            Simple - based on metric like cpu.
+            Stepped scaling - multiple step metrics value.
+            target tracking 
 
 
 
