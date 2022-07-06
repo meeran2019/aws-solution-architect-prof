@@ -1447,6 +1447,7 @@ ASG REFRESHER:
 
     ASG defines when and where to launch instances, Launch configuration define what instances to define.
 
+    It consists of Launch Template & Launch configuration. Launchc template can have multiple version and LC is immutable. Also LT provide more EC2 options like dedicated host. LC is legacy.
 
     ASG LIFE CYCLE HOOKS:
 
@@ -1457,6 +1458,58 @@ ASG REFRESHER:
 
         Terminate -> Terminate wait (3600s default) -> Terminate proceed -> Terminated
 
+---------------------------------------------------------------------------------------------------------
+
+EC2 PLACEMENT GROUPS:
+
+    How ec2 is placed in physical hardware.
+    It consists of 3 types,
+
+        Cluster placement group:
+            For highest performance.
+            Create a group and place all together in same group. 
+            Best practice is using same type of instance and launch all together.
+            All place in an single AZ.
+            Use the same rack.
+            Offers single stream data connection with 10gb/s.
+            If hardware fails, all instances down.
+
+        Spread:
+            It ensure maximum availability and resilience.
+            Spread across AZ.
+            Each instance has separate rack.
+            Limit of 7 instances per AZ.
+            Not supported for dedicated instances or host.
+
+        Partition:
+            Similar to spread.
+            It is multi AZ.
+            Create a multiple partition with each limit of 7 instances.
+            Each partition has its own racks.
+            Useful for huge scale parallel processing.
+            Instances can be place in specific partition.
+            Great for topology aware application like HDFS, Cassandra etc.
+            Impact only at partition level.
+
+---------------------------------------------------------------------------------------------------------
+
+GATEWAY LOAD BALANCER:
+
+    From public subnet which connect to internet, requires security appliances which filter inbound and outbound data to subnet. This security appliances cannot scale well dependsupon instances.
+
+    GLB helps to run and scale 3rd party security appliances like firewall, intrusion detection and prevention system.
+
+    It consists of,
+        endpoints   -   traffic enters/leaves in this.
+    
+    It uses a protocol GENEVE means packets are not altered. 
+
+    Client -> GLB endpoint -> GLB (Use GENEVE protocol) -> Security Appliances.
 
 
+---------------------------------------------------------------------------------------------------------
+MONITORING, LOGGING & COST MANAGEMENT:
+---------------------------------------------------------------------------------------------------------
+
+    
 
