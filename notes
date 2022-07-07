@@ -1626,21 +1626,69 @@ TRUSTED ADVISOR:
 
     For business plan,
         Access for AWS support API.
-        
+
 ---------------------------------------------------------------------------------------------------------
 DATABASES:
 ---------------------------------------------------------------------------------------------------------
 
+RDS (Relational Database): 
+
+    Database as a service
+    Managed database a service which holds 1 or more databases.
+    It supports, 
+        Mysql, Mariadb, postgresql, microsoft sql server, oracle
+
+    Amazon Aurora.
+
+    Use CNAME to connect to RDS intances.
+    It can be single or multi AZ.
+    It is based on multiple instance type like db.m5 , db.r5 or db.t3
+    EBS is attached to instances which is og gp, io , magnetic.
+    Security group is attached to RDS instances.
 
 
+    RDS MULTI AZ: 
 
+        It create the standby instance in another AZ.
+        From primary to standby, synchronous replication happen.
+        Only user can use primary CNAME to connect to instance.
+        If any error in failover, endpoint change to standby with lag of 60 to 120s.
+        NOTE: MultiAz occur only within same VPC, Region, another AZ.
+        Backups taken from standby and no impact on primary.
+    
 
+    RDS BACKUP AND RESTORES:
 
+        RPO - How much data can be lose.
+        RTO - With how long can withstand downtime.
 
+        Backup consists,
+            1. Automated backup - backup occur during backup window. 
+                every 5 mins transaction logs written to s3.  gives rpo of 5 mins.
+                retention is 0 to 35 days.
 
+            2. Manual snapshot - delete rds instances will not delete manual snapshot.
 
+        Restores, 
+            Creates a new rds instances.
+    
 
+    RDS READ REPLICAS:
 
+        It provides performance benefits.
+        Read replicas are used only for read operations.
+        From primary, asynchronous replication to replica instances.It could cause delay in replica.
+        Cross region read replica - in another region.
+        can have 5 read replicas per db instance.
+        Read replicas can have another read replicas, but have lag problem.
+        Can promote read relica to primar instance.
+    
+    
+    RDS DATA SECURITY:
 
+        Authentication - map rds user with iam identity.
+        Authorization - it handle internally in rds.
+        Encryption at rest - Support KMS & EBS encryption. 
+        Encryption in transit - encrypted via ssl/tls. 
 
 
