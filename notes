@@ -1681,7 +1681,7 @@ RDS (Relational Database):
         Cross region read replica - in another region.
         can have 5 read replicas per db instance.
         Read replicas can have another read replicas, but have lag problem.
-        Can promote read relica to primar instance.
+        Can promote read replica to primary instance.
     
     
     RDS DATA SECURITY:
@@ -1690,5 +1690,109 @@ RDS (Relational Database):
         Authorization - it handle internally in rds.
         Encryption at rest - Support KMS & EBS encryption. 
         Encryption in transit - encrypted via ssl/tls. 
+
+
+    AURORA ARCHITECTURE: 
+
+        It uses a "CLUSTER"
+        It consists of single primary instances + 0 or more replicas.
+        Replicas inside aurora provide both availability + read performance.
+        It uses a shared cluster volume. Maintains 6 storage node across AZ. High IOPS, low latency.
+        Can have upto 15 replcas.
+
+        It have multiple endpoint. Cluster endpoint , Reader endpoint. 
+        It is compatible with mysql & postgresql.
+        Backtrack is to allow to point in time rollback.
+        It gives faster clones.
+
+
+    AURORA SERVERLESS: 
+        
+        No need to static provision instance or size.
+        ACU - Aurora Capacity Units, with min and max acu.
+
+    AURORA MULTI MASTER:
+
+        In default aurora, have single master, single write and multiple read.
+        In multi master, have both write and read. 
+
+
+DYNAMODB: 
+
+    It is nosql wide column. It is based on key value pair and document.
+    It is multi AZ and global.
+    Single digit milli seconds.
+    Backups, point in time recovery.
+
+    Items - Row 
+    Keys are of simple primary key or composite primary key.
+    Item is max size of 400 kb.
+    It is of provisioned and ondemand capacity.
+    WCU (write capacity unit) - 1kb/s
+    RCU (Read capacity unit) - 4kb/s
+
+    Ondemand backup - similar to manual rds backup to same or cross region.
+    point in time recovery - disabled by default and to enable at table level. gives 35 day recovery window with 1 second granularity.
+
+    Query: 
+        query single item based on key
+    Scan:
+        least efficient and expensive
+        filter non partition key attributes.
+    
+    Consistent Model: 
+
+        Eventual Consistent Read:
+            It is not guarantee to get latest data.        
+            half the rcu cost.
+
+        Strong Consistent Read:
+            Gurantee to get latest data from leader node.
+            4 kb/s 
+
+
+    DYNAMODB INDEXES:
+
+        LSI (Local Secondary Index):            
+            It allow multiple query.
+            same partiton key + different sort key. 
+            It must be created during base table created, cannot add later.
+            5 LSI per table.
+            Shares the RCU & WCU of base table.
+            Attributes - All, key only, include.
+
+        GSI (Global Secondary Index):
+            Allow differnt sort key and partition key. 
+            Can be created at any time.
+            20 per base table.
+            Have own rcu & wcu
+            It is always eventual consistent because load data from base table.
+        
+    
+    DYNAMODB STREAMS & TRIGGERS:
+
+        It is time order list of item changes in table.
+        Enable on per table basis.
+        Records update, delete , insert.
+        Different view types influence what is in the stream.
+                Key Only, New Image, Old Image, New and Old Image.
+        
+        Triggers are used to trigger based on the event in dynamodb.
+        Can trigger lambda in response to data change.
+        It is useful for reporting or analytics, data aggregation, messaging ot notification.
+
+        streams + lambda -> trigger 
+
+
+    DYNAMODB ACCELERATOR: 
+
+        
+
+
+        
+
+
+
+
 
 
