@@ -1716,6 +1716,7 @@ RDS (Relational Database):
         In default aurora, have single master, single write and multiple read.
         In multi master, have both write and read. 
 
+---------------------------------------------------------------------------------------------------------
 
 DYNAMODB: 
 
@@ -1784,9 +1785,97 @@ DYNAMODB:
         streams + lambda -> trigger 
 
 
-    DYNAMODB ACCELERATOR: 
+    DYNAMODB ACCELERATOR (DAX): 
 
-        
+        inmemory cache for dynamodb
+        retrive data in microseconds.
+        It is placed multi AZ and consists of primary and replica nodes.
+        Primary node (write) and replica node (read)
+        Dynamodb is in public but DAX is within VPN.
+        Supports write through.
+
+        Not suitbale if require strong consistency read.
+
+        Tradidional cache:
+            application -> Cache (cache hit)
+                        -> database (cache miss)  -> application -> cache (to store in cache)
+
+        Dax: 
+            application (dax SDK) -> dax -> dynamodb  (dax handle the request to db and store response before send back to application)
+
+
+    DYNAMODB GLOBAL TABLES: 
+
+        It provides multi master cross region replication.
+        Read and write occurs to any region.
+        Strong consistent only in region which writes.
+
+
+    DYNAMODB TIME TO LIVE(TTL):
+
+        Attributes have ttl to live and deleted after.
+        Pick and attribute to use for ttl process which contain timestamp in epoch.
+        First set to expired and then to deleted.
+        Can also configure a stream on TTL.
+
+---------------------------------------------------------------------------------------------------------
+
+AWS ELASTICSEARCH:
+
+    It is part of ELK stack.
+    Managed implementation.
+    It runs with in VPC.
+    It provides search and indexing services. 
+
+    kibana - visualizationn/dashboard 
+    logstash - similar to cloudwatch log. logstah agent is required to installed.
+
+---------------------------------------------------------------------------------------------------------
+
+ATHENA: 
+
+    It is serverless query service to access data in s3 using SQL statement.
+    Pay for data consumed.
+
+    It has no infrastructure.
+    doesnot require ETL process.
+    Querying vpc flow logs, logs in S3, AWS glue data log & webserver logs.
+    Athena Federated query can source non s3 using connector.
+
+---------------------------------------------------------------------------------------------------------
+
+AMAZON NEPTUNE:
+
+    It is managed graph database.
+    It is based on relationship between data.
+    It is very much like RDS.
+
+    graph style data.
+    fliud relationship, social media.
+    fraud detection.
+    recommendation engine
+    network and it operations.
+
+---------------------------------------------------------------------------------------------------------
+
+AMAZON QUANTUM LEDGER DATABASE:
+
+    Part of blockchain range of products.
+    It is ummutable append onlt ledger based db.
+    It is serverless.
+    Also stream data to kinesis.
+    Document DB model based on json model.
+    ACID - Work all or none.
+
+
+---------------------------------------------------------------------------------------------------------
+DATA ANALYTICS:
+---------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
 
         
