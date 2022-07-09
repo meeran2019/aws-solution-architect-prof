@@ -1872,16 +1872,124 @@ AMAZON QUANTUM LEDGER DATABASE:
 DATA ANALYTICS:
 ---------------------------------------------------------------------------------------------------------
 
+KINESIS DATA STREAMS:
+
+    It is a scalable streaming service.
+    Producers send data in kinesis stream.
+    Public service and highly available.
+    Stream stores 24 hrs of streaming data.
+    Support multiple consumer read data.
+
+    Kinesis is of shard architecture. Starts from 1 shard. 
+    Shard support 1m/b ingestion, 2m/b consumption.
 
 
+KINESIS DATA FIREHOSE:
+
+    Kinesis stream doesnot store data.
+    Kinesis firehose used to store data for long term.
+    It is fully serverless and scale.
+    Near real time delivery (60 seconds)
+    Support transformation of data on the fly using lambda.
+    Deliver to HTTP endpoints, S3, Redshift, Elasticsearch.
+    Producer can be stream or other source.
 
 
+KINESIS DATA ANALYTICS:
+
+    It is real time data processing product using SQL.
+    Source can be streams or firehose or s3 bucket.
+    Destination can be firehose, Lambda, Kinesis data streams, 
+
+---------------------------------------------------------------------------------------------------------
+
+MAPREDUCE:
+
+    It is based on split, split into smaller parts for computation.
+    After computation, merger to get the output.
+    Uses HDFS (Hadoop)
+
+---------------------------------------------------------------------------------------------------------
+
+EMR (Elastic Map Reduce) ARCHITECTURE: 
+
+    Can be long term or short term (transient) clusters.
+    Runs in one AZ only with in VPC.
+    Can use spot, reserved , on demand, instance fleet.
+    Used for big data processing.
+    Source can be s3 
+    Destination to s3.
+    For intermediate storage, uses HDFS for high IO or EMRFS s3.
+
+    Cluster consists of master nodes upto 3 master nodes. 
+    1 or many Core nodes which helps to track and run tasks which runs HDFS.
+    Task node - only runs tasks. 
+
+    EMRFS - File system backed by s3 and provides resilient against failure of specific AZ. 
 
 
-        
+---------------------------------------------------------------------------------------------------------
+
+REDSHIFT ARCHITECTURE:
+
+    It is column based, petabyte scale, DWH product.
+    It is used for reporting and analytics.
+    RDS is OLTP but redshift is OLAP.
+
+    Redshift spectrum - Direct query s3. 
+    federated query - query directly in remote source like other db.
+    Integrated with AWS tooling like Quicksight.
+    SQL like interface like jdbc/odbc connections.
+
+    It is NOT serverless.
+    Runs in one AZ.
+    Leader node , Compute node.
+
+    Enhanced VPC Routing - Traffic is routed based on VPC networking like using security group, NACL etc.
+
+    Automatic backup to s3 for every 8 hrs.
+    Manual snapshot to L3 
+    Data is copied to additional node.
+
+    DMS to migrate data to redshit. From kinesis firehose, to redshift.
+
+    Backups: 
+        Automatic backup for every 8 hrs or 5gb and configurable upto 35 days.
+        Manual snapshot.
+        Snapshots to another region.
+
+---------------------------------------------------------------------------------------------------------
+
+AWS BATCH: 
+
+    It is managed batch processing.
+    Job is a work which runs in container in AWS.
+    job definition - metadata for the job.
+    job queue - jobs are submitted to queue and wait for compute environment.
+    compute environment - configure instance details.
+
+    Source can be lambda, step functions, event bridge, 
+    Destination can be s3, dynamodb, Step functions, Event bridge, 
+
+    lambda has execution limit of 15 mins, AWS batch has no limit.
+    lambda has limited disk space. 
+    Batch is not serverless , uses containers. No time limit. 
+
+    Compute resource consists of Fargate(AWS Managed) and Customer managed.
+
+---------------------------------------------------------------------------------------------------------
+
+AWS QUICKSIGHT:
+
+    It is business analytics/business intelligence service.
+    visualization or dashboard. 
+    Source can be AWS (Athena, Redshift, redshift spectrum, sql, teradata, twitter, github) or external data source. 
 
 
+---------------------------------------------------------------------------------------------------------
+APP SERVICES, CONTAINERS & SERVERLESS:
+---------------------------------------------------------------------------------------------------------
 
+INTRODUCTION TO CONTAINERS: 
 
-
-
+    
