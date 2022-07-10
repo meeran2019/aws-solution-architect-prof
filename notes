@@ -2318,8 +2318,36 @@ LAMBDA:
 
 ---------------------------------------------------------------------------------------------------------
 
+CLOUDWATCH EVENTS & EVENT BRIDGE:
+
+    When any AWS services generate events , it is detected and trigger other actions.
+
+    Both have default event bus in single account , bus is stream of events.
+
+    In cloudwatch event, only one event bus available (implicit).  In event bridge, can create additional bus. 
+
+    In event bridge, consists of rules. select source or event pattern or cron schedule and target system.
+
+---------------------------------------------------------------------------------------------------------
+
+API GATEWAY:
+
+    
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------
