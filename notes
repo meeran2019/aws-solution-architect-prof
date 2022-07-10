@@ -1992,4 +1992,240 @@ APP SERVICES, CONTAINERS & SERVERLESS:
 
 INTRODUCTION TO CONTAINERS: 
 
+    dockerfile
+    container 
+    host 
+
+
+ECS CONCEPTS:
+
+    Elastic Container Service
+    It consists of partial (ec2 mode) or fully managed (fargate)
+
+    ECS Cluster - From where container runs.
+    Container definition - where image is located, port.
+    task definition -  cpu & memory, task role. By default not high available. 
+    ECS Service - Service definition - defines the service - how to task scale, deploy load balancer to different tasks. selecr no of tasks. 
+
+
+ECS CLUSTER TYPES: 
+
+    EC2 Linux & EC2 windows: 
+        Gives manually instance type, security group, ondemand or spot, no of instances, vpc.
+
+    Fargate (Networking only): 
+        Have option to create a new VPC.
+        No need to manage ec2 instances.
+        Tasks and services running in shared fargate infrastructure and these injected into VPC using ENI.
+        Only pay for the container resources.
+
+
+---------------------------------------------------------------------------------------------------------
+
+SIMPLE NOTIFICATION SERVICE (SNS): 
+
+    It is in public zone. 
+    It is PUB/SUB system in AWS.
+    It is POP, SOAP messaging service.
+    Messages are 256<= size.
+    Coordinates the sending and delivery of message.
+    SNS Topics used to configure and permission.
+    SNS send message of <=256 size to TOPICS.
+    In Topics, user subscribed it who will receive message.
+    In TOPIC, target can be HTTPS & HTTPS endpoint, email address, SQS, Mobile push notification, SMS message & Lambda.
+    It is integrated with multiple AWS like cloudwatch, cloudformation, auto scaling group.
+    Also possible to apply filter on a subsciber. 
+
+    Fanout Architecture: 
+        Single SNS -> Multiple SQS Subscriber. 
+
+    Delivery status - Send the status of delivery to subcribers. 
+    Delivery Retries 
+    HA & Scalable.
+    SSE encryption
+
+    support cross account by using topic policy.
+
+---------------------------------------------------------------------------------------------------------
+
+SIMPLE QUEUE SERVICE (SQS):
+
+    It is public service , fully managed and highly available.
+    It consists of standard and FIFO.
+    Upto 256kb 
+    Client -> Queue -> Client poll.
+
+    Visibility timeout - Client poll the message and process it and then to delete the message. Once client polled, it will be hidden for some time is called visibility timeout and client must process and delete from the queue. If failure, same message will visible for other queue and can process again.
+    Visibility timeout - default 30s, support from 0s - 12 hrs.
+
+    Dead Letter queue - Problematic message is send to separate queue.
+    Used to decouple the application.
+    ASG can scale based on queue length. Lambda can be invoked when message appear on queue.
     
+    Billed based on request.
+    Short(immediate) and Long (waittimeseconds) polling.
+    Encryped at rest and intransit. 
+    Access to queue is based on identity policy or queue policy (similar to bucker policy used for cross account)
+
+    Standard: 
+        Not guarantee to receive in order. 
+        atleast once delivery 
+        
+    FIFO: 
+        First In First Out 
+        It guarantees the order. 
+        exact once delivery 
+        performance is limited, 3000 messages/s
+        It has valid fifo suffix.
+
+    
+    SQS EXTENDED CLIENT LIBRARY: 
+
+        SQS message size limit of 256kb. This helps to process payload > 256kb.
+        Larger payloads stored in S3 and store the s3 link in payload.
+
+        Send message - upload to s3 and send link.
+        Receive message - using link to download from s3.
+        delete message - delete data in s3.
+
+    
+    SQS DELAY QUEUE: 
+
+        Allow you to postpone the delivery of message to consumers.
+        Once message placed in queue, it will not available for the given period to consumers.
+        Default is zero and mximum of 15 mins. 
+        Not supporte in FIFO.
+
+
+    SQS DEAD LETTER QUEUE:
+
+        It helps to handle failure (if message not processing)
+        Based on receive account attribute, if failed (receivecount > maxreceivecount) then move to dead letter queue.
+        NOTE: Message remain only on retention time which is based on NQ time (updated on first message placed)
+
+---------------------------------------------------------------------------------------------------------
+
+AMAZON MQ:
+
+    It is like merge between SQS & SNS but using open standard.
+    SNS/SQS uses AWS API. SNS uses TOPIC , SQS uses QUEUES. both public services and highly scalable.
+
+    Companies already have queing and topics system. AWS MQ based on open standard which support on-prem queue.
+
+    It is NOT PUBLIC and runs within VPC. Doesnot have native integration with other AWS services.
+
+    Since this is not public, to integrate on-prem to MQ requires direct connect, vpn connection.
+
+    If API such as JMS, Protocol such as AMQP, MQTT, Openwire and STOMP are needed.
+
+---------------------------------------------------------------------------------------------------------
+
+LAMBDA: 
+
+    Lambda is function as a service which runs short lived and focussed  and run up to 15 mins. 
+    It uses a run time (python)
+    Functions are loaded and run in runtime environment.
+    Directly allocate memory which indirectly allocates CPU.
+    Billed for the duration its running.
+    It is key part of serverless architecture.
+
+    NOTE: Enable function URL - used to create lambda with HTTP/S endpoint. 
+
+    It consists of,
+        language to run
+        deployment package 
+        run time environment
+
+    It support run time of, 
+        python, ruby, java, go, c++, nodejs 
+
+    NOTE: Can use container IMAGES with lambda. 
+    Custom runtime allow additional run time like Rust.
+    When lambda is invoked everytime create new environment as stateless.
+    memory from 128mb to 10240 mb.
+    has disk memory of 512 mb in /tmp.
+
+    Uses IAM roles to assume to interact with AWS services.
+
+    It used to integrate with S3, API, Lambda, dynamodb stream, dynamodb trigger, eventbridge, kinesis.
+
+
+    LAMBDA NETWORKING:
+
+            Public: 
+                default connection.
+                can access aws pulic services and public internet.
+                have no access to access within VPC.
+
+            Private(VPC): 
+                Lambda is configured to run within VPC.
+                Cant access outside of VPC unless network configured.
+                It can use endpoint to connect aws public services and use nat/internet gateway to access internet.
+
+                NOTE: It doesnot actually run within VPC but similar to fargate. From lambda service VPC, it creates ENI in customer VPC. For per subnet per security group uses the single ENI. First invocation it takes 90s delay but after no delay.
+
+    LAMBDA PERMISSION: 
+
+        execution role - used by lambda to assume role to access aws resources.
+
+        NOTE: It has Resource policy which is similar to bucket policy. It cant be changed using UI but only through API & CLI. To allow external resources to access Lambda.
+
+    LAMBDA MONITORINIG: 
+
+        uses cloudwatch, cloudwatch logs, xray 
+
+        Logs from lambda executions stored in logs. This require lambda execution role to give cloudwatch permission.
+
+        Any metrics like no of invocation is captured in cloudwatch.
+
+        Distributed tracing is captured in xray.
+
+
+    LAMBDA INVOCATION: 
+
+        Synchronous: 
+
+                If CLI/API/API gateway  (request) -> Lambda   ->  CLI/API/APigateway (response) 
+                CLI/API wait for the response from lambda.
+                API gateway receive response from lambda for the request.
+                Any error or retry to handle in client side.
+    
+        Asynchronous:
+
+                It is typically used by AWS.
+                s3 event  (request) -> lambda (failure and retry handled in lambda)
+                It doesnot wait for response, fire and forget. 
+                If any failure, it send message to dead letter queue.
+                It support destination to SNS, SQS, Lambda, Eventbridge for both successful and failure. 
+
+        Event Source Mapping:
+
+                Typically used on stream or queue which dont generate event to invoke lambda.
+                Kinesis , dynamodb streams, sqs 
+                
+                stream -> Event source mapping ( polls streams or queue for new data and get in source batch and send as event batch) -> Lambda
+                Event source mapping uses execution role of lambda so requires kinesis or queue policy.
+
+                NOTE: Invoking source permission not needed for syn or asynch invocation. In event source mapping uses execution role to poll from source, so source permission is required.
+
+                If any failure send to SQS or SNS.
+
+        
+        LAMBDA VERSIONS: 
+
+            Lambda can have different versions.
+            A version is code + configuration.
+            Version is immutable and have ARN. 
+            $Latest refer to the latest version and NOT IMMUTABLE.
+            Aliases point to version and this can be changed. 
+
+
+        EXECUTION CONTEXT: 
+
+            It is an run time environment on which code will be executed. 
+            cold start - download dependancy + code to execute 
+            warm start - use the previous execution context and run the code directly.
+
+            After first invocation, second invocation to happen immediate on same execution context.
+
+
