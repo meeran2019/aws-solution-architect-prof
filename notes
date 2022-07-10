@@ -2228,4 +2228,98 @@ LAMBDA:
 
             After first invocation, second invocation to happen immediate on same execution context.
 
+    
+    LAMBDA HANDLER: 
+
+        Lambda has default execution limit of 3s.
+
+        provisioned concurrency is used to prewarm the function.
+
+        Lambda execution environment. It has different status, 
+            INIT -  Create Environment
+                    Extension Init
+                    Runtime Init 
+                    Function Init
+
+            INVOKE - Cold start 
+            NEXT INVOKE - Warm start 
+            SHUTDOWN - Terminate the environment 
+                Runtime 
+                Extension 
+
+        Any code before lambda_handler goes through cold start. 
+        Under lambda_handler runs for every invocation. 
+        def lambda_handler(event, context);
+
+        Handler -> lambda_function(file-name).lambda_handler (function-name)
+
+
+    LAMBDA VERSION:
+
+        $LATEST - it is latest version and can be editable.
+        Functions can be published using version and this is IMMUTABLE.
+        Version include code + dependancies + env variables + runtime settings.
+        Version have qualified ARN and $LATEST is unqualified ARN.
+                arn:aws:lambda:us-east-1:937563834:function:animal      -> unqualified (no version)
+                arn:aws:lambda:us-east-1:937563834:function:animal:1    -> qualified (have version)
+
+    LAMBDA ALIAS:
+
+        It is a pointer to function version.
+        Create alias called dev, qa, prod and attach to specific version.
+        Alias can be modified to different versions.
+        It is useful for blue/green or a/b deployment.
+
+        Also allow canary routing to versions based on percentage.
+
+    
+    LAMBDA ENVIRONMENT VARIABLES:
+
+        It is key value pair.
+        $LATEST     -   latest version.
+        Accessed by code during run time.
+        Can be encrypted with KMS.
+        Allow code execution adjusted based on this variable.
+
+
+    LAMBDA LAYERS:
+
+        Without layers, include dependency libraries like numpy as package in zip.
+        Layers are stored in /opt folder.
+        It consist of,
+            AWS Layer
+            Custom Layer 
+            Specify an ARN.
+
+    
+    LAMBDA CONTAINER IMAGES:
+
+        It is integrated with ECR to select the ECR image.
+        ENTRYPOINT, CMD, WORKDIR can be overridden.
+
+        Other configuration are same as normal lambda.
+
+        AWS Lambda Runtime Interface Emulator (RIE) - for local test
+
+        Generally used for CICD process, 
+                Git -> Generate image with RIE -> Generate Image without RIE -> Store in ECR -> Use that image in Lambda function.
+    
+
+    LAMBDA & ALB INTEGRATION:
+
+        Client -> ALB (convert from http to json format) -> Lambda  -> ALB (convert from json to http format) -> Client
+        ALB invokes synchronously to Lambda.
+
+        Supports Multi value header: 
+
+            Request:  http:example.com?&search=apple&search=banana 
+            without multivalue header - Lambda receives latest value alone search=banana in querystringparameter. 
+            with multivalue header - Lambda receives multiple values in multivaluequerystringparameter as list.
+
+---------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
