@@ -2437,6 +2437,103 @@ OPEN API & SWAGGER:
 
 ---------------------------------------------------------------------------------------------------------
 
+AWS STEP FUNCTIONS:
 
+    With lambda uns only for 15 mins.
+    Can build chain of function but have admin overhead and not designed for this.
+    Lambda is stateless and data cannot be moved from one function to another.
+
+    Step function is state machine which creates workflow. 
+    Serverless workflow.
+    Maximum duration is 1 year.\0=p\p
+
+    Types, 
+        Standard workflow - default and 1 year. 
+        Express workflow  - streaming workflow upto 5 mins. 
+
+    It can be started by API gateway, event bridge, lambda, manual etc. 
+    Amazon states language based on json.
+    IAL role is used for permission.
+
+    State types,
+        Succeed and Fail
+        Wait 
+        Choice  -   Email only, SMS only , Both Email & SMS. 
+        Parallel 
+        map 
+        task - represent a single unit of work. 
+
+---------------------------------------------------------------------------------------------------------
+
+SIMPLE WORKFLOW SERVICE:
+
+    It is legacy and step function is recommended.
+    It is predecessor of step functions.
+    It require external signal (decider) to intervene in process and multiple decider is required.
+    1 year maximum run time.
+
+    Step function - serverless / lower admin
+    AWS Flow framework - Choose SWF.
+    External signals to intervene in process - SWF 
+    Launch child flows and return to parent - SWF 
+    Bespoke / complex decision - SWF 
+    Integrate with mechanical turk - SWF 
+
+---------------------------------------------------------------------------------------------------------
+
+AMAZON MECHANICAL TURK:
+
+    It is a crowdsourcing marketplace that easier for individuals and businesses to outsource their process and jobs to distributed workforce who can perform tasks virtually.
+    Tasks can be from data validation to research.
+    Requester place tasks in market place -> Workers work based on interest and return get payment.
+    It can be integrated with SWF.
+
+---------------------------------------------------------------------------------------------------------
+
+ELASTIC TRANSCODER & AWS ELEMENTAL MEDIA CONVERT:
+
+    Elemental media convert is successor of elastic transcoder.
+    File based video transcoding services.
+    serverless
+    Add jobs to pipelines (transcoder) and queue (media convert)
+    Media convert support event bridge.
+
+    NOTE: Media convert is used when serverless, media convertion. Used in combination with lambda and other serverless product. 
+    Elestic Transcoder used when webM(vp8/vp9) format, animated gif, mp3, flac, vorbis, mav.
+
+---------------------------------------------------------------------------------------------------------
+
+AWS IOT (Internet of Things):
+
+    It provides device shadow functionality.
+    Rules and event driven integration with aws service.
+
+    IOT Gateway - Endpoint through with sensors communicate.
+    IOT Shadows - Store the data sent by sensors.
+    IOT Rule - Can set the condition and based on trigger event bridge.
+    Can integrate with kinesis to store stream data.
+
+---------------------------------------------------------------------------------------------------------
+
+AWS GREENGRASS:
+
+    For example: send data from wind farm to AWS IoT cause communication problem.
+    So move lot of processing locally using greengrass.
+    Greengrass can communicate with IOT.
+
+---------------------------------------------------------------------------------------------------------
+
+SAM (SERVERLESS APPLICATION MODEL):
+
+    It is open source framework used to build serverless application.
+
+    Serverless Application consists of one or more serverless application like s3, cloudfront, apigateway, dynamodb etc to develop application.
+
+    SAM Template Specification - Extension of Cloud Formation used to define the application. 
+    AWS SAM CLI - Used to process template. 
+
+    sam init        -   to initialize the project 
+    sam package     -   Build zip file and upload to s3
+    sam deploy      -   sam-deploy.yaml file created used to deploy application in aws. 
 
 ---------------------------------------------------------------------------------------------------------
