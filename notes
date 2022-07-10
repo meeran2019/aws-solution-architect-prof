@@ -2332,22 +2332,111 @@ CLOUDWATCH EVENTS & EVENT BRIDGE:
 
 API GATEWAY:
 
-    
+    It is a service which let create and manage APIs.
+    It act as endpoint or entrypoint into application.
+    It handles authorization, throttling, caching, CORS, transformations, Open API spec.
+    It is public service. 
+
+    It consists of following types,
+        HTTP API
+        Websocket API
+        REST API Public
+        REST API Private
+
+    It does,
+        Request     -   Authorize, Vaidate and Transform
+        Response    -   Transform, Prepare and Return
+        Integration -   Integrate with cloudwatch for logs, cache.
+
+    Authentication: 
+        1. Cogniti user pool: Can use cognito user pool for authentication and API gateway able to validate userpool token.
+                cognito user pool -> API Gateway 
+
+        2. Lambda AUthorization: Also known as custom authorization. From client, pass some level of authorization token. Request passed to Lambda which validate the token.
+                Client -> API gateway -> Lambda authorizer (returns IAM policy and principal)
+
+    Endpoint Types: 
+        Edge optimised - Route to nearest cloudfront POP.
+        Region optimised - Clients in same region.
+        Private - accessible only within VPC via interface endpoint.
+
+    Stages: 
+        Deploy API as stages. 
+        Each stage have unique URL to access.
+        It can enable canary deployment on stages.
+        Caching is configured per STAGE.
+
+    Errors:
+        4xx series - Error in client side
+        5xx series - Error in server side
+        400 - Bad request - Generic error 
+        403 - access denied error 
+        429 - API Throttle.
+        502 - Bad gateway exception 
+        503 - service unavailable
+        504 - integration failure/timeout
 
 
+API GATEWAY METHODS & RESOURCES:
+
+    /   -   root resource
+    /example    -   another resource
+
+    Methods:
+        get, put, post 
+
+    Once resource and method is created, require to deploy to stages.
 
 
+API GATEWAY INTEGRATIONS:
+
+    Method Request
+    Integration Request 
+
+    Method Response 
+    Integration Response 
+
+    NOTE: In integrataion request/response, data can be passed directly or do transformation.
+    AWS_PROXY - data pass directly without change.
+
+    Integration Types, 
+        MOCK -  used for testing. no backend involvement.
+        HTTP - Backend http endpoint. Might require integration request/response change.
+        HTTP Proxy - No change in integration request/response.
+        AWS - Connect with other AWS services. AWS_PROXY used to send/receive data as it is. Incase of lambda, data transformation to be handle by Lambda.
+
+    Mapping template is used for data transformation.
+    Mapping template is used to,
+        Modify header 
+        Modify body
+        Modify parameters
+        Filtering
+        Uses velocity template language.
+
+    REST API  (Use mapping template) -> SOAP API 
 
 
+API GATEWAY STAGES & DEPLOYMENT:
+
+    Deployment happen as stages.
+    Stage variable is like environment variable which can be point to aliases in lambda. 
+    Instead of directly point to Lambda version/alias use stage variable to refer.
 
 
+OPEN API & SWAGGER:
 
+    Open API is standard. 
+    Open API v2 is also called Swagger
+    Open API v3 is latest version.
 
+    API gateway support IMPORT of open api standard apis.
+    API can be configured in yaml or json format.
 
-
-
-
+    Export option is used to export in openapi2 or 3 format. 
+    NOTE: While restore from import, it require to add resource policy in Lambda to allow invoke from API gateway.
 
 ---------------------------------------------------------------------------------------------------------
+
+
 
 ---------------------------------------------------------------------------------------------------------
