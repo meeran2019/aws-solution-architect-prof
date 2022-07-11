@@ -1878,7 +1878,7 @@ KINESIS DATA STREAMS:
     Producers send data in kinesis stream.
     Public service and highly available.
     Stream stores 24 hrs of streaming data.
-    Support multiple consumer read data.
+    Support multiple consumer read data with different rates.
 
     Kinesis is of shard architecture. Starts from 1 shard. 
     Shard support 1m/b ingestion, 2m/b consumption.
@@ -2128,6 +2128,7 @@ LAMBDA:
     Directly allocate memory which indirectly allocates CPU.
     Billed for the duration its running.
     It is key part of serverless architecture.
+    Lambda storage can be extended by using EFS. 
 
     NOTE: Enable function URL - used to create lambda with HTTP/S endpoint. 
 
@@ -2336,6 +2337,7 @@ API GATEWAY:
     It act as endpoint or entrypoint into application.
     It handles authorization, throttling, caching, CORS, transformations, Open API spec.
     It is public service. 
+    It can withstand failure of 1+ AZ failure by default.
 
     It consists of following types,
         HTTP API
@@ -2536,4 +2538,186 @@ SAM (SERVERLESS APPLICATION MODEL):
     sam package     -   Build zip file and upload to s3
     sam deploy      -   sam-deploy.yaml file created used to deploy application in aws. 
 
+
 ---------------------------------------------------------------------------------------------------------
+CACHING, DELIVERY AND EDGE: 
+---------------------------------------------------------------------------------------------------------
+
+CLOUDFRONT ARCHITECTURE: 
+
+    It is Content Delivery Network (CDN) of AWS.
+
+    Origin - Source or original location of content.
+    S3 origin or custom origin
+    Distribution - unit of configuration within cloudfront.
+    can have 1 or more origin.
+    edge location - local cache of your data.
+    Regional edge cache - Larger version of edge location and provides another layer of cache.
+
+    Origin -> Create Distribution -> Regional cache -> Edge location
+
+    NOTE: FOr s3 origin, regional edge cache is not used.
+
+    It integrate with,
+        ACM certificate Manager - for HTTPS 
+        Download style operation only - Upload directly to origin but download from cloudfront. No write caching.
+
+        NOTE: No write caching.
+
+    Origin <-> Behaviour  <-> Edge location <-> Users
+    Distribution contains behaviours which interact with origin based on path pattern.
+
+    
+    CLOUD FRONT BEHAVIOURS:
+
+    Configuration:
+
+        Price class - Which edge location to use.
+        AWS WAF Web ACL -   integrate with WAF
+        Alternate domain name 
+        SSL Certificate 
+        SNI
+        Security policy 
+        Supported HTTP version
+
+    Behaviours: 
+
+        Distribution can have multiple behaviour. Each behaviour created with precedence. Default behaviour have low precedence of 0. 
+
+        Path pattern
+        Origin or Origin group
+        Viewer protocol policy  - HTTPS only, both HTTP & HTTPS, redirect HTTP to HTTPS.
+        Allowed HTTP Methods - GET, PUT, POST
+        Field level encryption config 
+        Cached HTTP methods 
+        Min, Max, Default TTL
+        Restrict Viewer Access - Restrict viewer to access. Only cloudfront signed url or cookies to access content using Trusted Signers.
+
+        NOTE: Caching control & Restrict viewer access maintained in behaviour level.
+
+    
+    TTL & INVAIDATION:
+
+        1. From edge location, compare the version with origin.
+        2. If same returns 304 not modified. Edge location uses the cached one.
+        3. If modified returnd 200 with updated object and cache this updated object.
+
+        Default TTL - 24 hrs.
+        Min & Max TTL - It is lower and upper value that objeect can have. If dont specify takes default value. This value cannot be override through header.
+
+        origin header - cache-control-max-age (sec)
+        origin header - cache-control-s-maxage (sec)
+        origin header - expires (date and time)
+
+        Cache Invalidation: 
+            Invalidate the edge location and takes times which expire the cached object.
+            This cost to invalidate and takes time. 
+
+        Versioned File Names: 
+            It doesnot cost.
+            file_name_v1, file_name_v2 
+            Use different name and use application to take specific version.
+            It is differnt from s3 object versioning. 
+    
+
+    CLOUDFRONT SSL & SNI:
+
+        Cloudfront default domain name (https://1984736363.cloudfront.net)
+        SSL supported by default.
+        Alternative domain name - can specify different name. 
+        NOTE: Whether to use HTTPS or not, need SSL certificate to verify alternate domain name ownership.
+        Generate or import certificate in AWS ACM US-EAST-1 (for global services)
+
+        2 SSL certificates require between viewer <-> cloudfront edge, cloudfrontedge <-> origin
+
+        SNI: 
+            Server Name Indication
+            SNI is TLS extension which allows to include domain name.
+            Can use many SSL certificates/per host / domain name.
+
+            NOTE: only modern browsers support SNI. Old before 2003 browsers doesnot support SNI and require to buy IP address cost 600$. 
+            Only Certificate Authority signed certificate can be used but not self signed certificate.
+
+            Viewer Protocol policy - client to cloudfront edge location.
+            Origin Protocol policy - cloudfront edge location to origin 
+
+            NOTE:   S3 origin handle certificates natively.
+                    ALB - can use ACM or own generated.
+                    Custom Origin - Not support ACM and only custom generated.
+
+            NOTE: Certificate need to match the DNS name of origin (cloudfront or origin)
+
+    
+    ORIGIN TYPES & ORIGIN ARCHITECTURE: 
+
+        Origin group is group of origin.
+        Origin access identity - it gives cloudfront virtual identity to access s3.
+        Origin can be s3, Media store, Media package, custom origin (web servers).
+
+        origin protocol policy - HTTP only, HTTPS only, Match Viewer.
+
+        origin custom header 
+
+
+    CACHING PERFORMANCE AND OPTIMIZATION:
+
+        Cache Hit 
+        Cache Miss 
+        Maximize the cache hit ratio.
+
+        From request it pass,
+            Object 
+            Query string parameter 
+            Cookies
+            Request Headers
+
+        Can choose to send all or selected to CF.
+        Cache all or selected (cache whitelist) in CF
+
+    
+    OAI & CUSTOM ORIGIN:
+
+        With s3 as static website, then CF consider as custom origin.
+        NOTE: Origin Access Identity is feature only for S3 origin (Not static website s3)
+
+        OAI is associated with CF which access S3 origin. S3 bucket policy explicit allow OAI.
+
+        For non s3 origin: 
+            1. Can use custom header to pass value along with origin protocol policy and from origin side verify this value.
+            2. Create security group in custom origin using edge location IP address.
+
+
+    CLOUDFRONT SECURITY - PRIVATE DISTRIBUTION:
+
+        CF consists of, 
+            public  -   content is visible to all
+            private -   only private user can access.
+
+        For private, 
+            A cloudfront key is created by account root user.
+            Add this account to CF as TRUSTED signer.
+
+        Signed URL:
+            It gives access to one object
+            Legacy RTMP distribution.
+
+        Signed Cookies:
+            It provide access to group of objects / group of files.
+
+            
+
+
+
+
+
+
+
+
+
+        
+                
+
+
+
+
+
