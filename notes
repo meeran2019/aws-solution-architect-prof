@@ -2691,20 +2691,101 @@ CLOUDFRONT ARCHITECTURE:
 
         CF consists of, 
             public  -   content is visible to all
-            private -   only private user can access.
+            private -   only private user can access means request is passed with singned cookies/url.
+
+        In general, create multiple behaviour for public and private.
 
         For private, 
             A cloudfront key is created by account root user.
-            Add this account to CF as TRUSTED signer.
+            Add this account to CF behaviour as TRUSTED signer. Once trusted signer added it become private
 
         Signed URL:
             It gives access to one object
-            Legacy RTMP distribution.
+            Legacy RTMP distribution cant use cookies.
+            If client doesnot support cookies.
 
         Signed Cookies:
-            It provide access to group of objects / group of files.
+            It provide access to group of objects / group of files of particular type.
 
-            
+
+    CLOUDFRONT GEO RESTRICTION:
+
+        Restricting the content to particular location.
+
+        2 types of restriction,
+            CF geo restriction: 
+                Whitelist or blacklist specific country. 
+                builtin 
+                99.8% accurate.
+                Applies to entire distribution.
+                edge location checks the CF if any geolocation enabled. Request country code of customer in geodb and send to CF. CF returns allow or deny to edge. 
+                Uses only country code for filter.
+
+            3rd party geolocation 
+                Completely customizable based on browser, country and other attributes.
+                require another compute server where 3rd part involved. 
+                here this server checks instead of edge location.
+                NOTE: CF to be Restrict viewer access and private.
+                uses other parameters for filter.
+
+
+    CLOUDFRONT SECURITY - FIELD LEVEL ENCRYPTION:
+
+        Edge location is used to encrypt specific field by using public key.
+        Server requires to decrypt the message using private key.
+        Data is stored in encrypted form in database.
+
+        NOTE: In normal process, data is stored in plain text. Using field level encryption, data is stored in encrypted form.
+
+    
+    CLOUDFRONT - LAMBDA EDGE:
+
+        It allows to run leight weight lambda at edge location.
+        Only Nodejs and python are supported.
+        Run in AWS public space.
+        Layers are not supported.
+
+        viewer request, viewer response, origin request , origin response 
+
+        On viewer side, limit of 128 mb 5sec , On origin side limit of 30s 10k kb
+
+---------------------------------------------------------------------------------------------------------
+
+ELASTIC CACHE: 
+
+    It is in-memory database used for read heavy high performance workload.
+    It is for temporary data store,
+    It consists of,
+        Redis: 
+            sub millisecond of data.
+            support string, list etc. 
+            Support Multi AZ. 
+            Support backup and restore.
+            Support transaction. 
+
+        Memcached:
+            sub millisecond of data.
+            support only string. 
+            Support single AZ.
+            Not support backup and restore.
+            Support multithreading. 
+
+    Reduces database workloads.
+    It also used to store session data externlly. 
+    
+    NOTE: Requires application code change which application require understand caching.
+
+    Flow is,
+        1. Application first check elastic cashe, if cache miss.
+        2. Then fetch from DB and application write to Elastic cache.
+
+
+---------------------------------------------------------------------------------------------------------
+INFRASTRUCTURE AS CODE:
+---------------------------------------------------------------------------------------------------------
+        
+
+
 
 
 
