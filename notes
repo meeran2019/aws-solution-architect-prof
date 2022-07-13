@@ -2784,6 +2784,30 @@ ELASTIC CACHE:
 INFRASTRUCTURE AS CODE:
 ---------------------------------------------------------------------------------------------------------
         
+CLOUDFORMATION PHYSICAL VS LOGICAL RESOURCES: 
+
+    Cloudformation template - yaml or json format.
+    Contains logical resources - what is required. 
+    Templates are used to create stacks.
+    Template can be used many times, many region or account.
+    Stack creates the physical resource from logical resources.
+    If stack changed/deleted, physical resource also modified/deleted.
+    Stack uses template, parameters and options to create a stack.
+
+
+    TEMPLATE PARAMETRS & PSUEDO PARAMETERS:
+
+        Tamplate parameters - accept input from Console/CLI/API when stack is created or updated.
+        It can be default, min & max value, allowed length, allowed patterns, no echo & type.
+
+        Pseudo Parameters: It is AWS defined parameters like AWS::Region, AWS:AccountId etc.
+
+    
+    INTRINSIC FUNCTIONS:
+
+        
+
+
 
 
 
