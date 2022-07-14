@@ -2805,24 +2805,224 @@ CLOUDFORMATION PHYSICAL VS LOGICAL RESOURCES:
     
     INTRINSIC FUNCTIONS:
 
+        It allows to access data at run time.
+
+        Fn::GetAtt      -   get attributes of specific resource.
+        Fn::Join        -   join list to string using delimeter
+        Fn::Split       -   split from string to list using delinter.
+        Fn::GetAZ       -   get AZ for the given region. 
+        Fn::Select      -   allows to select one element from the list.
+        Fn::If,Equals,Not, Or   -   conditional 
+        Fn::base64      -   Accept normal text and encode as base64 and output send to userdata.
+        Fn::Sub         -   substitute the variable. 
+        Fn::Cidr        -   build cidr block for networking.
+
+        Fn::Importvalue 
+        Fn::Findinmap 
+        Fn::Transform 
+
+        
+        Fn::Ref or !Ref vs Fn::GetAtt:
+
+            Ref is used to refer or substitute the value.
+
+            For any resources, its return main primary value. !Ref is used to refer the main value of physical resources returned.
+            For any resources, its secondary value is referred by using !GetAtt
+
+        Fn::GetAZ vs Fn::Select :
+
+            Fn::GetAZ "us-east-1"  returns ["us-east-1a","us-east-1b","us-east-1c"]
+            Fn::Select[0, list]
+
+        
+    CLOUDFORMAION - MAPPINGS:
+
+        !FindInMap[map-name, top-level-key, second-level-key]
+        !FindInMap[RegionMap, us-east-1, HVM64]
+
+        Mappings:
+            RegionMap:
+                us-east-1:
+                    HVM64: "ami-12"
+                    HVMG2: "ami-13"
+
+
+    CLOUDFORMATION - OUTPUT:
+
+        NOTE:   When using nesting, this output can be accessible from parent stack.
+                Can be exported, allowing cross stack reference.
+
+        Outputs:
+            Output-name:
+                Description: some description
+                value: !Ref some-name 
+
+
+    CLOUDFORMATION - CONDITIONS:
+
+        Conditions:
+            isProd: !Equals         (Note: This is Fn::Equals)
+                -   !Ref Env
+                -   'prod'
+
+        Type: 'AWS::EC2::Instance'
+            Condition: isProd
+
+
+    DEPENDS ON:
+
+        Cloudformation creates resources in parallel unless implicit dependancy.
+        If any depency between resources, can use depends on another resources.
+
+        MYIP:
+            TYPE: AWS:EC2:IP
+            DependsOn: Another-Resource-Name Another-Resource-Name-2 
+            Properties: 
+
+
+    WAIT CONDITION, CREATION POLICY & CFN-SIGNALS:
+
+        1. Configure cloudformation to hold further process.
+        2. wait for x number of success signals (cfn-signal used).
+        3. Wait for timeout of H:M:S for those signals (default 12 hrs)
+        4. If success signal received, CREATE_COMPLETE
+        5. If failure signal received or timeout, CREATION_FAILED
+
+        CreationPolicy is used for EC2 and ASG.
+        WaitCondition is used for other AWS resources.
+
+        Creation policy vs wait condition:
+
+            Creation policy is defined in existing resources.
+            Wait condition itself resource. 
+            Wait condition resource depends upon handle waitconditionhandle.
+            AWS recommends to use creationpolicy.
+
+
+    NESTED STACKS: 
+
+        Stack has limit of 500 resources.
+        Cant easily reuse resources.
+        Everything under stacks shares same life cycle.
+
+        TYPE: AWS::CloudFromation::Stack
+        Properties:
+            TemplateURL: https://template-url 
+            Parameters: 
+                param1: value       (To pass value to template)
+
+        Only can reference output.
+        NOTE: Reusing the template.
+        have limit of 2500 resources.
+
+
+    CROSS STACK REFERENCE:
+
+        stacks are separate and attributes are referenced by using export and importvalue.
+
+        Outputs:
+            outputname:
+                Descrption: 
+                Value: 
+                Export:
+                    Name: export-name 
+            
+        Fn::ImportValue export-name     -   to reference in another stack.
+
+        NOTE: It should be in same region per account. Cross region is not supoprted.
+        NOTE: Reuse the stack.
+
+
+    STACK SETS: 
+
+        It allows to create/update/delete across many regions and many accouts.
+
+        Concurrent account - how many accounts to process at a time.
+        Failure tolerance - amount of individual deployment fail allowed.
+        Retain stacks - default delete stack instances and this will retain in target accounts.
+
+
+    DELETION POLICY:
+
+        Delete      default 
+        Retain      not delete 
+        Snapshot    suported resources like rds to take snapshot.
+
+    
+    STACK ROLES:
+
+        Uses the permission of user identity who run the stack.
+        Need permission for both Cloudformation + AWS resources to interact.
+
+        It consists of,
+            1. Create a service role which allow to access AWS resources.
+            2. Create a pass role for the service role and attach to user.
+
+        
+    CFN INIT: 
+
+        It is alternative way to pass user data to ec2 instances.
+        AW::Cloudformation::Init - part of native cloud formation.
+        Userdata is procedural execution. CF is desired state system which is idempotent.
+        cfn-init helper script installed on ec2.
+
+        Metadata:
+            AWS:CloudFormation::Init:
+                configSets: 
+                install_cfn: 
+                software_install: 
+                configure_instance: 
+                    packages:
+                    groups:
+                    users:
+                    groups:
+                    sources:
+                    files:
+                    commands:
+                    services: 
+
+        cfn-init helper script executed from user data.
         
 
+    CFN-HUP:
+
+    While update stack, if already created , bootstrap cannot rerun.
+
+        1. cfn-init runs once as part of bootstrapping.
+        2. If cloudformation::Init is updated, it cannot rerun themselves.
+        3. cfn-hup helper script is used to detect changes in metadata and rerun the cfnint.
+        4. cfn hup is added as part of bootstrap.
 
 
+    CHANGE SETS:
+
+        It helps to preview the changes before apply, 
+
+        It consists of, 
+            No interruption
+            Some interruption
+            Replacement 
+
+    
+    CUSTOM RESOURCE: 
+
+        Cloudformation doesnot support everything.
+        It is type of template which is used to create template which cloudformation doesnot support.
+
+        Sends event details to Lambda or SNS.
+
+        CustomReousrce:
+            Type: 'Custom:name'
+            properties:
+                ServiceToken: ARNofLambda
+
+        It consists of, 
+            1. Write lambda function with custom resource logic.
+            2. Deploy lambda function.
+            3. Use custom resource in stack.
 
 
-
-
-
-
-
-
-
-
-        
-                
-
-
-
-
+---------------------------------------------------------------------------------------------------------
+DEPLOYMENT AND MANAGEMENT: 
+---------------------------------------------------------------------------------------------------------
 
