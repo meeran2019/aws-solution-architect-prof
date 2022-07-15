@@ -3026,3 +3026,96 @@ CLOUDFORMATION PHYSICAL VS LOGICAL RESOURCES:
 DEPLOYMENT AND MANAGEMENT: 
 ---------------------------------------------------------------------------------------------------------
 
+NOTE: Refer the aws devops professional preparation for detailed explanation.
+
+SERVICE CATALOG:
+
+    Document or database created by IT team.
+    Organised collection of products.
+    Offered by IT team.
+
+    It gives self service portal for end users.
+    End user permissions are controlled.
+
+    It consists of product and group of product is portfolio. 
+    Product is AWS cloudformation template.
+
+    Admins define products and give permission for end user.
+
+    NOTE: For enduser or customer to deploy application with tight control.
+
+
+CODE COMMIT:
+
+    It is repository like git for AWS
+    Support notification and trigger.
+
+
+CODE PIPELINE:
+
+    Orchastrate flow from repository to deployment.
+    Input and output artifacts.
+    Manual or auto deployment.
+
+
+CODE BUILD:
+
+    It is Build as a service.
+    Pay only for the resource consumed during build.
+    Uses docker (standard or ccustom) to build environments.
+    Easy integration with other AWS services.
+    customized by using buildspec.yml file in root directory.
+    Logs capture in s3 and cloudwatch.
+    Eventbridge can be used.
+
+    Different phases,
+        install     -   install packages
+        pre_build   -   dependancy or login
+        build       -   commands run
+        post_build  -   packaging, docker push 
+        
+        environment variables is used.
+        Artifacts - Input and output is generate to store in s3.
+
+
+CODE DEPLOY:
+
+    Deployment as service
+    Deploys code not resources.
+    Deploys on Ec2, onpremise, lambda and ECS.
+    NOTE: Codedeploy agent (Onpremise or ec2).
+
+    File        -   EC2/Onprem
+    Resources   -   ECS/Lambda
+    Permission  -   EC2/Onprem
+
+    Different hooks are, 
+        ApplicationStop
+        DownloadBundle
+        BeforeInstall
+        Install
+        AfterInstall
+        ApplicationStart
+        ValidateService
+
+---------------------------------------------------------------------------------------------------------
+
+OPSWORKS:
+
+    It is a configuration management service with chef and puppet.
+    3 modes,
+        puppet enterprise - aws managed puppet master service
+        chef automate - aws managed chef server 
+        opsworks - aws implementation of chef.
+
+    Opsworks components,
+        stack - container
+        layer - specific function within a stack
+        recepie and cookbooks are applied to layer.
+        cookbooks are collection of recepie.
+
+    Lifecycle events - setup, configure, deploy, undepoy, shutdown.  Configure run on all instances of stack whenever isntances are added or removed. 
+
+    Instances - 24/7, Load based, Time based. 
+
+---------------------------------------------------------------------------------------------------------
