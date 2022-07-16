@@ -3253,4 +3253,71 @@ ADVANCED SECURITY & CONFIG MANAGEMENT:
 
 AMAZON GUARD DUTY: 
 
+    It is continuos security monitoring system.
+    Once enabled continuosly monitoring security issues in account and resources.
+    Analyses supported data sources.
+    uses AI/ML and threat intelligence feeds.
+    Identifies unexpected and unauthorised activity.
+
+    It learns pattern of normal activity and detect if any unpattern activities.
+    Notify or event driven remediation.
+    Supports multiple accounts (master and member accounts)
+
+
+AWS CONFIG:
+
+    Record configuration changes overtime on resources.
+    Auditing of changes and compliance with standards.
+    Doesnot prvent changes from happening. 
+
+    It is a regional service.
+    Can configure for cross regions and cross account aggregation.
+
+    Standard functionality:
+        1. Enable AWS config and it starts recording configuration changes.
+        2. COnfiguration changes are stored in s3 bucket.
+
+    Config rules - Rules are aws or custom rule. Resources are evaluated against rules to check compliant or not. 
+
+    It can integrate with SSM for compliant or non complaint specifically for ec2 instance.
+
+
+AWS INSPECTOR:
+
+    It is used to scan ec2 instances and their OS.
+    Checks for vulnerabilities and deviations against best practice.
+    It generate security report.
+
+    Network Assessment (agentless)
+    Network & Host assessment (host agent)
+    Network reachability (agentless)
+
+    Rule packages: 
+        CVE (Common vulnerabilities and exposure) package.
+        CIS (center for internet security) benchmark.
+        Security best practices.
+
+
+AWS WAF & SHEILD: 
+
+    Shield - Gives protection agains DDOS attack.
+
+    It consists of,
+        Shield standard - free and available by default. Use with Cloudfront and route53. Protection against layer 3 & 4.
+        Shield Advanced - $3000/pm. Support ec2, global accelrator, cloudfront, route53 etc. DDOS response team and financial insurance. 
+
+    WAF: (WebApplication Firewall): 
+        Works on layer7.
+        SQL injections, cross site scripting, geo blocks.
+        Web ACL integrate with ALB, API gateway , cloudfront.
+        Rules are added to webacl. 
+
+        WebACL -> Rule Group -> Rules 
+        WebACL Capacity Unit . Complex Rules uses higher WCU. 
+
+
+AWS CERTIFICATE MANAGER: 
+
     
+
+
