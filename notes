@@ -3388,20 +3388,31 @@ KEY MANAGEMENT SYSTEM (KMS):
     Handle both symmetric and asymmetric keys.
     Cryptographic operations (encrypt, decrypt)
     Keys never leave KMS. It provides FIPS 140-2 L2 security standard.
+    support key rotation.
+
+    Key policy is like resource policy. 
 
     CMK - Customer Master Key:
         Can be used for upto 4kb of data.
 
     DATA ENCRYPTION KEY (DEK):
         Generate data key works on > 4kb size.
+        NOTE: KMS doesnot store DEK. 
+        Plain text key is discarded.
+
+    KMS can use HSM as custom key store. 
 
 
 CLOUD HSM (Hardware Security Module): 
 
     It is similar to KMS.
-
-
-
-
-
-
+    Single tenant HSM.
+    If lose HSM, lose data.
+    FIPS 140 L3 compliant.
+    It is not so integrated with AWS.
+    Industry standard API PKCS#11 , Java cryptography Extensions (JCE), Microsoft CryptoNG (CNG) libraries support.
+    
+    
+---------------------------------------------------------------------------------------------------------
+INTRODUCTION: 
+---------------------------------------------------------------------------------------------------------
