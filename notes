@@ -3381,15 +3381,16 @@ KEY MANAGEMENT SYSTEM (KMS):
     It is regional and public service. 
         NOTE: Multi Region key can also be created. 
 
-    AWS Managed CMK 
-    Customer Managed CMK 
+    AWS Managed CMK - AWS Managed CMK support key rotation happen every 3 years and cannot be changed or disabled.
+    Customer Managed CMK - Customer Managed CMK support key rotation can enable for 1 year
+
+    NOTE: Imported keys cannot auto rotate.
 
     Create, store and manage keys.
     Handle both symmetric and asymmetric keys.
     Cryptographic operations (encrypt, decrypt)
     Keys never leave KMS. It provides FIPS 140-2 L2 security standard.
-    support key rotation.
-
+    
     Key policy is like resource policy. 
 
     CMK - Customer Master Key:
@@ -3412,7 +3413,9 @@ CLOUD HSM (Hardware Security Module):
     It is not so integrated with AWS.
     Industry standard API PKCS#11 , Java cryptography Extensions (JCE), Microsoft CryptoNG (CNG) libraries support.
     
-    
+
 ---------------------------------------------------------------------------------------------------------
-INTRODUCTION: 
+OTHER SERVICES:
 ---------------------------------------------------------------------------------------------------------
+
+
