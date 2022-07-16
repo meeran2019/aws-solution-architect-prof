@@ -3119,3 +3119,138 @@ OPSWORKS:
     Instances - 24/7, Load based, Time based. 
 
 ---------------------------------------------------------------------------------------------------------
+
+ELASTIC BEANSTALK:
+
+    It is platform as a service.
+    It is developer focussed product.
+    User provide code and EB handles infrastructure.
+    Focus on code and low infrastructure ahead.
+    Requires app charges.
+
+    Single container docker, Multi container docker (uses ECS behind)
+    Preconfigured docker - used for non natively support platform.
+    Packer is used to create a own custom platform.
+
+    1. Create Application by selecting platform and upload code.
+
+    Application versions are used.
+    Environment - webserver tier & worker tier. 
+    Webserver receive from ELB. Worker receive from SQS. Worker tier can scale based on queue message. 
+
+    CNAME Swap can exchange between two environments.
+    Databases keep out of EB. If EB is deleted, database also gets deleted.
+
+    
+    DEPLOYMENT POLICIES:
+
+        How application versions are deployed to environment.
+
+        All at once     -   have outage 
+        Rolling         -   deploy in rolling batches
+        Rolling with additional batch
+        Immutable       -   Temporary ASG is created. New instances moved to original ASG and deleted temp ASG.
+        Traffic splitting   -   new asg is created. control distribution of percentage of traffic flow between old and new. like A/B testing.
+        blue green deployment - 2 different environment and using route 53 route to switch using DNS record.
+
+    
+    EBS & RDS:
+
+        1. RDS create directly within EB environment:
+
+                RDS linked to EB
+                Delete environment  = delete RDS
+
+        2. RDS create outside of EB:
+
+        Decouple existing rds within EB: 
+                1. Take a snapshot of RDS
+                2  Enable delete protection
+                3. create a new eb environment 
+                4. swap environment
+                5. terminate old environment 
+
+
+    ADVANCED CUSTOMIZATION VIA .EBEXTENSIONS FOLDER:
+
+        .ebextensions/.config are way to customise eb environment.
+        Uses CFN format to create additional resources within environment.
+        
+        Resources - create new resources
+        option_settings - allows to set of options of resources.
+        
+
+    ELASTIC BEANSTALK & HTTPS:
+
+        Apply SSL cert to load balancer directly.
+        In Console -> Environment -> load balancer configuration.
+        Using .ebextensions/securelistener-alb/nlb.config 
+
+    EB CLONING:
+
+        It allows to create new environment by cloning existing one. 
+        Copies options, settings, environment variables, resources.
+        Include RDS if within EB.
+
+    EB AND DOCKER:
+
+        Docker running on 64bit Amazon Linux 2:
+            uses ec2 and running single container.
+            Dockerfile - upload directly to source code. 
+            Dockerrun.aws.json (version1) 
+            Docker-compose.yml 
+
+        ECS running on 64bit Amazon Linux 2 
+            Multiple container application
+            creates a ECS cluster.
+            Dockerrun.aws.json (version2) file in application source bundle.
+            Any images stored in ecr. 
+
+---------------------------------------------------------------------------------------------------------
+
+SYSTEMS MANAGER: 
+
+    Formerly Simple Systems Manager (SSM)
+    View and control AWS and onprem infrastructure.
+    Agent based which install on windows and Linux based AMI.
+    Manage inventory & Patch Assets
+    Can define maintenance windows.
+    Run commands & manage desired state.
+    Parameter store
+    Secrets manager
+    Session manager
+
+
+    RUN COMMAND: 
+
+        Run command documents on managed instances.
+        No SSH/RDP access required.
+        Based on instances, tags, resource group.
+        Command documents can be reused and parametrized.
+        Error Threshold & Concurrency.
+
+
+    PATCH MANAGER:
+
+        Patch baseline -    predefined or custom one. it tells what to be installed.
+            AWS-OSDefaultPatchBaseline 
+            AWS-DefaultPatchBaseine - Windows 
+            AWS-WindowsPredefinedPatchBaseline-OS
+            AWS-WindowsPredefinedPatchBaseline-OS-Application
+            
+        Patch group         -   defines group of resources.
+        Maintenance window  -   time on which patch occurs.
+        Run command         -   to manage the patch process
+        concurrency & error threshold
+        compliance          - after patch process, checks expected vs applied patch.
+
+        patch baseline -> patch group (resource) -> create maintenance window -> AWS-RunPatchBaseline -> compliance
+
+
+---------------------------------------------------------------------------------------------------------
+ADVANCED SECURITY & CONFIG MANAGEMENT: 
+---------------------------------------------------------------------------------------------------------
+
+AMAZON GUARD DUTY: 
+
+    
