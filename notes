@@ -3318,6 +3318,90 @@ AWS WAF & SHEILD:
 
 AWS CERTIFICATE MANAGER: 
 
+    HTTP - Simple and insecure.
+    HTTPS - SSL/TLS layer of security added to HTTP.
+    Data is encrypted in transit.
+
+    Certificated provide identity signed by Certificate Authority (CA).
+    ACM lets you run a public or private certificate Authority.
+    With ACM, can generate or import certificate. If generate, renew automatically. If import, renew manually.
     
+    Not all aws services are supported. Support cloudfront & ELB. 
+    It is a regional service.
+    For global service like Cloudfront uses us-east-1.
+
+
+AWS PARAMETER STORE:
+
+    Store in key value pair.
+    Storage for configuration & secrets.
+
+    3 different types,
+        String 
+        String List 
+        Secure String 
+
+    Heirarchies and Versioning.
+    Can store as plaintext & ciphertext using KMS. 
+    Public parameters proovided by AWS.
+
+
+AWS SECRETS MANAGER:
+
+    It designed specifically for secrets like pwd, API etc.
+    It is integrated with other application.
+    Support automatic rotation of key.
+    Direct integration with AWS services like RDS.
+
+
+VPC FLOWLOGS:
+
+    NOTE: It only capture package metadata not package content.
+    Packet sniffer - used to capture the package content.
+
+    It applies to,
+        VPC level
+        Subnet level 
+        Interface only 
+
+    NOTE: it is not real time.
+
+    Configure to use s3 and cloudwatch logs as destination.
+
+    Flow logs not captures, 
+        To and from 169.254.169.254 ip address.
+        169.254.169.123 
+        Amazon windows license not recorded
+        DHCP
+        Amazon DNS server 
+
+
+KEY MANAGEMENT SYSTEM (KMS):
+
+    It is regional and public service. 
+        NOTE: Multi Region key can also be created. 
+
+    AWS Managed CMK 
+    Customer Managed CMK 
+
+    Create, store and manage keys.
+    Handle both symmetric and asymmetric keys.
+    Cryptographic operations (encrypt, decrypt)
+    Keys never leave KMS. It provides FIPS 140-2 L2 security standard.
+
+    CMK - Customer Master Key:
+        Can be used for upto 4kb of data.
+
+    DATA ENCRYPTION KEY (DEK):
+        Generate data key works on > 4kb size.
+
+
+CLOUD HSM (Hardware Security Module): 
+
+    It is similar to KMS.
+
+
+
+
 
 
