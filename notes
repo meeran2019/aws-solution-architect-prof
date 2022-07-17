@@ -3418,4 +3418,73 @@ CLOUD HSM (Hardware Security Module):
 OTHER SERVICES:
 ---------------------------------------------------------------------------------------------------------
 
+AMAZON LEX 
+
+    Text or voice conversation.
+    Powers the Alexa service.
+    Automatic speech recognizition - Speech to text.
+    Natural Language understanding.
+
+
+AMAZON CONNECT: 
+
+    It is contact centre as a service.
+    Integrate with PSTN network globally.
+    Support voice, chat and both incoming/outgoing calls.
+    Can integrate with other AWS services like S3, Lex etc.
+    
+
+AWS REKOGNITION:
+
+    Deep leraning based image and video analysis.
+    Can detect objects, face recognition, content etc.
+    Per image or per minute video processing.
+    Can even analyse live stream of kinesis video stream.
+
+
+KINESIS VIDEO STREAMS:
+
+    It allows to ingest live video stream of data from producers.
+    Producers can be security camera, drones, radar data etc.
+    Consumers can access data by frame by frame.
+    NOTE: Data cant access directly from S3 or other storage but only using API. 
+    Integrates with other services like Rekognition, Lex. 
+
+
+AWS GLUE:
+
+    It is fully managed ETL serverless service.
+    Source Data - S3, RDS, JDBC compatible & Dynamodb, kinesis data stream. kafka etc.
+    Data target - S3, RDS, JDBC.
+
+    Crawls data sources and generates AWS glue data catalog.
+    Data catalog is metadata.
+
+    Glue jobs - do ETL. 
+
+    NOTE: Serverless, adhoc and cost effective then choose Glue than Datapipeline.
+
+
+DEVICE FARM: 
+
+    Provides manage web and mobile application testing.
+    Test on fleet of REAL browser and devices.
+    Use builtin or supported automated testing framework.
+    Supports remote connections to devices.
+
+
+---------------------------------------------------------------------------------------------------------
+DISASTER RECOVERY AND BUSINESS CONTINUITY: 
+---------------------------------------------------------------------------------------------------------
+
+TYPES OF DR:
+
+    COLD:
+
+        
+
+    WARM:
+
+
+    PILOT LIGHT:
 
