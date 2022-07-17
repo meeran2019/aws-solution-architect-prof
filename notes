@@ -3511,7 +3511,7 @@ TYPES OF DR:
 DR ARCHITECTURE - STORAGE:
 
     Instance store - Attach to Ec2 in AZ level. No recovery process. 
-    EBS - Also attach to EC2 in AZ level. Volumes are replicated within AZ only. Take snapshot of EBS volume. 
+    EBS - Also attach to EC2 in AZ level. Volumes are replicated within AZ only. Take snapshot of EBS volume. It can potentially tolerate the failure of hardware in AZ. 
     S3 - Data is replicated across AZ. Take snapshot to another region. 
     EFS - one file system is replicated across multi AZ.
 
@@ -3528,7 +3528,7 @@ DR ARCHITECTURE - COMPUTE:
 DR ARCHITECTURE - DATABASE:
 
     Dynamodb - Runs in public zone. data is replicated in multiple AZ. 
-    RDS - Subnet group has primary and standby instances. Synchronous replication occurs. On failure, failover to secondary. 
+    RDS - Subnet group has primary and standby instances. Synchronous replication occurs. On failure, failover to secondary. RDS multiAZ can tolerate the failure of one AZ in a region.
     Aurora - Can have 1 replica in each AZ. Uses cluster storage architecture. Data is replicated across AZ. 
 
     Dynamodb - can create global tables in different region. Multi master replication happens. 
@@ -3544,6 +3544,8 @@ DR ARCHITECTURE - NETWORKING:
     ELB - Regional services - ELB -> Instances across AZ. 
     Interface endpoint - tied to specific subnet in one AZ. Adding multiple interface endpoint in different AZ can withstand AZ failure.
     Route 53 - used for global service which act as load balance. 
-
+    ENI cant tolerate the failure of AZ in a region.
+    IGW - resilient by design and can tolerate failure of many AZs in a region.
+        
 ---------------------------------------------------------------------------------------------------------
 
