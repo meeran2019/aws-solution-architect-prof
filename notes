@@ -3546,6 +3546,174 @@ DR ARCHITECTURE - NETWORKING:
     Route 53 - used for global service which act as load balance. 
     ENI cant tolerate the failure of AZ in a region.
     IGW - resilient by design and can tolerate failure of many AZs in a region.
-        
+    NAT Gateway - resilient by design and choose the specific subnet so cant tolerate the failure of AZ.
+
+
+---------------------------------------------------------------------------------------------------------
+MIGRATIONS & EXTENSIONS:
 ---------------------------------------------------------------------------------------------------------
 
+THE 6R'S OF CLOUD MIGRATION:
+
+    Rehosting   -   Lift and shift:
+        VM Import/Export & Server Migration Service 
+
+    Replatform  -   Lift and shift with optimization:
+        Use RDS for database.
+        It doesnot involve huge changes but use few AWS services.
+
+    Repurchase  -   Move to something new as SAAS:
+
+    Refactoring/Rearchitecting  -   Take advantage of cloud:
+        Review and change the architecture to use cloud native.
+        Service oriented or micro services.
+        APIs, Event driven, serverless.
+        Very expensive and time consuming. 
+        Best long term benefits. 
+
+    Retire      -   Retire 
+    Retain      -   Retain 
+
+---------------------------------------------------------------------------------------------------------
+
+VIRTUAL MACHINE MIGRATIONS:
+
+    Application Discovery Service - Allows to discover onprem applications.
+        Agentless   -   Measure performance and resource usage. OVA appliance, integrates with VMWare - inventory, vm usage. 
+
+        Agent       -   Network, process, usage, performance and dependencies between servers (network activity)
+
+        Integrate AWS Migration Hub and Athena. 
+
+
+    Server Migration Service: 
+
+        Migrate whole Vm's (OS, data, Apps)
+        Which performs actual migration.
+        Agentless, interact through connector installed in VMware. 
+        Works with vmware, hyperv and azure vm only. 
+        Incremental replication of live volume 
+        Orchestrate multi server migration.
+        Creates AMI 
+        Integrate with AWS Migration Hub
+
+        Onprem connector -> S3 -> SMS -> AMI -> EC2 instances.
+
+    
+    Database Migration service:
+
+        Source and target database.
+        Source can be s3. 
+        One endpoint must be on AWS.
+        Source and destination endpoint. 
+        It uses replication instances which consists of replication tasks.
+        not natively support schema conversion.
+        Different options are,
+            Full load 
+            Full load + CDC (ongoing changes)
+            CDC only (Change data capture)
+
+
+    Schema Conversion Tool (SCT):
+
+        Used when converting from one database engine to another.
+        Not used when migrating DB of same type.
+        On prem mysql -> RDS mysql (Same engine so cannot use SCT)
+        On prem MS SQL -> RDS mysql -> Moving from microsoft sql to my sql different engine.
+        Target can be s3. 
+
+
+    Snowball:
+
+        Transform TB of data 
+
+---------------------------------------------------------------------------------------------------------
+
+STORAGE GATEWAY:
+
+    It runs as virual appliance in onprem.
+    Act as bridge between onprem storage and AWS 
+    In AWS, integrate with EBS, S3 or glacier.  
+    In Onprem side, support iSCSI, NFS or SMB. 
+    Migrations, Extensions, Storage tiering, DR. 
+
+
+STORAGE GATEWAY - VOLUME GATEWAY:
+    
+    Cached mode:
+        Data is not located locally in onprem but stored in AWS s3 (Note only AWS manage and user cant see in s3)
+        Only cached data stored in onprem.
+        As data center extension. 
+
+    Stored Mode: 
+        All stored locally. Copy to S3 as ebs snapshot. 
+        Great for FULL DISK backup. 
+        Excellant RPO and RTO. 
+        NOTE: Doesnot allow extend capability since data stored locally and send to AWS. 
+        Used for backup.
+
+
+STORAGE GATEWAY - TAPE GATEWAY:
+
+        In AWS, have 2 types,
+            VTL (Virtual Tape Library) - backed by s3
+            VTS (Virtual Tape Shelf) - backed by glacier - archives from VTL. 
+        Present as hardware. 
+
+STORAGE GATEWAY - FILE GATEWAY:
+
+    Bridge onprem file to s3 
+    Mounpoints available via NFS or SMB.
+    Mountpoint created in file gateway. Files mounted in gateway are visible as objects in s3.
+    It involves,
+        1. create a file share which integrate with 1 bucket. 
+        2. Mapping between filename and object name.
+        3. Can integrate with other AWS services from s3.
+    NOTE:   Notify when upoaded is used to initiate from S3 to filegateway. 
+            Doesnot support object locking.
+            Can use s3 lifecycle policies.
+
+---------------------------------------------------------------------------------------------------------
+
+AWS SNOWBALL:
+
+    It is physical device. 
+    Data encrypted using KMS. 
+    50Tb or 80TB capacity.
+    Multiple devices to multiple premises.
+    Only storage and doesnot have compute.
+
+SNOWBALL EDGE: 
+    Its have both storage and compute.
+    Larger capacity 
+    It consists of,
+        storage optimised with ec2.
+        compute optimised 
+        compute optimised with gpu capability 
+
+SNOW MOBILE:
+    Truck used to move data to AWS.
+    Not available everywhere.
+    Suitable for 10+ PB data.
+    Upto 100 PB of data.
+    Not economical for multi site. 
+
+---------------------------------------------------------------------------------------------------------
+
+AWS DATASYNC: 
+
+    It orchastrate the movement of data of large scale from onprem to AWS or vice versa.
+    Migrations, data processing transfers, archival, cost effective storage or DR.
+    Keeps metadata (timestamp, permissions)
+    builtin data validation.
+    10gb/s per agent 
+    Compression and encryption
+    Automatic recovery from transit error 
+    AWS service integration.
+    Incremental and scheduled transfer options.
+
+    1. Datasync agent install on onprem NFS or SMB protocol.
+    2. Agent communicates with AWS.
+    3. In AWS, data can store in S3, EFS, FSx
+
+---------------------------------------------------------------------------------------------------------
