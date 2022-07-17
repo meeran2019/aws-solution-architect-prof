@@ -3479,12 +3479,71 @@ DISASTER RECOVERY AND BUSINESS CONTINUITY:
 
 TYPES OF DR:
 
-    COLD:
+    Disaster recovery or business continuity documented is called business continuty plan.
+    It involve cost. 
+    Extra resource required like backup or secondary region.
+    How long to setup depends upon disaster recovery type. 
 
-        
+    Backup & Restore -> Pilot Light -> Warm standby -> Active/Active multi site.
 
-    WARM:
-
+    BACKUP & RESTORE:
+        It is less cost.
+        Takes time to recover.
 
     PILOT LIGHT:
+        With pilot light, you run second site. 
+        It has only core components already setup. 
+        Other components need to setup after disaster.
+        Little higher cost and little faster to recovery. 
+
+    WARM STANDBY:
+        It is minimized version of full copy of original infrasturcture. 
+        Ex: Run smaller instance size. 
+        When needed it will scale the infrastructure.
+        Faster than pilot light. 
+
+    ACTIVE/ACTIVE MULTISITE:
+        Both primary and secondary running parallely.
+        If any one site is down traffic is routed to secondary.
+        Higher cost and faster recovery.
+
+
+DR ARCHITECTURE - STORAGE:
+
+    Instance store - Attach to Ec2 in AZ level. No recovery process. 
+    EBS - Also attach to EC2 in AZ level. Volumes are replicated within AZ only. Take snapshot of EBS volume. 
+    S3 - Data is replicated across AZ. Take snapshot to another region. 
+    EFS - one file system is replicated across multi AZ.
+
+
+DR ARCHITECTURE - COMPUTE:
+
+    It is mostly based on regional.
+    EC2 - runs in one AZ. No resilience. 
+    ASG - Runs in different AZ. 
+    ECS - Use services to configure for high availability.
+    Lambda - Can run in any AZ in event of failure.
+
+
+DR ARCHITECTURE - DATABASE:
+
+    Dynamodb - Runs in public zone. data is replicated in multiple AZ. 
+    RDS - Subnet group has primary and standby instances. Synchronous replication occurs. On failure, failover to secondary. 
+    Aurora - Can have 1 replica in each AZ. Uses cluster storage architecture. Data is replicated across AZ. 
+
+    Dynamodb - can create global tables in different region. Multi master replication happens. 
+    Aurora - Aurora global database. NOTE: Writes only allowed in primary region and secondary regions allows read only. Not multi master replication. Done at storage level. 
+    Normal RDS - Cross region read replicas in another region. It is asynchronous level. Not at storage level.
+
+
+DR ARCHITECTURE - NETWORKING:
+
+    VPC - regional level. 
+    Each subnet is within one AZ and cannot span across AZ. 
+    Subnet - Fails if AZ is down. 
+    ELB - Regional services - ELB -> Instances across AZ. 
+    Interface endpoint - tied to specific subnet in one AZ. Adding multiple interface endpoint in different AZ can withstand AZ failure.
+    Route 53 - used for global service which act as load balance. 
+
+---------------------------------------------------------------------------------------------------------
 
