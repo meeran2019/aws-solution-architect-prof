@@ -713,9 +713,41 @@ AWS CLIENT VPN:
 
 AWS DIRECT CONNECT: 
 
-    It is physical connection beween on-prem and AWS
+    It is physical connection beween on-prem and AWS from 1 , 10, 100gb/s.
+    Business premises <> DX location <> AWS Region
+    Order Port Allocation at DX location.
+    Port hourly cost and outbound transfer cost. Inbound transfer cost is free.
+    Takes time to provisioning. Physical labels and no resilience.
+    Low & consistency latency and high speeds.
 
-    XXXXXXXX - REQUIRE TO DEEP DIVE
+    Can access AWS private and public services and no internet connection is required. 
+
+    Direct connect location: 
+        AWS direct connect cage 
+        Customer or communication partner cage. 
+
+    Public VIF  -   Connect from onprem to AWS private services
+    Private VIF -   connect from onprem to AWS private services
+
+
+    DX PHYSICAL CONNECTION ARCHITECTURE: 
+
+        DX connection - physical port of 1, 10, 100 gb/s
+        Single mode FIBER not copper connection.
+        1000BASE-LX Transceiver - 1 Gbps
+        10GBASE-LR Transceiver - 10 Gbps 
+        100GBASE-LR4 Transceiver - 100 Gbps 
+        Port speed and full deuplex manually set. 
+        Support BGP and BGP MD5 authentication.
+
+
+    DIRECT CONNECT SECURITY - MACSec:
+
+        Frame encryption - layer2.
+        Hop by Hop between two switches/routers.
+        Confidentiality & data integrity.
+        Data origin authenticity.
+        Replay protection.
 
 ---------------------------------------------------------------------------------------------------------
 
