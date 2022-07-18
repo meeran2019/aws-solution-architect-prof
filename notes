@@ -1725,6 +1725,8 @@ DYNAMODB:
     Single digit milli seconds.
     Backups, point in time recovery.
 
+    NOTE: dont increase the RCu & wCU and then decrease. Due to partition change cause long time performance issues. 
+
     Items - Row 
     Keys are of simple primary key or composite primary key.
     Item is max size of 400 kb.
@@ -3603,6 +3605,7 @@ VIRTUAL MACHINE MIGRATIONS:
     Database Migration service:
 
         Source and target database.
+        Can also use from AWS to AWS or from/to AWS migrations.
         Source can be s3. 
         One endpoint must be on AWS.
         Source and destination endpoint. 
@@ -3651,7 +3654,7 @@ STORAGE GATEWAY - VOLUME GATEWAY:
         Excellant RPO and RTO. 
         NOTE: Doesnot allow extend capability since data stored locally and send to AWS. 
         Used for backup.
-
+        It is to have AWS backups and want to maintain low latency access to all data. 
 
 STORAGE GATEWAY - TAPE GATEWAY:
 
@@ -3665,6 +3668,8 @@ STORAGE GATEWAY - FILE GATEWAY:
     Bridge onprem file to s3 
     Mounpoints available via NFS or SMB.
     Mountpoint created in file gateway. Files mounted in gateway are visible as objects in s3.
+    As data center extension.     
+
     It involves,
         1. create a file share which integrate with 1 bucket. 
         2. Mapping between filename and object name.
