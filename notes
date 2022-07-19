@@ -101,7 +101,7 @@ AWS ORGANIZATIONS:
 
     Service Control Policy 
 
-    General practice is to create separate accounts for payments (management), user account (integraet with federation iddendity). From user account, do switch role to assume the role in other accounts. 
+    General practice is to create separate accounts for payments (management), user account (integrate with federation iddendity). From user account, do switch role to assume the role in other accounts. 
 
 
     CONSOLE: 
@@ -246,9 +246,7 @@ PERMISSIONS EVALUATION LOGIC:
     For cross account: 
 
         Account A (Identity policy) -> Account B (Resource policy)
-
         Account A to allow access to Account B <> Account B to allow access from Account A 
-
         Allow <> Allow  then Allow 
         Deny <> Allow   then Deny 
         Deny <> Allow   then Deny 
