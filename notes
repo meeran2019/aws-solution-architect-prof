@@ -350,6 +350,7 @@ SERVICE QUOTAS:
 
     Support -> Ticket to increase quota limit.
 
+
 =========================================================================================================
 ADVANCED IDENTITIES AND FEDERATION: 
 =========================================================================================================
@@ -393,7 +394,7 @@ SAML2.0 IDENTITY FEDERATION:
 AWS SINGLE SIGN ON (SSO): 
 
     It helps to centrally manage sso access and user permission for accounts in organization.
-
+    
     Requirement is valid AWS organization is created.
 
     It is extension of AWS organization.
@@ -449,13 +450,13 @@ AMAZON COGNITO - USER AND IDENTITY POOLS:
                             Even user pool , google, saml2 identity used for exchange.
                             Swapping authenticated or unauthenticated identity for credentials.
                             Assume the role on behalf of identity.
-                            It can deal both authenticated or unauthenticated identity.
+                            NOTE: It can deal both authenticated or unauthenticated identity.
 
     1. User is authenticated with external identity like google, facebook etc.
     2. User pools returns the JWT to web/mobile application.
     3. Web/mobile application send JWT to Identity Pool.
     4. Identity Pool assume the role and generate the temporary credentials.
-    5. Identit pool return the temporary credentials to web/mobile application.
+    5. Identity pool return the temporary credentials to web/mobile application.
 
     CONSOLE: 
 
@@ -489,15 +490,15 @@ AWS MANAGED MICROSOFT AD:
 
     If require native microsoft authentication, then recommend this.
 
-    Can configure a trust relationship between AWS managed microsoft AD and On pprem microsoft AD, so users and groups access resources in either domain.
+    Can configure a trust relationship between AWS managed microsoft AD and On prem microsoft AD, so users and groups access resources in either domain.
 
-    Capable of operating independetly if link broken between onprem and aws.
+    Capable of operating independently if link broken between Onprem and AWS.
 
     Can integrate with MFA (Radius based server).
 
     Support microsoft schema extension.
 
-    Can establish two way trust between onprem and aws managed AD.
+    Can establish two way trust between Onprem and AWS managed AD.
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -517,8 +518,8 @@ AD CONNECTOR:
     It requires working network connectivity between AWS and On prem through Direct connect or VPN connection etc.
 
     Select only when,
-    Proof of concept
-    Legal or compliance reason not in AWS 
+        Proof of concept
+        Legal or compliance reason not place in AWS 
 
 
 =========================================================================================================
