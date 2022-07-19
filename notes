@@ -249,7 +249,7 @@ PERMISSIONS EVALUATION LOGIC:
         Account A to allow access to Account B <> Account B to allow access from Account A 
         Allow <> Allow  then Allow 
         Deny <> Allow   then Deny 
-        Deny <> Allow   then Deny 
+        Allow <> Deny   then Deny 
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -267,20 +267,22 @@ CROSS ACCOUNT ACCESS TO S3:
         3. Upload the objects in Account B.
         4. Only Account A have access (owner) not Account B (Bucket owner).
 
-        NOTE: "Object ownership" - helps to override this behaviour and allows bucket owner to own the object by default. 
+        NOTE: y default, "Object ownership" - helps to override this behaviour and allows bucket owner to own the object.
 
         Objects owned by uploader. 
 
-    Bucket Policy: 
+
+    BUCKET POLICY:
 
         1. Create a bucket policy.  
-                principal = Account A 
+                principal = Account A allow to access. 
         2. Attach the policy to Account B
         3. From Account A, able to access Account B. 
 
         Objects owned by uploader. 
 
-    Cross Account Role: 
+
+    CROSS ACCOUNT ROLE: 
 
         Objects owned by bucket owner. 
 
@@ -303,15 +305,15 @@ AWS RESOURCE ACCESS MANAGER (RAM):
             Availability zone ID (use1-az1) is consistent or same accross the accounts. 
 
     Owner Account:  Owns the resource and create a share. 
-                    Owner retains full permissionship.
-                    Defines the principal (org,ou,acc) to whom to share.
+                    Owner retains full permission.
+                    Defines the principal (org,ou,acc) to whome to share.
                     If participant inside an ORG, acceptance happen automatically. Any non ORG account, based on invite to accept. 
     
     USE CASE: 
 
-        In organization, owner account create a VPC, Subnet & security group and shared with participant accounts.
+        In organization, owner account create a Subnet & security group and shared with participant accounts.
         Participant accounts can only have Read access to utilize and cannot be modified.
-        Only owner account can modify, delete resources.
+        Only owner account can modify, delete created shared resources.
         If participant account create ec2 instance under shared subnets, ec2 is owned by only participant account not owner account. 
 
     CONSOLE: 
@@ -329,13 +331,9 @@ AWS RESOURCE ACCESS MANAGER (RAM):
 SERVICE QUOTAS: 
 
     Quota is limit on the AWS resources.
-
     Service normally have per region quota.
-
     Global services have account level quota.
-
     Most service quotas can be increased.
-
     Hard limit cannot be changes: 
         IAM user of 5000 per account.
 
@@ -351,7 +349,6 @@ SERVICE QUOTAS:
     Organization -> Quota Request Template.
 
     Support -> Ticket to increase quota limit.
-
 
 ---------------------------------------------------------------------------------------------------------
 ADVANCED IDENTITIES AND FEDERATION: 
