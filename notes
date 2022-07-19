@@ -528,7 +528,7 @@ NETWORKING AND HYBRID:
 
 PUBLIC AND PRIVATE AWS SERVICES: 
 
-    Public - Have public endpoint and accessed using internet.  
+    Public  - Have public endpoint and accessed using internet.  
     Private - Runs within VPC.
 
     Public zone     -   act as interface between private and internet. From this zone, aws public service operates like s3 etc. 
@@ -536,13 +536,13 @@ PUBLIC AND PRIVATE AWS SERVICES:
 
     From private zone, resources like ec2 uses internet gateway to access internet.
 
-    Private to private connection happen using VPN or direect connect. 
+    Private to private connection happen using VPN or direct connect. 
 
 ---------------------------------------------------------------------------------------------------------
 
 DHCP IN VPC: 
 
-    Dynamic Host Configuration Protocol - It helps automatic configuration of network resources. It is useful to assign dynamic IP to host.
+    Dynamic Host Configuration Protocol - It helps automatic configuration of network resources. It is useful to assign dynamic IP to host generally.
 
     It consists of Client and Server, based on Layer 2 has MAC address.
 
