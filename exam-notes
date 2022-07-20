@@ -6,10 +6,17 @@ VPC Peering:
 
 Cross Account Access:
     Resource based policy specifies who can access resurces.
+    
 
 Cloudfront - Encryption:
     Field level encryption adds additional layer of security along with HTTPS that protects specific data throughout processing. It is encrypted in edge location and only descrypted by application.
     Signed URL is used to distribute private content.
+
+Direct Connect:
+    It is connecting onprem to AWS by acheive higher privacy benefits, additional data transfer bandwidth and more predictable data transfer performance. 
+    Consistent network experience than internet based connections.
+
+IAM:
 
 
 
