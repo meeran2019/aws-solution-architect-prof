@@ -81,6 +81,19 @@ IAM Access Keys:
 
     aws configure --profile profile-name 
 
+
+Access Advisor: 
+    Users should have least previlege. 
+    Allows unused permission to be identified. 
+    See permissions granted and when last accessed.
+    This is at user, group and role level.
+    IAM -> User/group/role -> Access Advisor tab.
+
+Access Analyzer: 
+    IAM -> Access Report -> Access Analyzer -> Create analyzer at organization or account level.
+    Analyze resource permissions.
+    It helps to identify potential security risks in AWS environment by analyzing resource based policies applies to resources 
+
 =========================================================================================================
 ADVANCED PERMISSIONS AND ACCOUNTS: 
 =========================================================================================================
