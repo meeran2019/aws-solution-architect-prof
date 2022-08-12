@@ -94,6 +94,10 @@ Access Analyzer:
     Analyze resource permissions.
     It helps to identify potential security risks in AWS environment by analyzing resource based policies applies to resources 
 
+IAM Role Vs Resource based policy: 
+    In IAM Role, Principal lose it own permission and takeup the assume role permission. Ex: Account A scans dynamodb and dump in s3 another account. 
+    In Resource based policy, Principal doesnot lose its own permission.
+
 =========================================================================================================
 ADVANCED PERMISSIONS AND ACCOUNTS: 
 =========================================================================================================
@@ -192,6 +196,19 @@ SECURITY TOKEN SERVICE (STS):
 
     Identity can be switch role, cross account role and other AWS resources. 
 
+    Temporary credentials valid from 5 mins to 12 hrs. 
+
+    Zone of trust - accounts, organizations that you own.
+    Outside zone of trust - 3rd parties. 
+
+    External ID - used to avoid "The confused deputy"
+
+    AssumeRole
+    AssumeRolewithSAML
+    AssumeRolewithWebIdentity
+    GetSessionToken
+    GetFederationToken 
+
 
 REVOKING IAM ROLE TEMPORARY SECURITY CREDENTIALS: 
     
@@ -232,12 +249,16 @@ POLICY INTERPRETATION:
 
     Concentrate on NotAction , StringNotEquals conditions.
 
+    "Condition": { "{condition-operator}": {"{condition-key}":"{condition-value}"}}
+
+
 
 PERMISSION BOUNDARIES: 
 
     This is at identity level. It doesnot grant any access. It limit the permission of the identity permission.
 
     It helps for delegation access. 
+    It supported for users and role (not groups) 
 
     For example: 
         Bob (admin) believes tom and want to give full iam:* access.
@@ -367,6 +388,20 @@ SERVICE QUOTAS:
 =========================================================================================================
 ADVANCED IDENTITIES AND FEDERATION: 
 =========================================================================================================
+
+CUSTOM IDENTITY BROKER: 
+
+    No SAML is used here.
+
+    User -> Custom identity broker -> Authenticate -> Custom Idp directly call STS Assume role or get federation token to AWS. 
+
+---------------------------------------------------------------------------------------------------------
+
+WEB IDENTITY FEDERATION - WITHOUT COGNITO: 
+
+    Client (mobile or web)  -> Login with google/facebook/openid connect compatible -> returns web identity token -> Assume role with web identity  -> STS -> Temporary credential received.
+
+---------------------------------------------------------------------------------------------------------
 
 SAML2.0 IDENTITY FEDERATION: 
 
@@ -513,6 +548,17 @@ AWS MANAGED MICROSOFT AD:
 
     Can establish two way trust between Onprem and AWS managed AD.
 
+---------------------------------------------------------------------------------------------------------
+
+SIMPLE AD: 
+
+    Cannot join with onpremise AD.
+    AD compatible managed directory on AWS.
+    Doesnot support MFA.
+    Simpler and cheaper. 
+    Powered by samba4.
+    No trust relationship with onprem AD.
+    
 ---------------------------------------------------------------------------------------------------------
 
 AD CONNECTOR: 
