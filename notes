@@ -381,6 +381,11 @@ AWS RESOURCE ACCESS MANAGER (RAM):
 
 ---------------------------------------------------------------------------------------------------------
 
+AWS IAM IDENTITY CENTER: 
+
+    Successor to AWS single signon.
+
+---------------------------------------------------------------------------------------------------------
 SERVICE QUOTAS: 
 
     Quota is limit on the AWS resources.
@@ -471,6 +476,7 @@ AWS SINGLE SIGN ON (SSO):
         AWS Managed microsoft AD 
         On premise microsoft AD 
         External SAML2 identity
+        AD connector. 
 
     AWS SSO is recommended. 
 
@@ -483,7 +489,7 @@ AWS SINGLE SIGN ON (SSO):
 
         https://d-9067b1117b.awsapps.com/start  - can customize the URL.
 
-        Identity source -> AWS SSO, Active Directory, External Identity Provider.
+        Identity source -> AWS SSO, Active Directory , External Identity Provider.
 
         Permission sets -> Predefined or custom permission sets. Session duration can select.
 
@@ -501,6 +507,12 @@ AWS SINGLE SIGN ON (SSO):
     To enable MFA: 
 
         SSO -> Settings -> Network & Security -> MFA 
+
+---------------------------------------------------------------------------------------------------------
+
+AWS CONTROL TOWER: 
+
+
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -1672,10 +1684,11 @@ CLOUD WATCH LOGS:
 CLOUD TRAIL: 
 
     It capture the API activities.
-    Default stores 90 days event history.
+    Default stores 90 days event history and takes 15 mins to deliver events. 
     It consists of,
         Management events - create s3 bucket. 
-        Data events - require to enable. uploading objects to s3. 
+        Data events - require to enable. uploading objects to s3. Lambda function invocation. 
+        Cloud trail insights - Used to detect unusual activity in account. Analyze write events to detect unusual activity. 
     It can enable in one region or all region. For global services like IAM capture in us-east-1 
 
     It can integrate with cloud watch logs or store logs in s3 bucket. 
@@ -1749,6 +1762,10 @@ RDS (Relational Database):
     It is based on multiple instance type like db.m5 , db.r5 or db.t3
     EBS is attached to instances which is og gp, io , magnetic.
     Security group is attached to RDS instances.
+
+    Transparent data encryption (TDE) for Oracle and SQL server. 
+    IAM Authentication for Mysql & postgre sql.
+    Cloudtrail cannot be used to track queries made within RDS.
 
 
     RDS MULTI AZ: 
@@ -3449,7 +3466,11 @@ AWS PARAMETER STORE:
 
     Heirarchies and Versioning.
     Can store as plaintext & ciphertext using KMS. 
-    Public parameters proovided by AWS.
+    Public parameters provided by AWS.
+
+    It supports 2 tiers,
+    standard - 10,000 parameters, 4kb size, no parameter policies, FREE 
+    advanced - 100,000 parameters, 8 kb size, parameter policies available, PAID.
 
 
 AWS SECRETS MANAGER:
@@ -3457,7 +3478,16 @@ AWS SECRETS MANAGER:
     It designed specifically for secrets like pwd, API etc.
     It is integrated with other application.
     Support automatic rotation of key.
-    Direct integration with AWS services like RDS.
+    Natively support Direct integration with AWS services like RDS, Redshift, Document DB.
+    Support other databases and services using custom lambda function.
+    Control access to resources using resource based policy.
+    KMS encryption is mandatory.
+
+
+PARAMETER STORE VS SECRET MANAGER: 
+
+    Parameter store require cloud watch events to trigger lambda for secret rotation.
+    Secret managet have builtin to trigger lambda for secret rotation.
 
 
 VPC FLOWLOGS:
@@ -3490,10 +3520,10 @@ KEY MANAGEMENT SYSTEM (KMS):
     AWS Managed CMK - AWS Managed CMK support key rotation happen every 3 years and cannot be changed or disabled.
     Customer Managed CMK - Customer Managed CMK support key rotation can enable for 1 year
 
-    NOTE: Imported keys cannot auto rotate.
+    NOTE: Imported keys cannot auto rotate and support symmetric only. Automatic rotation is not supported. 
 
     Create, store and manage keys.
-    Handle both symmetric and asymmetric keys.
+    Handle both symmetric and asymmetric keys. All AWS service integration uses symmetric keys. 
     Cryptographic operations (encrypt, decrypt)
     Keys never leave KMS. It provides FIPS 140-2 L2 security standard.
     
