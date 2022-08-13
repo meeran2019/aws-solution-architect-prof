@@ -120,6 +120,10 @@ AWS ORGANIZATIONS:
 
     General practice is to create separate accounts for payments (management), user account (integrate with federation iddendity). From user account, do switch role to assume the role in other accounts. 
 
+    All accounts in organization can receive hourly cost benefit of Reserved Instance that are purchased by any other account. Management account can turn off RI discount and savings plan discount sharing for any accounts including management account. 
+    To share both accounts must have sharing turned on. 
+
+    Account -> Billing preference -> Biling preferences -> RI & Savings plan discount sharing. 
 
     CONSOLE: 
 
@@ -172,6 +176,10 @@ AWS ORGANIZATIONS:
 
         Account root user has full access in account but indirectly can be restricted by using SCP.
 
+        SCP doesnot affect service linked roles. 
+
+        aws:TagKeys - used to check the key value of tags. 
+
         Access can be provided by 2 ways, 
             1. Explicit allow all (default policy) and explicit deny few services.
             2. Delete default and Explicit allow few services only. (more secure)
@@ -181,6 +189,17 @@ AWS ORGANIZATIONS:
         CONSOLE: 
             1. First to enable the SCP: 
                     Organization -> Policy -> SCP -> ENABLE (Default create with FullAWSAccess policy) and attach to ROOT by default.
+
+    TAG POLICY: 
+
+        Aws Organizations -> Policies -> Tag policies -> Enable 
+
+        It helps to standardize tags across resources in AWS organizations.
+        Can define Tag keys and allowed values. 
+
+    AI SERVICES OPT OUT POLICY:
+
+    BACKUP POLICY:
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -558,7 +577,7 @@ SIMPLE AD:
     Simpler and cheaper. 
     Powered by samba4.
     No trust relationship with onprem AD.
-    
+
 ---------------------------------------------------------------------------------------------------------
 
 AD CONNECTOR: 
