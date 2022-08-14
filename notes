@@ -3408,7 +3408,7 @@ AWS CONFIG:
     It can integrate with SSM for compliant or non complaint specifically for ec2 instance.
 
     Rules can have also auto remediation. Trigger when non complaint using SSM Automations. 
-    
+
 
 AWS INSPECTOR:
 
@@ -3562,6 +3562,7 @@ CLOUD HSM (Hardware Security Module):
     It is not so integrated with AWS.
     Industry standard API PKCS#11 , Java cryptography Extensions (JCE), Microsoft CryptoNG (CNG) libraries support.
     Supports both symmetric and asymmetric encryption.
+    Cloud HSM security is not defined through IAM. Create a SSM parameter with username & password. Create a policy to restrict access to SSM parameter. 
 
 
 CLOUD HSM VS KMS: 
@@ -3885,6 +3886,17 @@ S3 BUCKET POLICY:
 
     AWS:SourceIP        -   Used to allow/block from public 
     AWS:SourceVpce / AWS:SourceVpc     -   used to allow/block from gateway endpoint. 
+
+AWS MANAGED LOGS: 
+
+    Load balancer access logs - to s3 
+    Cloud trail logs - to s3 & cloudwatch
+    VPC Flow logs - to s3 & cloudwatch
+    Route 53 access logs - to cloudwatch 
+    s3 access logs - to s3
+    cloudfront access logs - to s3 
+    aws config - to s3 
+
 
 
 
