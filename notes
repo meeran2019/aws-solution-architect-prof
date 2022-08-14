@@ -1494,6 +1494,8 @@ ELASTIC LOAD BALANCER:
             Rules processed in priority order.
             Rule condition is host-header, http-header, http-request-method, path-pattern, query-string and source ip.
 
+            have security group and do connection termination.
+
             Actions can be forward, redirect, fixed-respone, authenticate-oidc, authenticate-cognito
 
         NLB: 
@@ -1506,6 +1508,7 @@ ELASTIC LOAD BALANCER:
             Can have static IPs and use for whitelisting.
             It support end to end encryption to instance through TLS.
             Used with private link.
+            No security group and no connection termination.
 
     SESSION STICKINESS:
 
@@ -3404,6 +3407,8 @@ AWS CONFIG:
 
     It can integrate with SSM for compliant or non complaint specifically for ec2 instance.
 
+    Rules can have also auto remediation. Trigger when non complaint using SSM Automations. 
+    
 
 AWS INSPECTOR:
 
@@ -3419,6 +3424,8 @@ AWS INSPECTOR:
         CVE (Common vulnerabilities and exposure) package.
         CIS (center for internet security) benchmark.
         Security best practices.
+
+    EC2 / container infrastructure (uses SSM agent) -> Inspector -> Security hub (reportings)
 
 
 AWS WAF & SHEILD: 
@@ -3437,6 +3444,12 @@ AWS WAF & SHEILD:
 
         WebACL -> Rule Group -> Rules 
         WebACL Capacity Unit . Complex Rules uses higher WCU. 
+
+        Rule groups,
+            Baseline rule groups 
+            Usecase specific rule groups
+            IP reputation rule groups 
+            Bot control managed rule group
 
 
 AWS CERTIFICATE MANAGER: 
@@ -3548,7 +3561,13 @@ CLOUD HSM (Hardware Security Module):
     FIPS 140 L3 compliant.
     It is not so integrated with AWS.
     Industry standard API PKCS#11 , Java cryptography Extensions (JCE), Microsoft CryptoNG (CNG) libraries support.
-    
+    Supports both symmetric and asymmetric encryption.
+
+
+CLOUD HSM VS KMS: 
+
+    Tenancy - Multi tenancy vs Single tenancy 
+
 
 =========================================================================================================
 OTHER SERVICES:
@@ -3856,3 +3875,16 @@ AWS DATASYNC:
     3. In AWS, data can store in S3, EFS, FSx
 
 ---------------------------------------------------------------------------------------------------------
+
+SSL OFFLOAD USING CLOUD HSM:  
+
+    client -> ELB -> EC2 -> Cloud HSM (Used to store SSL details)
+
+
+S3 BUCKET POLICY:  
+
+    AWS:SourceIP        -   Used to allow/block from public 
+    AWS:SourceVpce / AWS:SourceVpc     -   used to allow/block from gateway endpoint. 
+
+
+
