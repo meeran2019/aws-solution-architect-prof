@@ -3859,7 +3859,7 @@ SNOW MOBILE:
 
 ---------------------------------------------------------------------------------------------------------
 
-AWS DATASYNC: 
+AWS DATA SYNC: 
 
     It orchastrate the movement of data of large scale from onprem to AWS or vice versa.
     Migrations, data processing transfers, archival, cost effective storage or DR.

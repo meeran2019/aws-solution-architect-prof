@@ -1,23 +1,47 @@
 
-VPC Peering:
+VPC PEERING: 
     Used to connect one VPC to another. Or from one central VPC to multiple VPC.
     Instances in both vpc communicate with each other as they are in same network.
     Can create VPC peering in same account or different account or different region.
 
-Cross Account Access:
+CROSS ACCOUNT ACCESS: 
     Resource based policy specifies who can access resurces.
     
 
-Cloudfront - Encryption:
+CLOUDFRONT ENCRYPTION:
     Field level encryption adds additional layer of security along with HTTPS that protects specific data throughout processing. It is encrypted in edge location and only descrypted by application.
     Signed URL is used to distribute private content.
 
-Direct Connect:
+DIRECT CONNECT:
     It is connecting onprem to AWS by acheive higher privacy benefits, additional data transfer bandwidth and more predictable data transfer performance. 
     Consistent network experience than internet based connections.
 
-IAM:
+KINESIS:
+    When kinesis data stream is configured as source for kinesis firehose, firehose putrecord & putrecordbatch operations are disabled by default and kinesis agent cannot write directly to firehose.
+    Kinesis agent is stand alone java software application that offers easy way to collect and send data to kinesis data stream or data firehose. 
+    
+AWS SSO (IDENTITY CENTRE):
+    Simple AD is not supported. 
 
+
+SSM STATE MANAGER:
+    It is secure and scalable configuration management service that automates the process of keeping EC2 and hybrid infrastructure in specific state,
+        Bootstrap instances with specific software.
+        Download and upload agents like ssm agent.
+        Configure network settings.
+        Join instances to windows domain.
+        Patch instances with software updates.
+        Run scripts on linux and windows managed instances.
+
+    SSM -> State Manager -> Association (Documents, Target, Schedule)
+
+
+AWS SHIELD:
+    Support Route 53, Cloudfront etc
+
+AWS WAF: 
+    Doesnot support Route 53.
+    
 
 
 
