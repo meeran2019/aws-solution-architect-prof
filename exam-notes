@@ -4,6 +4,7 @@ VPC PEERING:
     Instances in both vpc communicate with each other as they are in same network.
     Can create VPC peering in same account or different account or different region.
 
+
 CROSS ACCOUNT ACCESS: 
     Resource based policy specifies who can access resurces.
     
@@ -12,14 +13,17 @@ CLOUDFRONT ENCRYPTION:
     Field level encryption adds additional layer of security along with HTTPS that protects specific data throughout processing. It is encrypted in edge location and only descrypted by application.
     Signed URL is used to distribute private content.
 
+
 DIRECT CONNECT:
     It is connecting onprem to AWS by acheive higher privacy benefits, additional data transfer bandwidth and more predictable data transfer performance. 
     Consistent network experience than internet based connections.
 
+
 KINESIS:
     When kinesis data stream is configured as source for kinesis firehose, firehose putrecord & putrecordbatch operations are disabled by default and kinesis agent cannot write directly to firehose.
     Kinesis agent is stand alone java software application that offers easy way to collect and send data to kinesis data stream or data firehose. 
-    
+
+
 AWS SSO (IDENTITY CENTRE):
     Simple AD is not supported. 
 
@@ -39,10 +43,70 @@ SSM STATE MANAGER:
 AWS SHIELD:
     Support Route 53, Cloudfront etc
 
+
 AWS WAF: 
     Doesnot support Route 53.
+
+
+AMAZON CLOUDSEARCH:
+    It is fully managed service that makes easy to setup, manage and scale a SEARCH SOLUTION for WEBSITE OR APPLICATION.
+
+
+AWS REKOGNITION:
+    Read text from images.
+
+
+EC2:
+    Migrate instance to another region with same key pair: 
+        1. Create instances.
+        2. Under instance -> Actions -> Image & templates -> Create image.
+        3. Under images -> AMI -> Copy AMI -> Select different region.
+        4. In destination region, under Key pair -> Actions -> Import key.
+        5. NOTE: Dont use .pem file. It contains private key, use key-gen tool to generate public key from .pem file.
+        6. Once imported, it available in another region.
+
+    Key-pair is region specific. In KMS, can generate single or multi region key.
+
+
+AWS DIRECT CONNECT:
+    Can connect direct connect with VPC.
+    It consists of aws cage (direct connect endpoints) and customer cage (router)
+    Onprem -> Customer cage (customer gateway) -> Direct connect endoint -> VGW or Direct connect gateway.
+    VGW is connected to single vpc in one region.
+    Direct connect gateway is global and connect to multiple VGW in different regions.
+    Public Interface,, Private Interface, Transit Interface. 
+    Link Aggregation group (LACP protocol).
+    Transt interface is used to include transit gateway to multiple vpc.
+
+
+SITE TO SITE VPN CONNECTION:
+    Use non overlaping cidr blocks.
+    IPV6 traffic is not supported in virtual private gateway.
+    It doesnot support path MTU discovery.
+    Customer -> Customer gateway -> Ipsec VPN Tunnel -> VGW or Transit gateway.
+    It is static (No BGW) and dynamic IPS (BGW)
+
+
+DIRECT CONNECT + VPN:
+    It utilizes the Ipsec tunnel encryption vis direct connect.
+    In customer side, customer gateway.
+    In aws side, connect to VGW.
+
+VPC ENDPOINT:
+
+INTERFACE ENDPOINT:
+
+GATEWAY ENDPOINT: 
+
+RDS: 
+    RDS doesnot support RMAN (Recovery Manager) backup utility.
+
+STORAGE GATEWAY:
+    In volume gateway, volume is stored in s3 as snapshot. To restore, require EBS volume or volume storage gateway.
+
+S3:
+    Amazon S3 is not a POSIX complaint.
+
     
-
-
 
 

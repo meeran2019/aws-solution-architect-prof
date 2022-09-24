@@ -3592,7 +3592,7 @@ AMAZON CONNECT:
 
 AWS REKOGNITION:
 
-    Deep leraning based image and video analysis.
+    Deep learning based image and video analysis.
     Can detect objects, face recognition, content etc.
     Per image or per minute video processing.
     Can even analyse live stream of kinesis video stream.
@@ -3797,6 +3797,7 @@ STORAGE GATEWAY:
 
 STORAGE GATEWAY - VOLUME GATEWAY:
     
+    For volume gateway, restore to EBS to restore data. 
     Cached mode:
         Data is not located locally in onprem but stored in AWS s3 (Note only AWS manage and user cant see in s3)
         Only cached data stored in onprem.
