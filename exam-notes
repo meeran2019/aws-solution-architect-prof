@@ -77,6 +77,8 @@ AWS DIRECT CONNECT:
     Public Interface,, Private Interface, Transit Interface. 
     Link Aggregation group (LACP protocol).
     Transt interface is used to include transit gateway to multiple vpc.
+    To connect to AWS public services use Public virtual Interface. 
+    To connect to S3, use public vitural interface not private virtual interface.
 
 
 SITE TO SITE VPN CONNECTION:
@@ -107,6 +109,26 @@ STORAGE GATEWAY:
 S3:
     Amazon S3 is not a POSIX complaint.
 
-    
+BYOIP (Bring Your Own IP):
+    It helps to maintain same onprem IP while moving to Cloud.
+    RRI is used for registration. 
 
+
+RAM (Resource Access Manager): 
+    Trusted service enables to perform tasks in your organization and accounts on your behalf.
+
+
+ROUTE 53:
+    Bad actor spoof site and use their own ip address is called man in middle attack. 
+    It support DNSSEC for domain registration and DNS Service.
+    Generally s3 owner pays for the storage and data transfer cost. If enabled "Requester pays", requester will pay for request and data transfer cost. Also require requester to pass x-amz-requester-pay in header or pass parameter in CLI.
+
+RDS:
+    In multi AZ, cannot access standby instance.
+
+LAMBDA + VPC:
+    Lambda create ENI that allow lambda to access VPC resources.
+
+OPSWORKS:
+    Autohealing is set at layer level which can be enabled. It helps to automatically replace instance failed instances.
 

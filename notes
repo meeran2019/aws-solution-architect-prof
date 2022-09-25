@@ -3881,6 +3881,8 @@ AWS DATA SYNC:
 SSL OFFLOAD USING CLOUD HSM:  
 
     client -> ELB -> EC2 -> Cloud HSM (Used to store SSL details)
+    Can generate own encryption keys.
+    
 
 
 S3 BUCKET POLICY:  
