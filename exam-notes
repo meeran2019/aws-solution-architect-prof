@@ -132,3 +132,23 @@ LAMBDA + VPC:
 OPSWORKS:
     Autohealing is set at layer level which can be enabled. It helps to automatically replace instance failed instances.
 
+AWS VM IMPORT/EXPORT vs SMS:
+    Import/Export helps to move images from AWS from/to onprem. It doesnot do incremenetal images.
+    SMS does incremental updates.
+
+CERTIFICATE MANAGER (ACM):
+    It is region specific. 
+    For ELB, create certificate with same fqdn in each region or account. 
+    For cloudfront, create certificate in us-east-1.
+
+ELASTIC CACHE REDIS:
+    It gives,
+        Daily automatic backup
+        Manual backup using Redis append only file (AOF).
+        Setting up multi AZ with automatic failover.
+
+SCP:
+    Service control policy.
+    SCP doesnot affect service linked roles.
+    Service linked role enable other services to interact with organization.
+    
