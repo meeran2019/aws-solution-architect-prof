@@ -95,19 +95,22 @@ DIRECT CONNECT + VPN:
     In aws side, connect to VGW.
 
 VPC ENDPOINT:
-
-INTERFACE ENDPOINT:
-
-GATEWAY ENDPOINT: 
+    It helps to connect from private subnet to AWS services without going through internet.
+    It consists of, 
+        Interface endpoint - Uses ENI 
+        gateway endpoint - Used Route table. SUpport only S3 & Dynamodb. 
 
 RDS: 
     RDS doesnot support RMAN (Recovery Manager) backup utility.
 
+
 STORAGE GATEWAY:
     In volume gateway, volume is stored in s3 as snapshot. To restore, require EBS volume or volume storage gateway.
 
+
 S3:
     Amazon S3 is not a POSIX complaint.
+
 
 BYOIP (Bring Your Own IP):
     It helps to maintain same onprem IP while moving to Cloud.
@@ -123,23 +126,29 @@ ROUTE 53:
     It support DNSSEC for domain registration and DNS Service.
     Generally s3 owner pays for the storage and data transfer cost. If enabled "Requester pays", requester will pay for request and data transfer cost. Also require requester to pass x-amz-requester-pay in header or pass parameter in CLI.
 
+
 RDS:
     In multi AZ, cannot access standby instance.
+
 
 LAMBDA + VPC:
     Lambda create ENI that allow lambda to access VPC resources.
 
+
 OPSWORKS:
     Autohealing is set at layer level which can be enabled. It helps to automatically replace instance failed instances.
+
 
 AWS VM IMPORT/EXPORT vs SMS:
     Import/Export helps to move images from AWS from/to onprem. It doesnot do incremenetal images.
     SMS does incremental updates.
 
+
 CERTIFICATE MANAGER (ACM):
     It is region specific. 
     For ELB, create certificate with same fqdn in each region or account. 
     For cloudfront, create certificate in us-east-1.
+
 
 ELASTIC CACHE REDIS:
     It gives,
@@ -147,8 +156,17 @@ ELASTIC CACHE REDIS:
         Manual backup using Redis append only file (AOF).
         Setting up multi AZ with automatic failover.
 
+
 SCP:
     Service control policy.
     SCP doesnot affect service linked roles.
     Service linked role enable other services to interact with organization.
-    
+
+
+AMAZON SNS: 
+    Amazon SNS mobile push notification. 
+
+
+AWS PINPOINT:
+    To send push notifications.
+
