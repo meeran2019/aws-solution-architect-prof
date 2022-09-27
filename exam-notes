@@ -255,3 +255,25 @@ LAMBDA:
 RESERVED INSTANCE:
     If reserved instances bought in specific AZ. Only other accounts can share the reserve instance in that particular AZ.
 
+Appsych is recommended for GraphQL APIs not REST APIs
+
+Choose memcache over redis in,
+    Need simplest model.
+    Need to run large nodes with multiple cores or threads.
+    Need the ability to scale out or scale in by adding/removing nodes as demand changes.
+    Need to cache object such as database.
+
+SQS Queue cannot be set as input to Step functions.
+
+RTMP is used for video streaming not for static images.
+
+Amazon Workdocs:
+    It is fully managed, secure content creation, storage and collaboration service.
+    Can easily create, edit and share content because stored centrally on AWS so can share easily.
+    Amazon workdocs content manager is high level utility tool that upload content or download it from amazon worksite.
+    For user, use ananymoous aws credentials and authentication token.
+    For administrator, use aws iam credentials. 
+
+
+AWS Network Firewall Service:
+
