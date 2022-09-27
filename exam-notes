@@ -12,6 +12,18 @@ CROSS ACCOUNT ACCESS:
 CLOUDFRONT ENCRYPTION:
     Field level encryption adds additional layer of security along with HTTPS that protects specific data throughout processing. It is encrypted in edge location and only descrypted by application.
     Signed URL is used to distribute private content.
+    Cant use self signed certificate between cloudfront and origin.
+    In cloudfront, have default SSL certificates not in ELB.
+
+    HTTPS between user and cloudfront,
+        Can use certificate issued by trusted CA.
+        Can use certificate provided by ACM.
+
+    HTTPS between cloudfront and origin,
+        If origin is ELB, can use ACM.
+        If origin is not ELB like EC2, must use trusted CA.
+
+    If cloudfront custom domain, then cannot use default certificate. For default domain, can use default certificate.
 
 
 DIRECT CONNECT:
@@ -102,11 +114,14 @@ VPC ENDPOINT:
 
 RDS: 
     RDS doesnot support RMAN (Recovery Manager) backup utility.
+    Amazon RDS doesnot support oracle feature like Multitenent database, Real Application CLuster, Unified Auditing, Database Vault etc.
 
 
 STORAGE GATEWAY:
-    In volume gateway, volume is stored in s3 as snapshot. To restore, require EBS volume or volume storage gateway.
-
+    In volume gateway, volume is stored in s3 as snapshot. To restore, require EBS volume or volume storage gateway. Support POSIX complaint. 
+    Cache Volume - Support upto 1024 TB. 
+    Storage volume - Support upto 512 TB.
+    Storage gateway uses "Challenge Handshake Authentication Protocol"(CHAP) to authenticate ISCSI and initiator connections. It provides protection agaings playback attacks. 
 
 S3:
     Amazon S3 is not a POSIX complaint.
@@ -125,6 +140,9 @@ ROUTE 53:
     Bad actor spoof site and use their own ip address is called man in middle attack. 
     It support DNSSEC for domain registration and DNS Service.
     Generally s3 owner pays for the storage and data transfer cost. If enabled "Requester pays", requester will pay for request and data transfer cost. Also require requester to pass x-amz-requester-pay in header or pass parameter in CLI.
+    Health check is available for non alias records. For alias records, no health check.
+    For alias records, specify Evaluate target health to Yes. 
+    For non alias records, use health check.
 
 
 RDS:
@@ -169,4 +187,71 @@ AMAZON SNS:
 
 AWS PINPOINT:
     To send push notifications.
+
+
+VPN CLOUDHUB:
+    If have multiple VPN connections, can provide secure communication between sites.
+    Onprem can connect to one another using VPN or Direct connect.
+
+    VPC  -> OnPrem branch1
+    VPC  -> OnPrem branch2 
+    Onprem branch1 <- using vpn or direct connect -> Onprem branch2
+
+
+TRANSIT GATEWAY:
+    Connect VPC to onprem using central hub.
+
+
+LDAP:
+    Light Weight Active Directory Protocol.
+    It is communication protocol used to interact with AD.
+
+
+VPC PEERING:
+    Now allows VPC peering between VPC across regions.
+    Inter region VPC peering allows communcation between VPC using private IPs.
+    Traffic stays on AWS network and never traverse in public internet.
+
+
+AWS Shield Advanced - SYN flood and UDP reflection attacks.
+
+
+CLOUDWATCH Dashboard:
+    Customizable home pages in cloudwatch console that can be use to monitor resource in single view though resources are spread across region.
+
+
+BLUE GREEN DEPLOYMENT NOT SUITABLE:
+    Sharing of resources is not feasible.
+    Schema changes to complex to decouple from code change.
+    Application need deployment aware
+    Not blue green deployment friendly.
+
+IDENTITY BROKER:
+    If saml2 is not supported, then to use custom identity broker.
+    Identity broker interact with STS with AssumeRole or GetFederationTokens to obtain security credentials.
+
+AWS CONFIG:
+    It helps,
+        Evaluate AWS resources for desire configuration.
+        Get snapshot of current configuration.
+        Retrieve configuration of 1 or more resources.
+        Retrieve historical configuration.
+        Receive notification whenver resource is created, updated or deleted.
+        View relationship between resources. Resources using particular security group.
+
+EC2:
+    Depends upon instance type, no of ENI can attach is varies.
+
+EBS Volume:
+    For encryption at rest, it supports
+        Encrypt data before storing on EBS
+        Use 3rd part volume encryption software.
+        Use native data encryption drivers.
+
+LAMBDA:
+    Lambda function cannot connect directly to VPC with dedicated instance tenancy.
+    For lambda to connect to VPC, require sufficient ENI.
+
+RESERVED INSTANCE:
+    If reserved instances bought in specific AZ. Only other accounts can share the reserve instance in that particular AZ.
 
