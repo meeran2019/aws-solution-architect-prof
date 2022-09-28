@@ -29,6 +29,7 @@ CLOUDFRONT ENCRYPTION:
 DIRECT CONNECT:
     It is connecting onprem to AWS by acheive higher privacy benefits, additional data transfer bandwidth and more predictable data transfer performance. 
     Consistent network experience than internet based connections.
+    Network device that support BGP and BGP MD5 authentication is needed in onprem to establish connection.
 
 
 KINESIS:
@@ -276,4 +277,26 @@ Amazon Workdocs:
 
 
 AWS Network Firewall Service:
+
+TAGS:
+    Upto 50 user defined tags allowed per resource.
+    For each resource, can edit/create tags individually.
+    Tag editor is used to add/modify tags for bulk of resources.
+    Cost Allocation Tags:
+        AWS defined
+        User defined.    
+    SCP are not available if enabled only consolidated billing feature.
+
+
+Amazon Workspace:
+    It enables to provision virtual, cloud based microsoft windows or amazon linux desktops for users.
+    Users can access virtual desktops from multiple devices or browsers.
+
+    Amazon workspace Application Manager - It provides flexible and secure way to deploy and manage application in Workspace with Windows and automatic maintenance.
+
+AppStream 2.0:
+    It is fully managed application streaming service.
+    Centrally manage desktop application on Appstream and securely deliver to any computer.
+
+
 
