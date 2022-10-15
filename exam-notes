@@ -16,7 +16,7 @@ CLOUDFRONT ENCRYPTION:
     In cloudfront, have default SSL certificates not in ELB.
 
     HTTPS between user and cloudfront,
-        Can use certificate issued by trusted CA.
+        Can use certificate issued by trusted CA which import into ACM or AWS IAM.
         Can use certificate provided by ACM.
 
     HTTPS between cloudfront and origin,
@@ -298,5 +298,11 @@ AppStream 2.0:
     It is fully managed application streaming service.
     Centrally manage desktop application on Appstream and securely deliver to any computer.
 
+
+S3 glacier doesnot have builtin search function to help retrieve data, so metadata and archive id to store in database.
+
+Amazon data life cycle manager - used to automate the creation, deletion, retention of snapshots.
+
+Cloud HSM, For account manager to login use SSH.
 
 
