@@ -305,4 +305,67 @@ Amazon data life cycle manager - used to automate the creation, deletion, retent
 
 Cloud HSM, For account manager to login use SSH.
 
+=> Web ACL add at ALB, Custom header at Cloudfront. 
+
+Application cannot resolve record sets created in private hosted zone of another aws account. Solution is Associate private hosted zone with vpc in another account. It requires, 
+        1. Authorize the association in Route53 in account A to VPC in account B.
+        2. From account B, create the association.
+        3. Delete the association authorization after association is created.
+
+Cloud Migration Tools:
+    Application Discovery Service
+            Export data as CSV and helps to Total Cost of Ownership.
+    AWS Migration Hub 
+    Cloud Adoption Readiness Tool
+            Helps organization of all sizes develop efficient and effective plans for cloud adoption.
+            16 question online survey and assessment report based on 6 perspectives include business, people, process, platform, operations and security.
+    
+Federation Identity:
+    Idp defines SAML assertions that map user or group in company to IAM roles with appropriate permissions.
+    IAM roles created for the federated users or groups trust policy have set SAML provider as principal.
+    Webportal calls AWS STS AssumerolewithSAML with ARN of SAML provider, ARN of IAM role and SAML assertion from IdP.
+
+Fargate - ECR:
+    When Fargate is launched, it requires ENI to connect to the internet to pull images.
+        For tasks in,
+            Public subnet - Enable "Auto assign public ip"
+            Private subnet - Disable "Auto assign public ip" and configure NAT gateway in public subnet to connect to internet.
+
+S3 Bucket:
+    IgnorePublicAcls - Ignore all public ACLs on bucket and its objects.
+    BlockPublicAcls  - PUT bucket acls and put object request are blocked.
+    BlockPublicPolicy - Reject request to put a bucket policy.
+    RestrictPublicBuckets - Restrict access to principles.
+
+Snowball - Increase data transfer speed to snowball:
+    Use the latest mac or linux snowball client.
+    Batch small files together.
+    Perform multiple copy operations one time.
+    Copy from multiple workstations.
+    Transfer directories not files.
+
+NLB uses flow hash algorithm. ALB uses round robin, least_outstanding_request algorithm.
+NLB doesnot have security group and pass traffic directly.
+Listener port and health check port both to be allowed.
+
+Can use AWS budgets to track service cost within service catalog. Budget can be associated with product or portfolio level. 
+
+ALB cannot be used to distribute traffic in multi region.
+
+Transit Gateway:
+    Used to interconnect VPC and Onprem.
+    Transit gateway can be attach to,
+        One or More VPC
+        AWS Direct connect gateway
+        Peering connection with another transit gateway 
+        VPN connection to transit gateway 
+        Connect SD/WAN / third party network applicance.
+
+Legacy application inside VPC with hard coded IP address, to failover:
+    Create a secondary ENI
+    Assign secondary private IP address to primary ENI 
+
+
+
+
 
