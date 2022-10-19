@@ -365,7 +365,19 @@ Legacy application inside VPC with hard coded IP address, to failover:
     Create a secondary ENI
     Assign secondary private IP address to primary ENI 
 
+S3 Object Encryption:
+    If trust relationship is not maintained, then user cant assume the role. 
+    Verify the IAM role has decrypt permission of KMS key.
 
+Appsynch:
+    It is GraphQL API.
+    Useful to retrive data from multiple sources.
+
+AWS Organizations:
+    All resources including iam user should create in separate accounts.
+    Cloud trail should create in management accounts.
+
+    
 
 
 
