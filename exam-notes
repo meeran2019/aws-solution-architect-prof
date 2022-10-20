@@ -377,7 +377,34 @@ AWS Organizations:
     All resources including iam user should create in separate accounts.
     Cloud trail should create in management accounts.
 
-    
+S3 Multipart Upload:
+    It uses to transfer larger files by split into parallel.
+    If fails, it occupies space and incurs charges.
+    However this failed is not visible in bucket and use life cycle rule to cleanup.
+
+API Gateway Authorization:
+    Set the authorization to AWS_IAM for API gateway. 
+    Creata a permission policy that grands "execute-api:invoke" permission on API. 
+    lambda:invoke - Permission to invoke lambda function.
+    execute-api:invoke - Permission to invoke API.
+    execute-api:invalidatecache - Permission to refresh cache.
+
+For NACL, due to ephermal ports, allows from 1024 - 65k port range.
+
+For unstructured data and eliminate licensing cost - Dynamodb 
+
+S3 Endpoint:
+    Attach policy to s3 gateway point.
+    From EC2, create a role.
+    Attach a policy to s3 bucket to allow this role.
+
+AWS Config supports auto remediation.
+
+AWS Opsworks support blue/green deployment. It doesnot support Canary.
+
+
+
+
 
 
 
