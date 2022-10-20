@@ -402,6 +402,13 @@ AWS Config supports auto remediation.
 
 AWS Opsworks support blue/green deployment. It doesnot support Canary.
 
+Whitelisted IP address - Elastic IP can be assign to NAT Gateway only but not Internet Gateway.
+
+Web ACL will not provide DDOS attacks.
+
+
+
+
 
 
 
