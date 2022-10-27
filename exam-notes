@@ -406,6 +406,52 @@ Whitelisted IP address - Elastic IP can be assign to NAT Gateway only but not In
 
 Web ACL will not provide DDOS attacks.
 
+For DB Migration with internet bandwidth issue and 2 weeks time,
+    Use the snowball for import and export to Aurora.
+    Once synchronized, change dns entry to point to new DB.
+
+Always create a OU and move the acocunts for access control.
+
+Cloudfront - Signed cookies - Application send the set-cookie header to viewer and control access to files using signed cookies.
+
+For small applications, ECs is less expensive.
+
+EBS Volume Encryption:
+    Encrypt using native data encryption driver
+    Implement 3rd party encryption tools
+    Encrypt data before storing it on ebs.
+
+NOTE: Redshift cross region snapshot not cross region replication in source region. Snapshot copy grant in destination region.
+
+For below, no S3 transfer cost:
+        Data transfered in from the internet.
+        Data transfer out to ec2 instance in same region.
+        Data transfer out to cloudfront.
+
+Lambda default quoto 1000 concurrency limit and can be increase by contacting aws support.
+
+Kinesis data streams support enhanced fanout feature. 
+
+Data cant be directly copied from snowball edge to glacier. It first move to s3 and then to glacier.
+
+If multiple application written in different languages, prefer ECS than bean stalk. in beanstalk, require to create multiple instances for different language application.
+
+AWS Global accelarator uses endpoint weights. Can shift traffic gradually or all at once between blue and green environment without being subject to DNS CACHING on client devices and internet resolvers. 
+
+Firehose cannot write directly to dynamodb. 
+
+PutObject API with public read permission is detected in CloudTrail logs only not in s3 event notifications.
+
+${aws:username}
+
+Can add MFA protection to role. 
+
+use IAM Access Analyzer to find out which resources are exposed.
+
+
+
+
+
 
 
 
