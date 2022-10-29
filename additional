@@ -93,7 +93,12 @@ ADDITIONAL NOTES:
     EFS have life cycle management. EFS can mount on on-prem.
     EFS have resource based policy like S3 bucket policy.
 
+    AWS Datasync preserves file permission and metadata.
+
+    AWS Snowcone is preinstalled with datasync agent. 
     
+
+
 
 
 
