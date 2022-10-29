@@ -95,11 +95,5 @@ ADDITIONAL NOTES:
 
     AWS Datasync preserves file permission and metadata.
 
-    AWS Snowcone is preinstalled with datasync agent. 
+    AWS Snowcone is preinstalled with datasync agent.
     
-
-
-
-
-
-
