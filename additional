@@ -86,4 +86,12 @@ ADDITIONAL NOTES:
 
     In Direct connect, VPC endpoint cant accessed by using Private VIF. 
 
+    EBS Multi attach - io1/io2 - Same EBS attach to multiple EC2 instances.
+    IO2 block express support upto 256,000 iops. 
+    Ephermal storage is good for cache/scratch data/temporary data.
     
+    EFS have life cycle management.
+
+    
+
+
