@@ -20,7 +20,7 @@ CLOUDFRONT ENCRYPTION:
         Can use certificate provided by ACM.
 
     HTTPS between cloudfront and origin,
-        If origin is ELB, can use ACM.
+        If origin is ELB, can use ACM or trusted CA.
         If origin is not ELB like EC2, must use trusted CA.
 
     If cloudfront custom domain, then cannot use default certificate. For default domain, can use default certificate.
@@ -447,6 +447,45 @@ ${aws:username}
 Can add MFA protection to role. 
 
 use IAM Access Analyzer to find out which resources are exposed.
+
+DataSync is online data transfer that simplifies, automates and accelarate copying large amounts of data to and from AWS storage services like EFS, S3, FSx over internet or direct connect. It performs data integrity verification during transfer and end of transfer.
+
+Redis authentication token enable Redis to require a token(password) before allowing clients to run commands.
+
+Limitation on using Redshift as Target in DMS:
+    Dont enable versioning for intermediate s3 bucket.
+    _schema is not migrated.
+    Doesnot support VARCHAR with > 64kb.
+    Doesnot support custom DNS name. 
+    Redshift cluster must be in same acocunt and region of replication instances.
+
+Connect on-prem to s3 using Direct connect:
+    Public virtual interface 
+    Private virtual interface using s3 endpoint.
+
+S3 Select - It works with compressed and server side encrypted objects. 
+S3 glacier select - It cannot be used on compressed data.
+
+S3 static website:
+    AWS account owns the bucket must also owns the object.
+    Objects cant be encrypted by using KMS.
+
+Custom routing accelarator is new type of accelarator in Global accelarator. It allows to use own application logic to route one or more users to specific ec2 in single or multiple region using endpoints.
+
+Kinesis firehose support plug and play lambda integration.
+
+Route53 health check cannot be used to private ip associated with instances.
+
+Storge gateway doesnot refresh cache when upload directly on s3, perform RefreshCache operation to see changes on file share. 
+
+If private ip, use interface endpoint for s3. 
+
+Connection draining on ELB - It keep maximum time for load balancer to keep connection alive before reporting the instance as de-registered. It wait for inflight connection to complete.
+
+Transparent Data Encryption (TDE) for Oracle and SQL server.
+IAM authentication for MYSQL and Postgresql. Authorization happens in RDS.
+
+
 
 
 

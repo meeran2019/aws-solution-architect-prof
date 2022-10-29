@@ -1,0 +1,89 @@
+
+ADDITIONAL NOTES:
+
+    SNI (Server Name Indication) - multiple SSL certificates to one server. Means allow multiple websites with different domain to serve from one server.
+
+    KMS - AWS manages the software for encryption.
+    HSM - AWS provides the encryption hardware.
+    HSM Client --> HSM CLuster in multi AZ.
+    User management happen using HSM client.
+    Deployed and managed from customer vpc. Accessible and can be shared across vpc using vpc peering.
+    
+    Glacier all data is encrypted by using AES256.
+
+    S3 Access logs - capture detailed request.
+
+    Trusted Advisor - used to check bucket permission (public).
+
+    Cloudwatch events -> Enable cloudtrail object level logging in s3 first.
+
+    Bucket policy SourceIP condition apply only on public or elastic ip (not on private IP).
+    SourceVPC or SourceVPCe - based on vpc or vpc endpoint.
+    S3 presigned url default valid by 3600 seconds and override by --expires-in command.
+
+    S3 Access Point with shared bucket: 
+            VPC A - Central VPC - Have bucket - Have accesspoint policy.
+            VPC B - Other VPC - Have Gateway endpoint -> Connects to central VPC access point.
+
+    Security group - Support to refer security group in another vpc connected using vpc peering.
+
+    WAF (Logs) -> Cloudwatch, S3, Kinesis firehose.
+
+    ALB -> Have connection termination. 
+    NLB -> No connection termination. No security group in NLB. Pass client IP. 
+
+    Amazon Inspector - Analyze unintended network access and analyze os for vulnarabilities. It is used in EC2 and for images in ECR.
+
+    AWS config doesnot prevent from happening but only monitors. It solves,
+            Is any unrestricted SSH access to security group.
+            Do buckets have public access
+            Any configuration changes over time.
+    Can use aws managed config rules or use custom config rule by using lambda.
+    Have auto remediation using ssm documents which trigger when not complaiance.
+
+    Guardduty protects against crypto attacks that have dedicated findings.
+
+    VPC:
+        Min size of /28 , max size of /16.
+        in subnet, First 4 and last 1 ip reserved by AWS.
+        Default route is 0.0.0.0/0
+        All IPV6 address are public.
+        Egress Only Internet Gateway - Support IPV6. 
+
+    VPC Peering doesnot support edge to edge routing. 
+    VPCA <> VPCB <> Site to Site VPN / Direct connect / Internet gateway / Nat gateway / Gateway VPC endpoint (S3 or dynamodb).
+
+    Transit VPC (SOftware VPN runs on ec2) - support transitive connection - more complex routing rules, overlapping cidr ranges, network level packet filtering. 
+    
+    Transit Gateway - It support IP MULTICAST. support edge to edge routing.
+
+    Central VPC A (Private subnet) -> Transit gateway -> VPC B private subnet ENI (Attachment) -> VPC B public NAT.
+
+    Gateway endpoint requires route and defined at VPC level. DNS resolution must be enabled in VPC. 
+    Gateway endpoint cannot extend outside of VPC means cannot use with DX, VPN, TGW, peering.
+
+    Interface endpoint uses ENI. Uses security group. It uses Private DNS,
+        public hostname of service will resolve to private endpoint interface hostname.
+        vpc setting, enable dns hostnames + enable dns support.
+        Interface can access from DX, VPN connection.
+
+    VPC endpoint policy checks at endpoint level. But still allow from public, so add deny condition to allow only from endpoint.
+    aws:sourceIP does not help in vpc endpoints as this block only elatic ip or public ip. 
+
+    AWS Privatelink (VPC endpoint services) -> Based on producer and consumer service. Can be cross account or cross region. No need of VPC peering, IGW, NGW, Route tables.
+        Requires a NLB on producer and ENI on consumer side. Private connection between NLB and ENI.
+
+    Site to Site VPN works with Global Accelarator.
+    CGW -> VGW -> NAT Gateway -> IGW -> Internet (Blocked by NAT Gateway restriction)
+    CGW -> VGW -> NAT Instance -> IGW -> Internet (Allow)
+    Private subnet -> VGW -> CGW -> Onprem NAT -> Internet (Allow)
+
+    CloudHub is used to connect upto 10 CGW for each VGW. 
+
+    ClientVPN is used to connect from your computer using OpenVPN to your private network in AWS and onprem.
+
+    Site to Site VPN connection connects to one VPC only. SO use shared service VPC which inturn connect to VPC using peering.
+
+    In Direct connect, VPC endpoint cant accessed by using Private VIF. 
+
+    
