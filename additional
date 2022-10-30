@@ -95,5 +95,19 @@ ADDITIONAL NOTES:
 
     AWS Datasync preserves file permission and metadata.AWS Snowcone is preinstalled with datasync agent.
 
+    Cloudfront support upload and download content. 
+    CLoudfront - EC2 or ALB as Origin:
+            EC2 must be public.
+            Security group of instance allow all public ip of edge location.
+
+            ALB must be public. EC2 can be private. 
+            Security group of ALB allow all public ip of edge location.
+    Cloudfront caching is based on header, cookies, query string parameter. 
+    Cloudfront provides cloudfront function at edge location (in viewer req/res) and lambda@edge at regional edge (both viewr & origin req/res) location.
     
+
+
+
+
+
 
