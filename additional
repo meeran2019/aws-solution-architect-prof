@@ -104,10 +104,5 @@ ADDITIONAL NOTES:
             Security group of ALB allow all public ip of edge location.
     Cloudfront caching is based on header, cookies, query string parameter. 
     Cloudfront provides cloudfront function at edge location (in viewer req/res) and lambda@edge at regional edge (both viewr & origin req/res) location.
+
     
-
-
-
-
-
-
