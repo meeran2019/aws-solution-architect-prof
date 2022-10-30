@@ -107,4 +107,5 @@ ADDITIONAL NOTES:
 
     SQS Access policy is similar to bucket policy.
     SNS FIFO is similar to SQS FIFO.
+    Message Filtering in SNS.
     
