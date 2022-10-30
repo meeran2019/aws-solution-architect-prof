@@ -105,4 +105,6 @@ ADDITIONAL NOTES:
     Cloudfront caching is based on header, cookies, query string parameter. 
     Cloudfront provides cloudfront function at edge location (in viewer req/res) and lambda@edge at regional edge (both viewr & origin req/res) location.
 
+    SQS Access policy is similar to bucket policy.
+    SNS FIFO is similar to SQS FIFO.
     
