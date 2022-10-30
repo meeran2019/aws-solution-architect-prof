@@ -2682,7 +2682,7 @@ CLOUDFRONT ARCHITECTURE:
 
     Origin -> Create Distribution -> Regional cache -> Edge location
 
-    NOTE: FOr s3 origin, regional edge cache is not used.
+    NOTE: For s3 origin, regional edge cache is not used.
 
     It integrate with,
         ACM certificate Manager - for HTTPS 
