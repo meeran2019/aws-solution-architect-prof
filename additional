@@ -129,6 +129,10 @@ ADDITIONAL NOTES:
     KCL (consumer) - gives checkpointing, coordinated reads.
     SQS can delete data. In stream, cant delete the data. 
 
+    Can orchestrate AWS batch using step functions.
+    AWS batch multi node doesnot support spot instances. It works better in cluster placement group.
+
+    
 
 
 
