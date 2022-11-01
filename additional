@@ -109,6 +109,28 @@ ADDITIONAL NOTES:
     SNS FIFO is similar to SQS FIFO.
     Message Filtering in SNS.
 
-    Dedicated host has only host affinity to place the ec2 after stop and start.
+    Dedicated host has only host affinity to place the ec2 after stop and start in same hardware.
 
-    
+    EC2 enhanced networking (SR-IOV) - uses ENA upto 100gb/s and intel for 10gb/s.
+    EFA upto 100gb/s for Linux.
+
+    ASG - API StartInstanceRefresh used to refresh ASG with minimumhealthyinstance percentage.
+
+    Api gateway has 29s timeout. 10 mb payload size. It has throttling limit and quota limit. It support 2 way communication using @connection/connectionid in api url. 
+
+    Route53 - cannot set ALias for EC2 DNS name. GeoProximity support latitude and longitude.
+
+    Global accelarator supports CLient IP Address Preservation except for NLB and EIP endpoints. Good for non HTTP usecases. 
+
+    Route 53 resolvers can only share by using RAM. To share private hosted zone require to use vpc peering.
+
+    Kinesis data stream have 24 hrs default retention upto 365 days. Have replay/reprocess data capabilities. Multiple application can consume same data. Records are ordered.
+    KPL (producer), Kinesis agent (write to stream and firehose).
+    KCL (consumer) - gives checkpointing, coordinated reads.
+    SQS can delete data. In stream, cant delete the data. 
+
+
+
+
+
+
