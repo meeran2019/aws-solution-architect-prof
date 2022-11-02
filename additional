@@ -132,7 +132,17 @@ ADDITIONAL NOTES:
     Can orchestrate AWS batch using step functions.
     AWS batch multi node doesnot support spot instances. It works better in cluster placement group.
 
-    
+    Redshift is columnar data storage. Based on Massively parallel query execution. Redshift Enhanced VPC routing. 
+    Redshift and EMR are single AZ. 
+    Cross region snapshot copy for KMS encrypted redshift - Use snapshot copy grant.
+
+    Cloudwatch agent cannot send to kinesis streams or firehose. Instead to use kinesis agent. 
+
+    Cloudwatch - export to s3 - support only sse-s3 and takes 12 hrs.
+
+    Cloudformer - create template from existing resources. 
+
+
 
 
 
