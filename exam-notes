@@ -485,6 +485,14 @@ Connection draining on ELB - It keep maximum time for load balancer to keep conn
 Transparent Data Encryption (TDE) for Oracle and SQL server.
 IAM authentication for MYSQL and Postgresql. Authorization happens in RDS.
 
+IAM Role owner pay for the s3 transfer cost. 
+
+Trusted advisor doesnot have API to increase limit. Service Quote have API. AWS Support doesnot have API.
+Trusted advisor detect at bucket level only. For object level, use s3 events with lambda.
+
+
+
+
 
 
 
